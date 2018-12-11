@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.RebateUserRebateConfigMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.RebateUserRebateConfig" >
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="curr_rebate_ratio" property="currRebateRatio" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, curr_rebate_ratio
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from rebate_user_config
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from rebate_user_config
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.RebateUserRebateConfig" >
+    insert into rebate_user_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="currRebateRatio != null" >
+        curr_rebate_ratio,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="currRebateRatio != null" >
+        #{currRebateRatio,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.RebateUserRebateConfig" >
+    update rebate_user_config
+    <set >
+      <if test="currRebateRatio != null" >
+        curr_rebate_ratio = #{currRebateRatio,jdbcType=REAL},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM rebate_user_config
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM rebate_user_config
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="currRebateRatio != null " >
+        AND curr_rebate_ratio = #{currRebateRatio}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM rebate_user_config
+    <foreach collection="array" item="item" separator="," open="where user_id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM rebate_user_config
+    <foreach collection="array" item="item" separator="," open="where user_id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into rebate_user_config
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.currRebateRatio != null " >
+          curr_rebate_ratio,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.currRebateRatio != null " >
+          #{item.currRebateRatio},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+
+  <update id="batchAddOrUpdate" parameterType="java.util.List">
+    <foreach collection="list" item="item" separator=";" close=";" >
+      INSERT INTO rebate_user_config (user_id,curr_rebate_ratio) VALUES(#{item.userId},#{item.currRebateRatio})
+      ON DUPLICATE KEY UPDATE curr_rebate_ratio = #{item.currRebateRatio}
+    </foreach>
+  </update>
+
+</mapper>

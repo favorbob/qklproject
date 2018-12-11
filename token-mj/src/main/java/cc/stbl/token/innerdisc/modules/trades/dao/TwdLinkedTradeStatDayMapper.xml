@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.trades.dao.TwdLinkedTradeStatDayMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.trades.entity.TwdLinkedTradeStatDay" >
+    <id column="day" property="day" jdbcType="DATE" />
+    <result column="today_trade_asset" property="todayTradeAsset" jdbcType="DECIMAL" />
+    <result column="yesterday_trade_asset" property="yesterdayTradeAsset" jdbcType="DECIMAL" />
+    <result column="total_trade_asset" property="totalTradeAsset" jdbcType="DECIMAL" />
+    <result column="eleven_trade_asset" property="elevenTradeAsset" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    day, today_trade_asset, yesterday_trade_asset, total_trade_asset, eleven_trade_asset
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.util.Date" >
+    select 
+    <include refid="Base_Column_List" />
+    from twd_linked_trade_stat_day
+    where day = #{day,jdbcType=DATE}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.util.Date" >
+    delete from twd_linked_trade_stat_day
+    where day = #{day,jdbcType=DATE}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.trades.entity.TwdLinkedTradeStatDay" >
+    insert into twd_linked_trade_stat_day
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="day != null" >
+        day,
+      </if>
+      <if test="todayTradeAsset != null" >
+        today_trade_asset,
+      </if>
+      <if test="yesterdayTradeAsset != null" >
+        yesterday_trade_asset,
+      </if>
+      <if test="totalTradeAsset != null" >
+        total_trade_asset,
+      </if>
+      <if test="elevenTradeAsset != null" >
+        eleven_trade_asset,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="day != null" >
+        #{day,jdbcType=DATE},
+      </if>
+      <if test="todayTradeAsset != null" >
+        #{todayTradeAsset,jdbcType=DECIMAL},
+      </if>
+      <if test="yesterdayTradeAsset != null" >
+        #{yesterdayTradeAsset,jdbcType=DECIMAL},
+      </if>
+      <if test="totalTradeAsset != null" >
+        #{totalTradeAsset,jdbcType=DECIMAL},
+      </if>
+      <if test="elevenTradeAsset != null" >
+        #{elevenTradeAsset,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.trades.entity.TwdLinkedTradeStatDay" >
+    update twd_linked_trade_stat_day
+    <set >
+      <if test="todayTradeAsset != null" >
+        today_trade_asset = #{todayTradeAsset,jdbcType=DECIMAL},
+      </if>
+      <if test="yesterdayTradeAsset != null" >
+        yesterday_trade_asset = #{yesterdayTradeAsset,jdbcType=DECIMAL},
+      </if>
+      <if test="totalTradeAsset != null" >
+        total_trade_asset = #{totalTradeAsset,jdbcType=DECIMAL},
+      </if>
+      <if test="elevenTradeAsset != null" >
+        eleven_trade_asset = #{elevenTradeAsset,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where day = #{day,jdbcType=DATE}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM twd_linked_trade_stat_day
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM twd_linked_trade_stat_day
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="todayTradeAsset != null " >
+        AND today_trade_asset = #{todayTradeAsset}
+      </if>
+      <if test="yesterdayTradeAsset != null " >
+        AND yesterday_trade_asset = #{yesterdayTradeAsset}
+      </if>
+      <if test="totalTradeAsset != null " >
+        AND total_trade_asset = #{totalTradeAsset}
+      </if>
+      <if test="elevenTradeAsset != null " >
+        AND eleven_trade_asset = #{elevenTradeAsset}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM twd_linked_trade_stat_day
+    <foreach collection="array" item="item" separator="," open="where day in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM twd_linked_trade_stat_day
+    <foreach collection="array" item="item" separator="," open="where day in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into twd_linked_trade_stat_day
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.day != null " >
+          day,
+        </if>
+        <if test="item.todayTradeAsset != null " >
+          today_trade_asset,
+        </if>
+        <if test="item.yesterdayTradeAsset != null " >
+          yesterday_trade_asset,
+        </if>
+        <if test="item.totalTradeAsset != null " >
+          total_trade_asset,
+        </if>
+        <if test="item.elevenTradeAsset != null " >
+          eleven_trade_asset,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.day != null " >
+          #{item.day},
+        </if>
+        <if test="item.todayTradeAsset != null " >
+          #{item.todayTradeAsset},
+        </if>
+        <if test="item.yesterdayTradeAsset != null " >
+          #{item.yesterdayTradeAsset},
+        </if>
+        <if test="item.totalTradeAsset != null " >
+          #{item.totalTradeAsset},
+        </if>
+        <if test="item.elevenTradeAsset != null " >
+          #{item.elevenTradeAsset},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

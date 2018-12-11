@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.sys.dao.SysRoleMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.sys.entity.SysRole" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="enname" property="enname" jdbcType="VARCHAR" />
+    <result column="role_type" property="roleType" jdbcType="VARCHAR" />
+    <result column="data_scope" property="dataScope" jdbcType="TINYINT" />
+    <result column="is_sys" property="isSys" jdbcType="TINYINT" />
+    <result column="useable" property="useable" jdbcType="TINYINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, enname, role_type, data_scope, is_sys, useable, create_date, update_date, 
+    remarks
+  </sql>
+
+  <select id="findByUserId" resultMap="BaseResultMap">
+    SELECT a.* FROM sys_role a ,sys_user_role b
+    WHERE a.id = b.role_id AND b.user_id = #{userId} AND user_type = #{userType}
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_role
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.sys.entity.SysRole" >
+    insert into sys_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="enname != null" >
+        enname,
+      </if>
+      <if test="roleType != null" >
+        role_type,
+      </if>
+      <if test="dataScope != null" >
+        data_scope,
+      </if>
+      <if test="isSys != null" >
+        is_sys,
+      </if>
+      <if test="useable != null" >
+        useable,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enname != null" >
+        #{enname,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null" >
+        #{roleType,jdbcType=VARCHAR},
+      </if>
+      <if test="dataScope != null" >
+        #{dataScope,jdbcType=TINYINT},
+      </if>
+      <if test="isSys != null" >
+        #{isSys,jdbcType=TINYINT},
+      </if>
+      <if test="useable != null" >
+        #{useable,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.sys.entity.SysRole" >
+    update sys_role
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="enname != null" >
+        enname = #{enname,jdbcType=VARCHAR},
+      </if>
+      <if test="roleType != null" >
+        role_type = #{roleType,jdbcType=VARCHAR},
+      </if>
+      <if test="dataScope != null" >
+        data_scope = #{dataScope,jdbcType=TINYINT},
+      </if>
+      <if test="isSys != null" >
+        is_sys = #{isSys,jdbcType=TINYINT},
+      </if>
+      <if test="useable != null" >
+        useable = #{useable,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM sys_role
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM sys_role
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="name != null  and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="enname != null  and enname != ''" >
+        AND enname = #{enname}
+      </if>
+      <if test="roleType != null  and roleType != ''" >
+        AND role_type = #{roleType}
+      </if>
+      <if test="dataScope != null " >
+        AND data_scope = #{dataScope}
+      </if>
+      <if test="isSys != null " >
+        AND is_sys = #{isSys}
+      </if>
+      <if test="useable != null " >
+        AND useable = #{useable}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+      <if test="updateDate != null " >
+        AND update_date = #{updateDate}
+      </if>
+      <if test="remarks != null  and remarks != ''" >
+        AND remarks = #{remarks}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM sys_role
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM sys_role
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into sys_role
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.name != null " >
+          name,
+        </if>
+        <if test="item.enname != null " >
+          enname,
+        </if>
+        <if test="item.roleType != null " >
+          role_type,
+        </if>
+        <if test="item.dataScope != null " >
+          data_scope,
+        </if>
+        <if test="item.isSys != null " >
+          is_sys,
+        </if>
+        <if test="item.useable != null " >
+          useable,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+        <if test="item.updateDate != null " >
+          update_date,
+        </if>
+        <if test="item.remarks != null " >
+          remarks,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.name != null " >
+          #{item.name},
+        </if>
+        <if test="item.enname != null " >
+          #{item.enname},
+        </if>
+        <if test="item.roleType != null " >
+          #{item.roleType},
+        </if>
+        <if test="item.dataScope != null " >
+          #{item.dataScope},
+        </if>
+        <if test="item.isSys != null " >
+          #{item.isSys},
+        </if>
+        <if test="item.useable != null " >
+          #{item.useable},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+        <if test="item.updateDate != null " >
+          #{item.updateDate},
+        </if>
+        <if test="item.remarks != null " >
+          #{item.remarks},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

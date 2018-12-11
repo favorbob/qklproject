@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrRedPaperLogMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrRedPaperLog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, time, amount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vr_red_paper_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vr_red_paper_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrRedPaperLog" >
+    insert into vr_red_paper_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="amount != null" >
+        amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrRedPaperLog" >
+    update vr_red_paper_log
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null" >
+        amount = #{amount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_red_paper_log
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM vr_red_paper_log
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="userId != null" >
+        AND user_id = #{userId}
+      </if>
+      <if test="time != null " >
+        AND DATE_FORMAT(time,'%Y-%m-%d') = DATE_FORMAT(#{time},'%Y-%m-%d')
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM vr_red_paper_log
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_red_paper_log
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into vr_red_paper_log
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.time != null " >
+          time,
+        </if>
+        <if test="item.amount != null " >
+          amount,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.time != null " >
+          #{item.time},
+        </if>
+        <if test="item.amount != null " >
+          #{item.amount},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

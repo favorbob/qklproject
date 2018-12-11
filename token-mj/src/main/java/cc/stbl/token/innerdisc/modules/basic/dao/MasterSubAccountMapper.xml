@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.MasterSubAccountMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.MasterSubAccount" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="master_phone_num" property="masterPhoneNum" jdbcType="VARCHAR" />
+    <result column="sub_phone_num" property="subPhoneNum" jdbcType="VARCHAR" />
+    <result column="new_password" property="newPassword" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from master_sub_account
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <select id="findBySubPhoneNum" resultMap="BaseResultMap">
+   	select * from master_sub_account
+    where sub_phone_num = #{subPhoneNum,jdbcType=VARCHAR} 
+  </select>
+  
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.MasterSubAccount" >
+  	insert into master_sub_account(id,master_phone_num,sub_phone_num) 
+  	 values( #{id,jdbcType=VARCHAR},
+  	  #{masterPhoneNum,jdbcType=VARCHAR},
+  	   #{subPhoneNum,jdbcType=VARCHAR}
+  	 ) 
+  </insert>
+  
+ <select id="findList" resultMap="BaseResultMap" >
+ 	select a.id,a.master_phone_num,a.sub_phone_num,b.new_password from master_sub_account a,vr_user_info b  where 
+ 	master_phone_num = #{masterPhoneNum,jdbcType=VARCHAR} and a.sub_phone_num=b.phone_num
+ </select>
+ 
+  <select id="findListBySubPhoneNum" resultMap="BaseResultMap" >
+ 	select a.id,a.master_phone_num,a.sub_phone_num,b.new_password from  master_sub_account a,vr_user_info b where a.master_phone_num=(select master_phone_num from master_sub_account where 
+ 	sub_phone_num = #{subPhoneNum,jdbcType=VARCHAR}) and a.sub_phone_num=b.phone_num
+ </select>
+ 
+    
+  </mapper>

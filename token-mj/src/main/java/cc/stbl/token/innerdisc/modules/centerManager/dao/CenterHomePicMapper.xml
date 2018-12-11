@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.centerManager.dao.CenterHomePicMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.centerManager.entity.CenterHomePic" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="pic_name" property="picName" jdbcType="VARCHAR" />
+    <result column="out_url" property="outUrl" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="picSort" property="pic_sort" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, pic_url, pic_name, out_url, create_date, remarks, pic_sort
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from center_home_pic
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from center_home_pic
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.CenterHomePic" >
+    insert into center_home_pic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
+      </if>
+      <if test="picName != null" >
+        pic_name,
+      </if>
+      <if test="outUrl != null" >
+        out_url,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="picSort != null" >
+        pic_sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="picName != null" >
+        #{picName,jdbcType=VARCHAR},
+      </if>
+      <if test="outUrl != null" >
+        #{outUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="picSort != null" >
+        #{picSort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM center_home_pic
+    <include refid="findWhere" />
+    order by pic_sort ASC
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*)
+    FROM center_home_pic
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="picUrl != null  and picUrl != ''" >
+        pic_url = #{picUrl}
+      </if>
+      <if test="picName != null  and picName != ''" >
+        AND pic_name = #{picName}
+      </if>
+      <if test="outUrl != null  and outUrl != ''" >
+        AND out_url = #{outUrl}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM center_home_pic
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM center_home_pic
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into center_home_pic
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.picUrl != null " >
+          pic_url,
+        </if>
+        <if test="item.picName != null " >
+          pic_name,
+        </if>
+        <if test="item.outUrl != null " >
+          out_url,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+        <if test="item.remarks != null " >
+          remarks,
+        </if>
+        <if test="item.picSort != null " >
+          pic_sort,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.picUrl != null " >
+          #{item.picUrl},
+        </if>
+        <if test="item.picName != null " >
+          #{item.picName},
+        </if>
+        <if test="item.outUrl != null " >
+          #{item.outUrl},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+        <if test="item.remarks != null " >
+          #{item.remarks},
+        </if>
+        <if test="item.picSort != null " >
+          #{item.picSort},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <!--根据ids批量更新sort  -->
+  <update id="batchUpdateSortByIds" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+      update center_home_pic set `pic_sort` = #{item.picSort} where id = #{item.id}
+    </foreach>
+  </update>
+</mapper>

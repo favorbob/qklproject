@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.sys.dao.SysPropertiesMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.sys.entity.SysProperties" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="label" property="label" jdbcType="VARCHAR" />
+    <result column="value" property="value" jdbcType="VARCHAR" />
+    <result column="kind" property="kind" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, label, value, kind, sort, create_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_properties
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_properties
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.sys.entity.SysProperties" >
+    insert into sys_properties
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="label != null" >
+        label,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+      <if test="kind != null" >
+        kind,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null" >
+        #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.sys.entity.SysProperties" >
+    update sys_properties
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="label != null" >
+        label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null" >
+        value = #{value,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null" >
+        kind = #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM sys_properties
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM sys_properties
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="name != null  and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="label != null  and label != ''" >
+        AND label = #{label}
+      </if>
+      <if test="value != null  and value != ''" >
+        AND value = #{value}
+      </if>
+      <if test="kind != null  and kind != ''" >
+        AND kind = #{kind}
+      </if>
+      <if test="sort != null " >
+        AND sort = #{sort}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM sys_properties
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM sys_properties
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into sys_properties
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.name != null " >
+          name,
+        </if>
+        <if test="item.label != null " >
+          label,
+        </if>
+        <if test="item.value != null " >
+          value,
+        </if>
+        <if test="item.kind != null " >
+          kind,
+        </if>
+        <if test="item.sort != null " >
+          sort,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.name != null " >
+          #{item.name},
+        </if>
+        <if test="item.label != null " >
+          #{item.label},
+        </if>
+        <if test="item.value != null " >
+          #{item.value},
+        </if>
+        <if test="item.kind != null " >
+          #{item.kind},
+        </if>
+        <if test="item.sort != null " >
+          #{item.sort},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

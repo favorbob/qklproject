@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.stbl.token.innerdisc.modules.centerManager.dao.NoticeEditMapper">
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEdit">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="notice_title" jdbcType="VARCHAR" property="noticeTitle" />
+    <result column="consignee_num" jdbcType="VARCHAR" property="consigneeNum" />
+    <result column="statue" jdbcType="INTEGER" property="statue" />
+    <result column="is_pop" jdbcType="INTEGER" property="isPop" />
+    <result column="msg_type" jdbcType="INTEGER" property="msgType" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="pop_pic_url" jdbcType="VARCHAR" property="popPicUrl" />
+    <result column="accessory_url" jdbcType="VARCHAR" property="accessoryUrl" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEdit">
+    <result column="notice_context" jdbcType="LONGVARCHAR" property="noticeContext" />
+  </resultMap>
+  <resultMap id="APPNoticeResultMap" type="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEdit">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="notice_title" jdbcType="VARCHAR" property="noticeTitle" />
+    <result column="notice_context" jdbcType="LONGVARCHAR" property="noticeContext" />
+    <result column="consignee_num" jdbcType="VARCHAR" property="consigneeNum" />
+    <result column="statue" jdbcType="INTEGER" property="statue" />
+    <result column="is_pop" jdbcType="INTEGER" property="isPop" />
+    <result column="msg_type" jdbcType="INTEGER" property="msgType" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="is_read" jdbcType="VARCHAR" property="isRead" />
+    <result column="pop_pic_url" jdbcType="VARCHAR" property="popPicUrl" />
+    <result column="accessory_url" jdbcType="VARCHAR" property="accessoryUrl" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, notice_title, consignee_num, statue, is_pop, msg_type, create_date, update_date, 
+    remarks, pop_pic_url, accessory_url, file_name
+  </sql>
+  <sql id="Blob_Column_List">
+    notice_context
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from notice_edit
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <!--逻辑删除，更新状态为 3 删除状态-->
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+    update notice_edit
+    set statue = 3
+    where id = #{id,jdbcType=VARCHAR}
+    <!--
+    delete from notice_edit
+    where id = #{id,jdbcType=VARCHAR}
+    -->
+  </update>
+  <insert id="insert" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEdit">
+    insert into notice_edit (id, notice_title, consignee_num, 
+      statue, is_pop, msg_type, 
+      create_date, update_date, remarks, 
+      notice_context, pop_pic_url, accessory_url, file_name)
+    values (#{id,jdbcType=VARCHAR}, #{noticeTitle,jdbcType=VARCHAR}, #{consigneeNum,jdbcType=VARCHAR}, 
+      #{statue,jdbcType=INTEGER}, #{isPop,jdbcType=INTEGER}, #{msgType,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, 
+      #{noticeContext,jdbcType=LONGVARCHAR},#{popPicUrl,jdbcType=VARCHAR}, #{accessoryUrl,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEdit">
+    insert into notice_edit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="noticeTitle != null">
+        notice_title,
+      </if>
+      <if test="consigneeNum != null">
+        consignee_num,
+      </if>
+      <if test="statue != null">
+        statue,
+      </if>
+      <if test="isPop != null">
+        is_pop,
+      </if>
+      <if test="msgType != null">
+        msg_type,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="noticeContext != null">
+        notice_context,
+      </if>
+      <if test="popPicUrl != null">
+        pop_pic_url,
+      </if>
+      <if test="accessoryUrl != null">
+        accessory_url,
+      </if>
+      <if test="fileName != null">
+          file_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeTitle != null">
+        #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeNum != null">
+        #{consigneeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="statue != null">
+        #{statue,jdbcType=INTEGER},
+      </if>
+      <if test="isPop != null">
+        #{isPop,jdbcType=INTEGER},
+      </if>
+      <if test="msgType != null">
+        #{msgType,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContext != null">
+        #{noticeContext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="popPicUrl != null">
+        #{popPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoryUrl != null">
+        #{accessoryUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEdit">
+    update notice_edit
+    <set>
+      <if test="noticeTitle != null">
+        notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="consigneeNum != null">
+        consignee_num = #{consigneeNum,jdbcType=VARCHAR},
+      </if>
+      <if test="statue != null">
+        statue = #{statue,jdbcType=INTEGER},
+      </if>
+      <if test="isPop != null">
+        is_pop = #{isPop,jdbcType=INTEGER},
+      </if>
+      <if test="msgType != null">
+        msg_type = #{msgType,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeContext != null">
+        notice_context = #{noticeContext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="popPicUrl != null">
+        pop_pic_url = #{popPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoryUrl != null">
+        accessory_url = #{accessoryUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{accessoryUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEdit">
+    update notice_edit
+    set notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      consignee_num = #{consigneeNum,jdbcType=VARCHAR},
+      statue = #{statue,jdbcType=INTEGER},
+      is_pop = #{isPop,jdbcType=INTEGER},
+      msg_type = #{msgType,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      notice_context = #{noticeContext,jdbcType=LONGVARCHAR},
+      pop_pic_url = #{popPicUrl,jdbcType=VARCHAR},
+      accessory_url = #{accessoryUrl,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEdit">
+    update notice_edit
+    set notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      consignee_num = #{consigneeNum,jdbcType=VARCHAR},
+      statue = #{statue,jdbcType=INTEGER},
+      is_pop = #{isPop,jdbcType=INTEGER},
+      msg_type = #{msgType,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      pop_pic_url = #{popPicUrl,jdbcType=VARCHAR},
+      accessory_url = #{accessoryUrl,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findCount" resultType="java.lang.Long">
+    SELECT COUNT(*)
+    FROM notice_edit
+    <include refid="findWhere" />
+  </select>
+  <!--findList 添加公告内容返回-->
+  <select id="findList" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    FROM notice_edit
+    <include refid="findWhere" />
+    ORDER BY create_date DESC, update_date DESC
+  </select>
+  <sql id="findWhere">
+    <where>
+      statue != 3
+      <if test="noticeTitle != null  and noticeTitle != ''">
+        AND notice_title = #{noticeTitle}
+      </if>
+      <if test="consigneeNum != null  and consigneeNum != ''">
+        AND consignee_num = #{consigneeNum}
+      </if>
+      <if test="statue != null">
+        AND statue = #{statue}
+      </if>
+      <if test="isPop != null">
+        AND is_pop = #{isPop}
+      </if>
+      <if test="msgType != null ">
+        AND msg_type = #{msgType}
+      </if>
+    </where>
+  </sql>
+
+  <select id="findUserNoticeCount" resultType="java.lang.Long">
+    select count(*) FROM (
+      SELECT distinct notice.*
+      FROM notice_edit notice, notice_edit_user nuser
+      <include refid="findUserNoticeWhere"/>
+    ) nn
+  </select>
+  <select id="findUserNoticeList" resultMap="APPNoticeResultMap">
+    SELECT distinct
+      notice.id,
+      notice.notice_title,
+      notice.notice_context,
+      notice.consignee_num,
+      notice.statue,
+      notice.is_pop,
+      notice.update_date,
+      nuser.is_read
+    FROM notice_edit notice, notice_edit_user nuser
+    <include refid="findUserNoticeWhere" />
+    ORDER BY notice.update_date DESC
+  </select>
+  <sql id="findUserNoticeWhere" >
+    <where >
+      notice.consignee_num = nuser.notice_consignee
+      AND notice.msg_type = 2 AND notice.statue = 9 AND nuser.statue = 1
+      <if test="user_id != null and user_id != ''" >
+        AND nuser.user_id = #{user_id,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </sql>
+  <!--查询系统公告 包括个人对系统公告的已读-未读 总数-->
+  <select id="findCountIsRead" resultType="java.lang.Long">
+    select count(*) from
+    (
+      select
+        ed2.id,
+        ed2.notice_title,
+        ed2.notice_context,
+        ed2.consignee_num,
+        ed2.statue,
+        ed2.is_pop,
+        ed2.update_date,
+        ed2.pop_pic_url,
+        1 is_read from
+      notice_edit ed2
+      where ed2.msg_type = 1 AND ed2.statue = 9 AND ed2.id not in
+    (
+      select distinct ed3.id
+       from notice_edit ed3, notice_person pe3
+       where ed3.id = pe3.notice_id
+       and ed3.msg_type = 1 AND ed3.statue = 9
+        <if test="user_id != null and user_id != ''" >
+          AND pe3.user_id  = #{user_id,jdbcType=VARCHAR}
+        </if>
+    )
+    union
+    select
+      ed.id,
+      ed.notice_title,
+      ed.notice_context,
+      ed.consignee_num,
+      ed.statue,
+      ed.is_pop,
+      ed.update_date,
+      ed.pop_pic_url,
+      2 is_read from
+    notice_edit ed, notice_person pe
+    where ed.msg_type = 1 AND ed.statue = 9 AND ed.id = pe.notice_id
+    <if test="user_id != null and user_id != ''" >
+      AND pe.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    ) al
+  </select>
+  <!--查询系统公告 包括个人对系统公告的已读-未读-->
+  <select id="findListIsRead" resultMap="BaseResultMap">
+    select al.* from
+    (
+      select
+        ed2.id,
+        ed2.notice_title,
+        ed2.consignee_num,
+        ed2.statue,
+        ed2.is_pop,
+        ed2.update_date,
+        ed2.pop_pic_url,
+        1 is_read from
+      notice_edit ed2
+      where ed2.msg_type = 1 AND ed2.statue = 9 AND ed2.id not in
+    (
+      select distinct ed3.id
+       from notice_edit ed3, notice_person pe3
+       where ed3.id = pe3.notice_id
+       and ed3.msg_type = 1 AND ed3.statue = 9
+        <if test="user_id != null and user_id != ''" >
+          AND pe3.user_id = #{user_id,jdbcType=VARCHAR}
+        </if>
+    )
+    union
+    select
+      ed.id,
+      ed.notice_title,
+      ed.consignee_num,
+      ed.statue,
+      ed.is_pop,
+      ed.update_date,
+      ed.pop_pic_url,
+      2 is_read from
+      notice_edit ed, notice_person pe
+    where ed.msg_type = 1 AND ed.statue = 9 AND ed.id = pe.notice_id
+    <if test="user_id != null and user_id != ''" >
+      AND pe.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    ) al order by al.update_date desc
+  </select>
+
+  <!--查询系统公告 包括个人对系统公告的未读  总数-->
+  <select id="findCountNotRead" resultType="java.lang.Long">
+    select count(*) from
+    (
+      select
+        ed2.id,
+        ed2.notice_title,
+        ed2.notice_context,
+        ed2.consignee_num,
+        ed2.statue,
+        ed2.is_pop,
+        ed2.update_date,
+        ed2.pop_pic_url,
+        1 is_read from
+      notice_edit ed2
+      where ed2.msg_type = 1 AND ed2.statue = 9 AND ed2.id not in
+      (
+        select distinct ed3.id
+         from notice_edit ed3, notice_person pe3
+         where ed3.id = pe3.notice_id
+         and ed3.msg_type = 1 AND ed3.statue = 9
+        <if test="user_id != null and user_id != ''" >
+          AND pe3.user_id = #{user_id,jdbcType=VARCHAR}
+        </if>
+      )
+    ) al
+  </select>
+  <!--查询系统公告 包括个人对系统公告 未读-->
+  <select id="findListNotRead" resultMap="BaseResultMap">
+    select al.* from
+    (
+    select
+    ed2.id,
+    ed2.notice_title,
+    ed2.notice_context,
+    ed2.consignee_num,
+    ed2.statue,
+    ed2.is_pop,
+    ed2.update_date,
+    ed2.pop_pic_url,
+    1 is_read from
+    notice_edit ed2
+    where ed2.msg_type = 1 AND ed2.statue = 9 AND ed2.id not in
+    (
+    select distinct ed3.id
+    from notice_edit ed3, notice_person pe3
+    where ed3.id = pe3.notice_id
+    and ed3.msg_type = 1 AND ed3.statue = 9
+    <if test="user_id != null and user_id != ''" >
+      AND pe3.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    )
+    ) al order by al.update_date desc
+  </select>
+
+  <!--查询系统公告 个人系统消息未读  总数-->
+  <select id="findCountUserNotRead" resultType="java.lang.Long">
+    select count(*) from
+    (
+    select
+    ed2.id,
+    ed2.notice_title,
+    ed2.notice_context,
+    ed2.consignee_num,
+    ed2.statue,
+    ed2.is_pop,
+    ed2.update_date,
+    ed2.pop_pic_url,
+    1 is_read from
+    notice_edit ed2
+    where ed2.msg_type = 1 AND ed2.statue = 9 AND ed2.id not in
+    (
+    select distinct ed3.id
+    from notice_edit ed3, notice_person pe3
+    where ed3.id = pe3.notice_id
+    and ed3.msg_type = 1 AND ed3.statue = 9
+    <if test="user_id != null and user_id != ''" >
+      AND pe3.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    )
+    ) al
+  </select>
+
+  <!--查询 个人公告未读总数-->
+  <select id="findUserNotReadCount" resultType="java.lang.Long">
+    select count(*)
+    from (
+    SELECT distinct
+    notice.id
+    FROM notice_edit notice, notice_edit_user nuser
+    WHERE notice.consignee_num = nuser.notice_consignee
+    AND notice.msg_type = 2 AND notice.statue = 9
+    AND nuser.statue = 1 AND nuser.is_read = 1
+    <if test="user_id != null and user_id != ''">
+      AND nuser.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    ) aaa
+  </select>
+
+  <!--查询 个人公告未读 列表 -->
+  <select id="findUserNotReadNotice" resultMap="APPNoticeResultMap">
+    SELECT distinct
+    notice.id,
+    notice.notice_title,
+    notice.notice_context,
+    notice.consignee_num,
+    notice.statue,
+    notice.is_pop,
+    notice.update_date,
+    notice.pop_pic_url,
+    nuser.is_read
+    FROM notice_edit notice, notice_edit_user nuser
+    WHERE notice.consignee_num = nuser.notice_consignee
+    AND notice.msg_type = 2 AND notice.statue = 9
+    AND nuser.statue = 1 AND nuser.is_read = 1
+    <if test="user_id != null and user_id != ''" >
+      AND nuser.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    ORDER BY notice.update_date DESC
+  </select>
+
+  <!--查询 个人公告,系统公告未读 返回一条记录 -->
+  <select id="findNotReadNoticeOneData" resultMap="APPNoticeResultMap">
+    select * from (
+    (
+    select al.* from
+    (
+    select distinct
+    ed2.id,
+    ed2.notice_title,
+    ed2.notice_context,
+    ed2.consignee_num,
+    ed2.statue,
+    ed2.is_pop,
+    ed2.update_date,
+    ed2.pop_pic_url,
+    ed2.msg_type,
+    1 is_read from
+    notice_edit ed2
+    where ed2.msg_type = 1
+    AND ed2.is_pop = 1
+    AND ed2.pop_pic_url !=''
+    AND ed2.statue = 9 AND ed2.id not in
+    (
+    select distinct ed3.id
+    from notice_edit ed3, notice_person pe3
+    where ed3.id = pe3.notice_id
+    and ed3.msg_type = 1 AND ed3.statue = 9
+    <if test="user_id != null and user_id != ''" >
+      AND pe3.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    )
+    ) al order by al.update_date desc
+    LIMIT 1
+    )
+    UNION
+    (
+    select ab.* from
+    (SELECT distinct
+    notice.id,
+    notice.notice_title,
+    notice.notice_context,
+    notice.consignee_num,
+    notice.statue,
+    notice.is_pop,
+    notice.update_date,
+    notice.pop_pic_url,
+    notice.msg_type,
+    nuser.is_read
+    FROM notice_edit notice, notice_edit_user nuser
+    WHERE notice.consignee_num = nuser.notice_consignee
+    AND notice.msg_type = 2 AND notice.statue = 9
+    AND nuser.statue = 1 AND nuser.is_read = 1
+    AND notice.is_pop = 1
+    AND notice.pop_pic_url !=''
+    <if test="user_id != null and user_id != ''" >
+      AND nuser.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    ORDER BY notice.update_date DESC
+    LIMIT 1) ab
+    )
+    ) bb order by bb.update_date desc limit 1
+  </select>
+
+  <!--查询 个人公告,系统公告已读 最近的一条 记录 -->
+  <!-- 没有使用 statue=9 来判断，因为逻辑删除后，历史未读也是不让弹屏 -->
+  <select id="findReadNoticeOneData" resultMap="APPNoticeResultMap">
+    select * from (
+    (
+    select al.* from
+    (
+    select distinct
+    ed2.id,
+    ed2.notice_title,
+    ed2.notice_context,
+    ed2.consignee_num,
+    ed2.statue,
+    ed2.is_pop,
+    ed2.update_date,
+    ed2.pop_pic_url,
+    ed2.msg_type,
+    1 is_read from
+    notice_edit ed2
+    where ed2.msg_type = 1
+    AND ed2.is_pop = 1
+    AND ed2.pop_pic_url !=''
+    AND ed2.id in
+    (
+    select distinct ed3.id
+    from notice_edit ed3, notice_person pe3
+    where ed3.id = pe3.notice_id
+    and ed3.msg_type = 1
+    <if test="user_id != null and user_id != ''" >
+      AND pe3.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    )
+    ) al order by al.update_date desc
+    LIMIT 1
+    )
+    UNION
+    (
+    select ab.* from
+    (SELECT distinct
+    notice.id,
+    notice.notice_title,
+    notice.notice_context,
+    notice.consignee_num,
+    notice.statue,
+    notice.is_pop,
+    notice.update_date,
+    notice.pop_pic_url,
+    notice.msg_type,
+    nuser.is_read
+    FROM notice_edit notice, notice_edit_user nuser
+    WHERE notice.consignee_num = nuser.notice_consignee
+    AND notice.msg_type = 2
+    AND nuser.statue = 1 AND nuser.is_read = 2
+    AND notice.is_pop = 1
+    AND notice.pop_pic_url !=''
+    <if test="user_id != null and user_id != ''" >
+      AND nuser.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    ORDER BY notice.update_date DESC
+    LIMIT 1) ab
+    )
+    ) bb order by bb.update_date desc limit 1
+  </select>
+
+</mapper>

@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrUserRmdMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrUserRmd" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="parent_user_id" property="parentUserId" jdbcType="VARCHAR" />
+    <result column="register_date" property="registerDate" jdbcType="TIMESTAMP" />
+    <result column="user_level" property="userLevel" jdbcType="TINYINT" />
+    <result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
+    <result column="parent_invite_code" property="parentInviteCode" jdbcType="VARCHAR" />
+    <result column="seed_user_id" property="seedUserId" jdbcType="VARCHAR" />
+    <result column="rmd_level" property="rmdLevel" jdbcType="INTEGER" />
+    <result column="subordinates" property="subordinates" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, parent_user_id, register_date, user_level, invite_code, parent_invite_code, seed_user_id,
+    rmd_level, subordinates
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vr_user_rmd
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vr_user_rmd
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserRmd" >
+    insert into vr_user_rmd
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="parentUserId != null" >
+        parent_user_id,
+      </if>
+      <if test="registerDate != null" >
+        register_date,
+      </if>
+      <if test="userLevel != null" >
+        user_level,
+      </if>
+      <if test="inviteCode != null" >
+        invite_code,
+      </if>
+      <if test="parentInviteCode != null" >
+        parent_invite_code,
+      </if>
+      <if test="seedUserId != null" >
+        seed_user_id,
+      </if>
+      <if test="rmdLevel != null" >
+        rmd_level,
+      </if>
+      <if test="subordinates != null" >
+        subordinates,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUserId != null" >
+        #{parentUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="registerDate != null" >
+        #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLevel != null" >
+        #{userLevel,jdbcType=TINYINT},
+      </if>
+      <if test="inviteCode != null" >
+        #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentInviteCode != null" >
+        #{parentInviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="seedUserId != null" >
+        #{seedUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="rmdLevel != null" >
+        #{rmdLevel,jdbcType=INTEGER},
+      </if>
+      <if test="subordinates != null" >
+        #{subordinates,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserRmd" >
+    update vr_user_rmd
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUserId != null" >
+        parent_user_id = #{parentUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="registerDate != null" >
+        register_date = #{registerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userLevel != null" >
+        user_level = #{userLevel,jdbcType=TINYINT},
+      </if>
+      <if test="inviteCode != null" >
+        invite_code = #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentInviteCode != null" >
+        parent_invite_code = #{parentInviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="seedUserId != null" >
+        seed_user_id = #{seedUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="rmdLevel != null" >
+        rmd_level = #{rmdLevel,jdbcType=INTEGER},
+      </if>
+      <if test="subordinates != null" >
+        subordinates = #{subordinates,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_user_rmd
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM vr_user_rmd
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="parentUserId != null  and parentUserId != ''" >
+        AND parent_user_id = #{parentUserId}
+      </if>
+      <if test="registerDate != null " >
+        AND register_date = #{registerDate}
+      </if>
+      <if test="startRegisterDate != null">
+        <![CDATA[ AND  register_date >= #{startRegisterDate}]]>
+      </if>
+      <if test="endRegisterDate != null">
+        <![CDATA[ AND  register_date < #{endRegisterDate}]]>
+      </if>
+      <if test="userLevel != null " >
+        AND user_level = #{userLevel}
+      </if>
+      <if test="inviteCode != null  and inviteCode != ''" >
+        AND invite_code = #{inviteCode}
+      </if>
+      <if test="parentInviteCode != null  and parentInviteCode != ''" >
+        AND parent_invite_code = #{parentInviteCode}
+      </if>
+      <if test="seedUserId != null  and seedUserId != ''" >
+        AND seed_user_id = #{seedUserId}
+      </if>
+      <if test="rmdLevel != null " >
+        AND rmd_level = #{rmdLevel}
+      </if>
+      <if test="subordinates != null " >
+        AND subordinates = #{subordinates}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM vr_user_rmd
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_user_rmd
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into vr_user_rmd
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.parentUserId != null " >
+          parent_user_id,
+        </if>
+        <if test="item.registerDate != null " >
+          register_date,
+        </if>
+        <if test="item.userLevel != null " >
+          user_level,
+        </if>
+        <if test="item.inviteCode != null " >
+          invite_code,
+        </if>
+        <if test="item.parentInviteCode != null " >
+          parent_invite_code,
+        </if>
+        <if test="item.seedUserId != null " >
+          seed_user_id,
+        </if>
+        <if test="item.rmdLevel != null " >
+          rmd_level,
+        </if>
+        <if test="item.subordinates != null " >
+          subordinates,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.parentUserId != null " >
+          #{item.parentUserId},
+        </if>
+        <if test="item.registerDate != null " >
+          #{item.registerDate},
+        </if>
+        <if test="item.userLevel != null " >
+          #{item.userLevel},
+        </if>
+        <if test="item.inviteCode != null " >
+          #{item.inviteCode},
+        </if>
+        <if test="item.parentInviteCode != null " >
+          #{item.parentInviteCode},
+        </if>
+        <if test="item.seedUserId != null " >
+          #{item.seedUserId},
+        </if>
+        <if test="item.rmdLevel != null " >
+          #{item.rmdLevel},
+        </if>
+        <if test="item.subordinates != null " >
+          #{item.subordinates},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  <select id="findByInviteCodeForupdate" parameterType="String" resultMap="BaseResultMap" >
+    SELECT * FROM vr_user_rmd where invite_code=#{inviteCode} for update;
+  </select>
+
+  <select id="findDownLine1LevelCount" parameterType="String" resultType="Integer">
+    SELECT COUNT(*) FROM vr_user_rmd WHERE parent_user_id = #{userId};
+  </select>
+
+  <!--<select id="findDownLine2LevelCount" parameterType="String" resultType="BaseResultMap">-->
+    <!--SELECT COUNT(*) FROM vr_user_rmd r WHERE r.parent_user_id =-->
+    <!--ANY (SELECT a.user_id FROM vr_user_rmd a WHERE a.parent_user_id = #{userId});-->
+  <!--</select>-->
+
+  <!--<select id="findDownLine2LevelList" parameterType="String" resultType="BaseResultMap">-->
+    <!--SELECT * FROM vr_user_rmd r WHERE r.parent_user_id =-->
+    <!--ANY (SELECT a.user_id FROM vr_user_rmd a WHERE a.parent_user_id = #{userId});-->
+  <!--</select>-->
+
+  <select id="selectByParentUserId" resultMap="BaseResultMap">
+    select * from vr_user_rmd where parent_user_id = #{parentUserId}
+  </select>
+</mapper>

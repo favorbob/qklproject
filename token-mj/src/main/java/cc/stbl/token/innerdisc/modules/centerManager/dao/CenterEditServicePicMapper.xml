@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.centerManager.dao.CenterEditServicePicMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.centerManager.entity.CenterEditServicePic" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="edit_service_id" property="editServiceId" jdbcType="VARCHAR" />
+    <result column="service_name" property="serviceName" jdbcType="VARCHAR" />
+    <result column="pic_url" property="picUrl" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, edit_service_id, service_name, pic_url, create_date, remarks
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from center_edit_service_pic
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from center_edit_service_pic
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.CenterEditServicePic" >
+    insert into center_edit_service_pic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="editServiceId != null" >
+        edit_service_id,
+      </if>
+      <if test="serviceName != null" >
+        service_name,
+      </if>
+      <if test="picUrl != null" >
+        pic_url,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="editServiceId != null" >
+        #{editServiceId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceName != null" >
+        #{serviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null" >
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+ <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM center_edit_service_pic
+    <include refid="findWhere" />
+    order by create_date ASC
+  </select>
+
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*)
+    FROM center_edit_service_pic
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="editServiceId != null  and editServiceId != ''" >
+        edit_service_id = #{editServiceId}
+      </if>
+      <if test="serviceName != null  and serviceName != ''" >
+        AND service_name = #{serviceName}
+      </if>
+      <if test="picUrl != null  and picUrl != ''" >
+        AND pic_url = #{picUrl}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM center_edit_service_pic
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM center_edit_service_pic
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <select id="selectByEditId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from center_edit_service_pic
+    where edit_service_id = #{editServiceId,jdbcType=VARCHAR}
+  </select>
+  <!--根据客服标题id，查询客服list-->
+  <select id="findListByServiceId" resultMap="BaseResultMap" >
+    SELECT
+    edit_service_id, service_name, pic_url
+    FROM center_edit_service_pic
+    <include refid="findWhereByServiceId" />
+  </select>
+  <select id="findCountByServiceId" resultType="java.lang.Long" >
+    SELECT COUNT(*)
+    FROM center_edit_service_pic
+    <include refid="findWhereByServiceId" />
+  </select>
+  <sql id="findWhereByServiceId" >
+    <where >
+      <if test="editServiceId != null and editServiceId != ''" >
+        edit_service_id = #{editServiceId}
+      </if>
+    </where>
+    ORDER BY create_date DESC
+  </sql>
+</mapper>

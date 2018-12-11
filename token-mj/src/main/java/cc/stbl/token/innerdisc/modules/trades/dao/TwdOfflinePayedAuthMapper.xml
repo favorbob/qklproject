@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.trades.dao.TwdOfflinePayedAuthMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.trades.entity.TwdOfflinePayedAuth" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="record_id" property="recordId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="linked_id" property="linkedId" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="auth_url" property="authUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, record_id, user_id, linked_id, create_date, auth_url
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from twd_offline_payed_auth
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from twd_offline_payed_auth
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.trades.entity.TwdOfflinePayedAuth" >
+    insert into twd_offline_payed_auth
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="recordId != null" >
+        record_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="linkedId != null" >
+        linked_id,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="authUrl != null" >
+        auth_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="recordId != null" >
+        #{recordId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="linkedId != null" >
+        #{linkedId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authUrl != null" >
+        #{authUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.trades.entity.TwdOfflinePayedAuth" >
+    update twd_offline_payed_auth
+    <set >
+      <if test="recordId != null" >
+        record_id = #{recordId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="linkedId != null" >
+        linked_id = #{linkedId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="authUrl != null" >
+        auth_url = #{authUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM twd_offline_payed_auth
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM twd_offline_payed_auth
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="recordId != null  and recordId != ''" >
+        AND record_id = #{recordId}
+      </if>
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="linkedId != null  and linkedId != ''" >
+        AND linked_id = #{linkedId}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+      <if test="authUrl != null  and authUrl != ''" >
+        AND auth_url = #{authUrl}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM twd_offline_payed_auth
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM twd_offline_payed_auth
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into twd_offline_payed_auth
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.recordId != null " >
+          record_id,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.linkedId != null " >
+          linked_id,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+        <if test="item.authUrl != null " >
+          auth_url,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.recordId != null " >
+          #{item.recordId},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.linkedId != null " >
+          #{item.linkedId},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+        <if test="item.authUrl != null " >
+          #{item.authUrl},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

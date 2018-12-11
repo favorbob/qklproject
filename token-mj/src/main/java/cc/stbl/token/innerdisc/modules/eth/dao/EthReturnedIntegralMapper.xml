@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.eth.dao.EthReturnedIntegralMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.eth.entity.EthReturnedIntegral" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="contract_at" property="contractAt" jdbcType="VARCHAR" />
+    <result column="transaction_hash" property="transactionHash" jdbcType="VARCHAR" />
+    <result column="at_block_number" property="atBlockNumber" jdbcType="BIGINT" />
+    <result column="opt_date" property="optDate" jdbcType="TIMESTAMP" />
+    <result column="integral" property="integral" jdbcType="DECIMAL" />
+    <result column="limited_balance" property="limitedBalance" jdbcType="DECIMAL" />
+    <result column="balance" property="balance" jdbcType="DECIMAL" />
+    <result column="success_date" property="successDate" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="amplify_id" property="amplifyId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, address, contract_at, transaction_hash, at_block_number, opt_date, integral, 
+    limited_balance, balance, success_date, status, amplify_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from eth_returned_integral
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eth_returned_integral
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.eth.entity.EthReturnedIntegral" >
+    insert into eth_returned_integral
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="contractAt != null" >
+        contract_at,
+      </if>
+      <if test="transactionHash != null" >
+        transaction_hash,
+      </if>
+      <if test="atBlockNumber != null" >
+        at_block_number,
+      </if>
+      <if test="optDate != null" >
+        opt_date,
+      </if>
+      <if test="integral != null" >
+        integral,
+      </if>
+      <if test="limitedBalance != null" >
+        limited_balance,
+      </if>
+      <if test="balance != null" >
+        balance,
+      </if>
+      <if test="successDate != null" >
+        success_date,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="amplifyId != null" >
+        amplify_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contractAt != null" >
+        #{contractAt,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionHash != null" >
+        #{transactionHash,jdbcType=VARCHAR},
+      </if>
+      <if test="atBlockNumber != null" >
+        #{atBlockNumber,jdbcType=BIGINT},
+      </if>
+      <if test="optDate != null" >
+        #{optDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="integral != null" >
+        #{integral,jdbcType=DECIMAL},
+      </if>
+      <if test="limitedBalance != null" >
+        #{limitedBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="successDate != null" >
+        #{successDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="amplifyId != null" >
+        #{amplifyId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.eth.entity.EthReturnedIntegral" >
+    update eth_returned_integral
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contractAt != null" >
+        contract_at = #{contractAt,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionHash != null" >
+        transaction_hash = #{transactionHash,jdbcType=VARCHAR},
+      </if>
+      <if test="atBlockNumber != null" >
+        at_block_number = #{atBlockNumber,jdbcType=BIGINT},
+      </if>
+      <if test="optDate != null" >
+        opt_date = #{optDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="integral != null" >
+        integral = #{integral,jdbcType=DECIMAL},
+      </if>
+      <if test="limitedBalance != null" >
+        limited_balance = #{limitedBalance,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        balance = #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="successDate != null" >
+        success_date = #{successDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="amplifyId != null" >
+        amplify_id = #{amplifyId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM eth_returned_integral
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM eth_returned_integral
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="address != null  and address != ''" >
+        AND address = #{address}
+      </if>
+      <if test="contractAt != null  and contractAt != ''" >
+        AND contract_at = #{contractAt}
+      </if>
+      <if test="transactionHash != null  and transactionHash != ''" >
+        AND transaction_hash = #{transactionHash}
+      </if>
+      <if test="atBlockNumber != null " >
+        AND at_block_number = #{atBlockNumber}
+      </if>
+      <if test="optDate != null " >
+        AND opt_date = #{optDate}
+      </if>
+      <if test="integral != null " >
+        AND integral = #{integral}
+      </if>
+      <if test="limitedBalance != null " >
+        AND limited_balance = #{limitedBalance}
+      </if>
+      <if test="balance != null " >
+        AND balance = #{balance}
+      </if>
+      <if test="successDate != null " >
+        AND success_date = #{successDate}
+      </if>
+      <if test="status != null " >
+        AND status = #{status}
+      </if>
+      <if test="amplifyId != null  and amplifyId != ''" >
+        AND amplify_id = #{amplifyId}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM eth_returned_integral
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM eth_returned_integral
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into eth_returned_integral
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.address != null " >
+          address,
+        </if>
+        <if test="item.contractAt != null " >
+          contract_at,
+        </if>
+        <if test="item.transactionHash != null " >
+          transaction_hash,
+        </if>
+        <if test="item.atBlockNumber != null " >
+          at_block_number,
+        </if>
+        <if test="item.optDate != null " >
+          opt_date,
+        </if>
+        <if test="item.integral != null " >
+          integral,
+        </if>
+        <if test="item.limitedBalance != null " >
+          limited_balance,
+        </if>
+        <if test="item.balance != null " >
+          balance,
+        </if>
+        <if test="item.successDate != null " >
+          success_date,
+        </if>
+        <if test="item.status != null " >
+          status,
+        </if>
+        <if test="item.amplifyId != null " >
+          amplify_id,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.address != null " >
+          #{item.address},
+        </if>
+        <if test="item.contractAt != null " >
+          #{item.contractAt},
+        </if>
+        <if test="item.transactionHash != null " >
+          #{item.transactionHash},
+        </if>
+        <if test="item.atBlockNumber != null " >
+          #{item.atBlockNumber},
+        </if>
+        <if test="item.optDate != null " >
+          #{item.optDate},
+        </if>
+        <if test="item.integral != null " >
+          #{item.integral},
+        </if>
+        <if test="item.limitedBalance != null " >
+          #{item.limitedBalance},
+        </if>
+        <if test="item.balance != null " >
+          #{item.balance},
+        </if>
+        <if test="item.successDate != null " >
+          #{item.successDate},
+        </if>
+        <if test="item.status != null " >
+          #{item.status},
+        </if>
+        <if test="item.amplifyId != null " >
+          #{item.amplifyId},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

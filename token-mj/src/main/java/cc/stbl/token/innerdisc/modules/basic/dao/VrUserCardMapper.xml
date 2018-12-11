@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrUserCardMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrUserCard" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="card_no" property="cardNo" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="card_type" property="cardType" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+   
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id,card_no,phone_num,user_id,phone_num,card_type,update_time,status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vr_user_card
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vr_user_card
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserCard" >
+    insert into vr_user_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cardNo != null" >
+        card_no,
+      </if>
+      <if test="phoneNum != null" >
+        phone_num,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="cardType != null" >
+        card_type,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+     
+     
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{now(),jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+     
+     
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserCard" >
+    update vr_user_card
+    <set >
+      <if test="phoneNum != null" >
+        phone_num = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        card_no = #{cardNo,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="cardType != null" >
+        card_type = #{cardType,jdbcType=VARCHAR},
+      </if>
+     
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+     
+      
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_user_card vr
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM vr_user_card vr
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where>
+      <if test="status != null " >
+        AND status = #{status}
+      </if>
+      <if test="phoneNum != null  and phoneNum != ''" >
+        AND phone_num = #{phoneNum}
+      </if>
+      <if test="cardNo != null and cardNo != ''"  >
+        AND card_no = #{cardNo}
+      </if>
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="cardType != null  and cardType != ''" >
+        AND card_type = #{cardType}
+      </if>
+       <if test="beginTime !=null ">
+            and update_time &gt;= #{beginTime}
+       </if>   
+       <if test="endTime !=null ">
+            and update_time &lt;= #{endTime}
+       </if>
+
+    </where>
+  </sql>
+
+  
+  <select id="updateByIds" parameterType="java.util.List" resultMap="BaseResultMap" >
+    update vr_user_card set status= #{status,jdbcType=TINYINT}
+    <foreach collection="list" item="item" separator="," open=" where id in (" close=") " >
+      #{item}
+    </foreach>
+</select>
+
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_user_card
+    <foreach collection="array" item="item" separator="," open="where user_id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into vr_user_card
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.phoneNum != null " >
+          phone_num,
+        </if>
+        <if test="item.cardType != null " >
+          card_type,
+        </if>
+        <if test="item.cardNo != null " >
+          card_no,
+        </if>
+        <if test="item.updateTime != null " >
+          update_time,
+        </if>
+       
+        <if test="item.status != null " >
+          status,
+        </if>
+       
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+       <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.phoneNum != null " >
+          #{item.phoneNum},
+        </if>
+        <if test="item.cardType != null " >
+          #{item.cardType},
+        </if>
+        <if test="item.cardNo != null " >
+          #{item.cardNo},
+        </if>
+        <if test="item.updateTime != null " >
+          #{item.updateTime},
+        </if>
+        <if test="item.status != null " >
+          #{item.status},
+        </if>
+       
+      </trim>
+    </foreach>
+  </insert>
+
+
+    <select id="findAllList" resultType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserCard" >
+      SELECT * FROM vr_user_card
+    </select>
+    
+     <select id="findByPhoneNum" resultType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserCard" >
+      SELECT * FROM vr_user_card where phone_num=#{phoneNum};
+    </select>
+    
+    <select id="groupByCardTypeAndStatus" resultType="java.util.HashMap">
+      select card_type as cardType,status,count(*) as num from vr_user_card t GROUP BY t.card_type,t.status
+    </select>
+    
+    <select id="findByUserIdAndStatus" resultMap="BaseResultMap">
+      SELECT * FROM vr_user_card where status=0 and user_id=#{userId} limit 0,5;
+    </select>
+    
+    
+    <select id="countByUserIdAndStatus" resultType="java.lang.Integer">
+      SELECT count(*) FROM vr_user_card where status=0 and user_id=#{userId};
+    </select>
+    
+    <select id="selectByUserIdAndStatus" resultMap="BaseResultMap">
+      SELECT * FROM vr_user_card where status=0 and user_id=#{userId};
+    </select>
+    
+    <update id="updateCardByIds" parameterType="java.util.List" >
+    	update vr_user_card set user_id=#{userId},phone_num=#{phoneNum},update_time=#{updateTime} 
+    <foreach collection="list" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </update>
+   
+  </mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.trades.dao.TwdLinkedTradeMapper" >
+
+  <resultMap id="BaseResultMapWithRecord" type="cc.stbl.token.innerdisc.modules.trades.entity.TwdLinkedTrade" extends="BaseResultMap">
+      <!--<association property="tradeRecord" javaType="cc.stbl.token.innerdisc.modules.trades.entity.TwdLinkedTradeRecord">-->
+        <result column="record_id" property="tradeRecord.id" jdbcType="VARCHAR" />
+        <result column="linked_id" property="tradeRecord.linkedId" jdbcType="VARCHAR" />
+        <result column="from_user_id" property="tradeRecord.fromUserId" jdbcType="VARCHAR" />
+        <result column="to_user_id" property="tradeRecord.toUserId" jdbcType="VARCHAR" />
+        <result column="lr_success_date" property="tradeRecord.successDate" jdbcType="TIMESTAMP" />
+        <result column="lr_linked_type" property="tradeRecord.linkedType" jdbcType="TINYINT" />
+        <result column="lr_system_linked" property="tradeRecord.systemLinked" jdbcType="TINYINT" />
+        <result column="accepted" property="tradeRecord.accepted" jdbcType="TINYINT" />
+        <result column="lr_asset_count" property="tradeRecord.assetCount" jdbcType="INTEGER" />
+        <result column="lr_single_amount" property="tradeRecord.singleAmount" jdbcType="BIGINT" />
+        <result column="lr_total_amount" property="tradeRecord.totalAmount" jdbcType="BIGINT" />
+        <result column="lr_trade_status" property="tradeRecord.tradeStatus" jdbcType="TINYINT" />
+        <result column="tip_status" property="tradeRecord.tipStatus" jdbcType="TINYINT" />
+        <result column="lr_create_date" property="tradeRecord.createDate" jdbcType="TIMESTAMP" />
+        <result column="at_block_number" property="ethTradeRecord.atBlockNumber" jdbcType="BIGINT" />
+        <result column="transaction_hash" property="ethTradeRecord.transactionHash" jdbcType="VARCHAR" />
+        <result column="trade_type" property="ethTradeRecord.tradeType" jdbcType="INTEGER" />
+      <!--</association>-->
+  </resultMap>
+
+  <select id="findUserLinkedList" resultMap="BaseResultMapWithRecord" >
+    SELECT l.*,lr.id as record_id,lr.linked_id,lr.from_user_id,lr.to_user_id,lr.success_date as lr_success_date, lr.linked_type as lr_linked_type,lr.system_linked as lr_system_linked
+    ,lr.accepted,lr.asset_count as lr_asset_count,lr.single_amount as lr_single_amount,lr.total_amount as lr_total_amount,lr.tip_status,lr.trade_status as lr_trade_status,lr.create_date as lr_create_date
+    ,er.at_block_number,er.transaction_hash,er.trade_type
+    FROM twd_linked_trade l
+    LEFT JOIN twd_linked_trade_record lr on(l.id = lr.linked_id and (lr.trade_status = 2) )
+    LEFT JOIN eth_trade_record er on er.trade_no=l.id
+    <include refid="findUserLinkedListWhere" />
+  </select>
+  <sql id="findUserLinkedListWhere" >
+    <where >
+      <if test="linkedType != null " >
+        AND l.linked_type = #{linkedType}
+      </if>
+      <if test="userId != null  and userId != ''" >
+        AND l.user_id = #{userId}
+      </if>
+      <if test="assetCount != null " >
+        AND l.asset_count = #{assetCount}
+      </if>
+      <if test="singlePrice != null " >
+        AND l.single_price = #{singlePrice}
+      </if>
+      <choose>
+        <when test="tradedCount != null and tradedCount != -1">
+          AND l.traded_count = #{tradedCount}
+        </when>
+        <when test="tradedCount == -1">
+          <![CDATA[AND l.traded_count > 0 ]]>
+        </when>
+        <otherwise/>
+      </choose>
+      <if test="linkedStatus != null " >
+        AND l.linked_status = #{linkedStatus}
+      </if>
+      <if test="systemLinked != null " >
+        AND l.system_linked = #{systemLinked}
+      </if>
+      <!--<if test="createDate != null " >-->
+      <!--AND create_date = #{createDate}-->
+      <!--</if>-->
+      <if test="startTime != null and endTime != null and startTime != '' and endTime != ''" >
+        AND l.create_date BETWEEN #{startTime} AND #{endTime}
+      </if>
+      <if test="updateDate != null " >
+        AND l.update_date = #{updateDate}
+      </if>
+      <if test="balanceType != null " >
+        AND l.balance_type = #{balanceType}
+      </if>
+    </where>
+  </sql>
+</mapper>

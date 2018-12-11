@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrUserInfoMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrUserInfo" >
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="user_level" property="userLevel" jdbcType="TINYINT" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_icon" property="userIcon" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="invite_code" property="inviteCode" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    
+    <result column="seq" property="seq" jdbcType="VARCHAR" />
+    <result column="user_code" property="userCode" jdbcType="VARCHAR" />
+    <result column="user_code_level" property="userCodeLevel" jdbcType="INTEGER" />
+    <result column="pay_password" property="payPassword" jdbcType="VARCHAR" />
+    <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+    
+    <result column="register_phone_num" property="registerPhoneNum" jdbcType="VARCHAR" />
+    <result column="node_phone_num" property="nodePhoneNum" jdbcType="VARCHAR" />
+    <result column="a_area" property="aArea" jdbcType="BIGINT" />
+    <result column="b_area" property="bArea" jdbcType="BIGINT" />
+    <result column="area" property="area" jdbcType="CHAR" />
+    
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="freeze" property="freeze" jdbcType="VARCHAR" />
+    <result column="unfreeze" property="unfreeze" jdbcType="VARCHAR" />
+    <result column="user_area_level" property="userAreaLevel" jdbcType="VARCHAR" />
+     <result column="new_password" property="newPassword" jdbcType="VARCHAR" />
+   
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, phone_num, user_level, password, salt, user_name, user_icon, status, invite_code,
+    create_date, update_date,id_card,seq,user_code,user_code_level,pay_password,device_id,
+    register_phone_num,node_phone_num,a_area,b_area,remark,freeze,unfreeze,user_area_level,new_password
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vr_user_info
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vr_user_info
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserInfo" >
+    insert into vr_user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="phoneNum != null" >
+        phone_num,
+      </if>
+      <if test="userLevel != null" >
+        user_level,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userIcon != null" >
+        user_icon,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="inviteCode != null" >
+        invite_code,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="payPassword != null" >
+        pay_password,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="seq != null" >
+        seq,
+      </if>
+       <if test="userCode != null" >
+        user_code,
+      </if>
+      <if test="userCodeLevel != null" >
+        user_code_level,
+      </if>
+      <if test="registerPhoneNum != null" >
+        register_phone_num,
+      </if>
+      <if test="nodePhoneNum != null" >
+        node_phone_num,
+      </if>
+      <if test="aArea != null" >
+        a_area,
+      </if>
+      <if test="bArea != null" >
+        b_area,
+      </if>
+      
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="freeze != null" >
+        freeze,
+      </if>
+      <if test="unfreeze != null" >
+        unfreeze,
+      </if>
+       <if test="userAreaLevel != null" >
+        user_area_level,
+      </if>
+       <if test="newPassword != null" >
+        new_password,
+      </if>
+      
+      
+           
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel != null" >
+        #{userLevel,jdbcType=TINYINT},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userIcon != null" >
+        #{userIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="inviteCode != null" >
+        #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="payPassword != null" >
+        #{payPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="seq != null" >
+        #{seq,jdbcType=INTEGER},
+      </if>
+       <if test="userCode != null" >
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userCodeLevel != null" >
+        #{userCodeLevel,jdbcType=INTEGER},
+      </if>
+      
+      <if test="registerPhoneNum != null" >
+        #{registerPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="nodePhoneNum != null" >
+        #{nodePhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="aArea != null" >
+        #{aArea,jdbcType=BIGINT},
+      </if>
+      <if test="bArea != null" >
+        #{bArea,jdbcType=BIGINT},
+      </if>
+      
+       <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+       <if test="freeze != null" >
+        #{freeze,jdbcType=VARCHAR},
+      </if>
+       <if test="unfreeze != null" >
+        #{unfreeze,jdbcType=VARCHAR},
+      </if>
+       <if test="userAreaLevel != null" >
+        #{userAreaLevel,jdbcType=VARCHAR},
+      </if>
+       <if test="newPassword != null" >
+        #{newPassword,jdbcType=VARCHAR},
+      </if>
+      
+      
+      
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserInfo" >
+    update vr_user_info
+    <set >
+      <if test="phoneNum != null" >
+        phone_num = #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel != null" >
+        user_level = #{userLevel,jdbcType=TINYINT},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userIcon != null" >
+        user_icon = #{userIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="inviteCode != null" >
+        invite_code = #{inviteCode,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      
+      <if test="userCodeLevel != null" >
+        user_code_level = #{userCodeLevel,jdbcType=INTEGER},
+      </if>
+        <if test="userCode != null" >
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+        <if test="seq != null" >
+        seq = #{seq,jdbcType=INTEGER},
+      </if>
+        <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+        <if test="payPassword != null" >
+        pay_password = #{payPassword,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="registerPhoneNum != null" >
+        register_phone_num = #{registerPhoneNum,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="nodePhoneNum != null" >
+        node_phone_num = #{nodePhoneNum,jdbcType=VARCHAR},
+      </if>
+      
+       <if test="aArea != null" >
+        a_area = #{aArea,jdbcType=BIGINT},
+      </if>
+       <if test="bArea != null" >
+        b_area = #{bArea,jdbcType=BIGINT},
+      </if>
+      
+        <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+        <if test="freeze != null" >
+        freeze = #{freeze,jdbcType=VARCHAR},
+      </if>
+        <if test="unfreeze != null" >
+        unfreeze = #{unfreeze,jdbcType=VARCHAR},
+      </if>
+      <if test="userAreaLevel != null" >
+        user_area_level = #{userAreaLevel,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="newPassword != null" >
+        new_password = #{newPassword,jdbcType=VARCHAR},
+      </if>
+     
+      
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_user_info vr
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM vr_user_info vr
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where>
+      <if test="phoneNum != null  and phoneNum != ''" >
+        AND phone_num = #{phoneNum}
+      </if>
+      <if test="userLevel != null " >
+        AND user_level = #{userLevel}
+      </if>
+      <if test="password != null  and password != ''" >
+        AND password = #{password}
+      </if>
+      <if test="salt != null  and salt != ''" >
+        AND salt = #{salt}
+      </if>
+      <if test="idCard != null  and idCard != ''" >
+        AND id_card = #{idCard}
+      </if>
+      <if test="userName != null  and userName != ''" >
+        AND user_name = #{userName}
+      </if>
+      <if test="userIcon != null  and userIcon != ''" >
+        AND user_icon = #{userIcon}
+      </if>
+      <choose>
+        <when test="status != null">
+          AND status = #{status}
+        </when>
+      </choose>
+      <if test="inviteCode != null  and inviteCode != ''" >
+        AND invite_code = #{inviteCode}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+      <if test="updateDate != null " >
+        AND update_date = #{updateDate}
+      </if>
+      
+       <if test="beginTime!=null and beginTime!='' ">  
+            and   create_date&gt;=#{beginTime}      
+       </if>   
+       <if test="endTime!=null and endTime!='' ">  
+              and create_date&lt;=#{endTime}      
+       </if>
+       <if test="userAreaLevel != null and userAreaLevel!=''" >
+        AND user_area_level = #{userAreaLevel}
+      </if>
+      <if test="newPassword != null " >
+        AND new_password = #{newPassword}
+      </if>
+      
+      <if test="parentUserId != null  and parentUserId != ''" >
+        AND exists (select 1 from vr_user_rmd rmd where rmd.user_id=vr.user_id and rmd.parent_user_id= #{parentUserId} )
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM vr_user_info
+    <foreach collection="array" item="item" separator="," open="where user_id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_user_info
+    <foreach collection="array" item="item" separator="," open="where user_id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into vr_user_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.phoneNum != null " >
+          phone_num,
+        </if>
+        <if test="item.userLevel != null " >
+          user_level,
+        </if>
+        <if test="item.password != null " >
+          password,
+        </if>
+        <if test="item.salt != null " >
+          salt,
+        </if>
+        <if test="item.userName != null " >
+          user_name,
+        </if>
+        <if test="item.userIcon != null " >
+          user_icon,
+        </if>
+        <if test="item.status != null " >
+          status,
+        </if>
+        <if test="item.inviteCode != null " >
+          invite_code,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+        <if test="item.updateDate != null " >
+          update_date,
+        </if>
+        <if test="item.idCard != null " >
+          id_card,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.phoneNum != null " >
+          #{item.phoneNum},
+        </if>
+        <if test="item.userLevel != null " >
+          #{item.userLevel},
+        </if>
+        <if test="item.password != null " >
+          #{item.password},
+        </if>
+        <if test="item.salt != null " >
+          #{item.salt},
+        </if>
+        <if test="item.userName != null " >
+          #{item.userName},
+        </if>
+        <if test="item.userIcon != null " >
+          #{item.userIcon},
+        </if>
+        <if test="item.status != null " >
+          #{item.status},
+        </if>
+        <if test="item.inviteCode != null " >
+          #{item.inviteCode},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+        <if test="item.updateDate != null " >
+          #{item.updateDate},
+        </if>
+        <if test="item.idCard != null " >
+          #{item.idCard},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+
+
+    <select id="findAllList" resultType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserInfo" >
+      SELECT * FROM vr_user_info
+    </select>
+    
+     <select id="findByPhoneNum" resultType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserInfo" >
+      SELECT * FROM vr_user_info where phone_num=#{phoneNum};
+    </select>
+    
+    <select id="findByUserCodeAndLevel" resultType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserInfo" >
+      SELECT * FROM vr_user_info where user_code=#{userCode} and user_code_level=#{userCodeLevel};
+    </select>
+    
+    <select id="findDownLevelUsresByUserCodeAndLevel" resultMap="BaseResultMap" >
+      SELECT * FROM vr_user_info where user_code like concat(#{userCode},'%') and user_code_level&lt;#{userCodeLevel} order by create_date;
+    </select>
+    
+    
+    <update id="updateABAreaByIds" parameterType="java.util.List" >
+    	<foreach collection="list" separator=";" item="cus"> 
+    	  	update vr_user_info set          
+    	    a_area = a_area+#{cus.aArea,jdbcType=BIGINT},          
+    	    b_area = b_area+#{cus.bArea,jdbcType=BIGINT}             
+            where user_id = #{cus.userId,jdbcType=VARCHAR}    
+          </foreach>
+    </update>
+  
+    <select id="getPrizeUserList" resultType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserInfo">
+    <![CDATA[
+    	select user_id,user_code,user_code_level from vr_user_info where user_code_level >= #{minLevel} and `status`= 1
+    	 AND user_id NOT IN (SELECT user_id from vr_prize_detail where create_date=#{createDate})
+     ]]>
+    </select>
+    
+    <select id="getSubLevelUserList" resultType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserInfo">
+    <![CDATA[
+    	select user_id,user_code,user_code_level from vr_user_info where user_code like CONCAT(#{userCode},'%') and user_code_level <= #{level} and `status`= 1 order by user_code_level asc
+     ]]>
+    </select>
+
+    <select id="findCountByName" resultType="java.lang.Long" >
+      SELECT COUNT(*)
+      FROM vr_user_info
+      <include refid="findWhereByName" />
+    </select>
+    <select id="findListByName" resultMap="BaseResultMap" >
+      SELECT
+      user_id, phone_num, user_name, status
+      FROM vr_user_info
+      <include refid="findWhereByName" />
+    </select>
+    <sql id="findWhereByName" >
+      <where >
+        status = 1
+        <if test="_parameter != null and _parameter != ''" >
+          AND user_name like CONCAT('%',#{_parameter,jdbcType=VARCHAR},'%' )
+        </if>
+      </where>
+    </sql>
+    
+    <select id="selectSubUser" resultMap="BaseResultMap">
+    	select b.user_id,b.phone_num,b.user_name,b.status,a.area as area from vr_user_lrvalue a,vr_user_info b where a.pid=#{pid} and a.status>-1 and a.user_id=b.user_id order by a.area
+    </select>
+    
+    <select id="selectParent" resultMap="BaseResultMap">
+    	select a.* from vr_user_info a where a.user_id=(select pid from vr_user_lrvalue where user_id=#{userId})
+    </select>
+  </mapper>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrAiicOperLogMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrAiicOperLog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="oper_date" property="operDate" jdbcType="TIMESTAMP" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="before_aiic" property="beforeAiic" jdbcType="DECIMAL" />
+    <result column="after_aiic" property="afterAiic" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, oper_date, user_id, before_aiic, after_aiic
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vr_aiic_oper_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vr_aiic_oper_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrAiicOperLog" >
+    insert into vr_aiic_oper_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="operDate != null" >
+        oper_date,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="beforeAiic != null" >
+        before_aiic,
+      </if>
+      <if test="afterAiic != null" >
+        after_aiic,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="operDate != null" >
+       now(),
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeAiic != null" >
+        #{beforeAiic,jdbcType=DECIMAL},
+      </if>
+      <if test="afterAiic != null" >
+        #{afterAiic,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrAiicOperLog" >
+    update vr_aiic_oper_log
+    <set >
+      <if test="operDate != null" >
+        oper_date = #{operDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeAiic != null" >
+        before_aiic = #{beforeAiic,jdbcType=DECIMAL},
+      </if>
+      <if test="afterAiic != null" >
+        after_aiic = #{afterAiic,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_aiic_oper_log
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM vr_aiic_oper_log
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="operDate != null " >
+        AND oper_date = #{operDate}
+      </if>
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="beforeAiic != null " >
+        AND before_aiic = #{beforeAiic}
+      </if>
+      <if test="afterAiic != null " >
+        AND after_aiic = #{afterAiic}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM vr_aiic_oper_log
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_aiic_oper_log
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into vr_aiic_oper_log
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.operDate != null " >
+          oper_date,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.beforeAiic != null " >
+          before_aiic,
+        </if>
+        <if test="item.afterAiic != null " >
+          after_aiic,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.operDate != null " >
+          #{item.operDate},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.beforeAiic != null " >
+          #{item.beforeAiic},
+        </if>
+        <if test="item.afterAiic != null " >
+          #{item.afterAiic},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+  
+  <select id="queryCurrentDateLog" resultMap="BaseResultMap">
+  	select 
+  	<include refid="Base_Column_List" />
+  	from vr_aiic_oper_log where oper_date BETWEEN CONCAT(DATE_FORMAT(now(),'%Y-%m-%d'),' 00:00:00') and CONCAT(DATE_FORMAT(now(),'%Y-%m-%d'),' 23:59:59')
+  </select>
+  
+</mapper>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrUserTradeMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrUserTrade" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="in_account" property="inAccount" jdbcType="VARCHAR" />
+    <result column="out_account" property="outAccount" jdbcType="VARCHAR" />
+    <result column="trade_type" property="tradeType" jdbcType="INTEGER" />
+    <result column="trade_num" property="tradeNum" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+     <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="image1" property="image1" jdbcType="VARCHAR" />
+    <result column="image2" property="image2" jdbcType="VARCHAR" />
+     <result column="image3" property="image3" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id,in_account,out_account,trade_type,trade_num,update_time,status,remark,image1,image2,image3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vr_user_trade
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vr_user_trade
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.ActivateFlow" >
+    insert into vr_user_trade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="inAccount != null" >
+        in_account,
+      </if>
+      <if test="outAccount != null" >
+        out_account,
+      </if>
+     
+      <if test="tradeType != null" >
+        trade_type,
+      </if>
+ 
+      <if test="tradeNum != null" >
+        trade_num,
+      </if>
+      
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      
+      <if test="status != null" >
+        status,
+      </if>
+      
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="image1 != null" >
+        image1,
+      </if>
+      <if test="image2 != null" >
+        image2,
+      </if>
+      <if test="image3 != null" >
+        image3,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="inAccount != null" >
+        #{inAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="outAccount != null" >
+        #{outAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeType != null" >
+        #{tradeType,jdbcType=INTEGER},
+      </if>
+      <if test="tradeNum != null" >
+        #{tradeNum,jdbcType=INTEGER},
+      </if>
+      
+       <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+       <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+       <if test="image1 != null" >
+        #{image1,jdbcType=VARCHAR},
+      </if>
+       <if test="image2 != null" >
+        #{image2,jdbcType=VARCHAR},
+      </if>
+       <if test="image3 != null" >
+        #{image3,jdbcType=VARCHAR},
+      </if>
+      
+    </trim>
+  </insert>
+ 
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_user_trade vr
+    <include refid="findWhere" />
+    ORDER BY update_time desc
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM vr_user_trade vr
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where>
+      <if test="inAccount != null  and inAccount != ''" >
+        AND in_account = #{inAccount}
+      </if>
+      <if test="outAccount != null and outAccount != ''"  >
+        AND out_account = #{outAccount}
+      </if>
+      <if test="tradeType != null  and tradeType != ''" >
+        AND trade_type = #{tradeType}
+      </if>
+      
+       <if test="status != null  and status != ''" >
+        AND status = #{status}
+      </if>
+      
+       <if test="beginTime!=null and beginTime!='' ">  
+            and   update_time&gt;=#{beginTime}      
+       </if>   
+       <if test="endTime!=null and endTime!='' ">  
+              and update_time&lt;=#{endTime}      
+       </if>
+
+    </where>
+  </sql>
+
+	 <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserTrade" >
+		update vr_user_trade vr
+         <set>
+             <if test="remark != null" >
+                 remark=#{remark,jdbcType=VARCHAR},
+             </if>
+             <if test="status != null  and status != ''" >
+                 status=#{status,jdbcType=INTEGER},
+             </if>
+             <if test="image1 != null" >
+                 image1 = #{image1,jdbcType=VARCHAR},
+             </if>
+             <if test="image2 != null" >
+                 image2 = #{image2,jdbcType=VARCHAR},
+             </if>
+             <if test="image3 != null" >
+                 image3 = #{image3,jdbcType=VARCHAR},
+             </if>
+         </set>
+      where id=#{id,jdbcType=VARCHAR}
+	 </update>
+    
+  </mapper>

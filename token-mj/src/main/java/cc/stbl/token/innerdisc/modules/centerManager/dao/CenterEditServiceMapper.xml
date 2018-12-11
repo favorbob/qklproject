@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.centerManager.dao.CenterEditServiceMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.centerManager.entity.CenterEditService" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="headline" property="headLine" jdbcType="VARCHAR" />
+    <result column="context" property="context" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="EditServiceAndPicsResult"  type="cc.stbl.token.innerdisc.modules.centerManager.entity.CenterEditService">
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="headline" property="headLine" jdbcType="VARCHAR" />
+    <result column="context" property="context" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <collection column="id"  property="editServicePics" ofType="cc.stbl.token.innerdisc.modules.centerManager.entity.CenterEditServicePic" javaType="ArrayList"
+                select="cc.stbl.token.innerdisc.modules.centerManager.dao.CenterEditServicePicMapper.selectByEditId" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    id, headline, context, create_date, remarks
+  </sql>
+
+  <select id="selectEditServiceAndPicsResult" resultMap="EditServiceAndPicsResult" parameterType="java.lang.String" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM center_edit_service
+    ORDER BY create_date desc
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from center_edit_service
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from center_edit_service
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.CenterEditService" >
+    insert into center_edit_service
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="headLine != null" >
+        headline,
+      </if>
+      <if test="context != null" >
+        context,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="headLine != null" >
+        #{headLine,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null" >
+        #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM center_edit_service
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*)
+    FROM center_edit_service
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="headLine != null  and picUrl != ''" >
+        headline = #{headLine}
+      </if>
+      <if test="context != null  and picName != ''" >
+        AND context = #{context}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+    </where>
+    ORDER BY create_date DESC
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM center_edit_service
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM center_edit_service
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into center_edit_service
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.headLine != null " >
+          headline,
+        </if>
+        <if test="item.context != null " >
+          context,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+        <if test="item.remarks != null " >
+          remarks,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.headLine != null " >
+          #{item.headLine},
+        </if>
+        <if test="item.context != null " >
+          #{item.context},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+        <if test="item.remarks != null " >
+          #{item.remarks},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+
+</mapper>

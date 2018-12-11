@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.eth.dao.EthContractDeployedMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.eth.entity.EthContractDeployed" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="deploy_date" property="deployDate" jdbcType="TIMESTAMP" />
+    <result column="clazz" property="clazz" jdbcType="VARCHAR" />
+    <result column="contract_at" property="contractAt" jdbcType="VARCHAR" />
+    <result column="deploy_owner" property="deployOwner" jdbcType="VARCHAR" />
+    <result column="deploy_args" property="deployArgs" jdbcType="VARCHAR" />
+    <result column="at_block_number" property="atBlockNumber" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, deploy_date, clazz, contract_at, deploy_owner, deploy_args, at_block_number,status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from eth_contract_deployed
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eth_contract_deployed
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.eth.entity.EthContractDeployed" >
+    insert into eth_contract_deployed
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deployDate != null" >
+        deploy_date,
+      </if>
+      <if test="clazz != null" >
+        clazz,
+      </if>
+      <if test="contractAt != null" >
+        contract_at,
+      </if>
+      <if test="deployOwner != null" >
+        deploy_owner,
+      </if>
+      <if test="deployArgs != null" >
+        deploy_args,
+      </if>
+      <if test="atBlockNumber != null" >
+        at_block_number,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="deployDate != null" >
+        #{deployDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clazz != null" >
+        #{clazz,jdbcType=VARCHAR},
+      </if>
+      <if test="contractAt != null" >
+        #{contractAt,jdbcType=VARCHAR},
+      </if>
+      <if test="deployOwner != null" >
+        #{deployOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="deployArgs != null" >
+        #{deployArgs,jdbcType=VARCHAR},
+      </if>
+      <if test="atBlockNumber != null" >
+        #{atBlockNumber,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.eth.entity.EthContractDeployed" >
+    update eth_contract_deployed
+    <set >
+      <if test="deployDate != null" >
+        deploy_date = #{deployDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="clazz != null" >
+        clazz = #{clazz,jdbcType=VARCHAR},
+      </if>
+      <if test="contractAt != null" >
+        contract_at = #{contractAt,jdbcType=VARCHAR},
+      </if>
+      <if test="deployOwner != null" >
+        deploy_owner = #{deployOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="deployArgs != null" >
+        deploy_args = #{deployArgs,jdbcType=VARCHAR},
+      </if>
+      <if test="atBlockNumber != null" >
+        at_block_number = #{atBlockNumber,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{atBlockNumber,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM eth_contract_deployed
+    <include refid="findWhere" />
+    ORDER BY at_block_number DESC
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM eth_contract_deployed
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="deployDate != null " >
+        AND deploy_date = #{deployDate}
+      </if>
+      <if test="clazz != null  and clazz != ''" >
+        AND clazz = #{clazz}
+      </if>
+      <if test="contractAt != null  and contractAt != ''" >
+        AND contract_at = #{contractAt}
+      </if>
+      <if test="deployOwner != null  and deployOwner != ''" >
+        AND deploy_owner = #{deployOwner}
+      </if>
+      <if test="deployArgs != null  and deployArgs != ''" >
+        AND deploy_args = #{deployArgs}
+      </if>
+      <if test="atBlockNumber != null " >
+        AND at_block_number = #{atBlockNumber}
+      </if>
+      <choose>
+        <when test="status != null ">
+           AND status = #{status}
+        </when>
+        <otherwise>
+          AND status = -1
+        </otherwise>
+      </choose>
+
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM eth_contract_deployed
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM eth_contract_deployed
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into eth_contract_deployed
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.deployDate != null " >
+          deploy_date,
+        </if>
+        <if test="item.clazz != null " >
+          clazz,
+        </if>
+        <if test="item.contractAt != null " >
+          contract_at,
+        </if>
+        <if test="item.deployOwner != null " >
+          deploy_owner,
+        </if>
+        <if test="item.deployArgs != null " >
+          deploy_args,
+        </if>
+        <if test="item.atBlockNumber != null " >
+          at_block_number,
+        </if>
+        <if test="item.status != null " >
+          status,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.deployDate != null " >
+          #{item.deployDate},
+        </if>
+        <if test="item.clazz != null " >
+          #{item.clazz},
+        </if>
+        <if test="item.contractAt != null " >
+          #{item.contractAt},
+        </if>
+        <if test="item.deployOwner != null " >
+          #{item.deployOwner},
+        </if>
+        <if test="item.deployArgs != null " >
+          #{item.deployArgs},
+        </if>
+        <if test="item.atBlockNumber != null " >
+          #{item.atBlockNumber},
+        </if>
+        <if test="item.status != null " >
+          #{item.status},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

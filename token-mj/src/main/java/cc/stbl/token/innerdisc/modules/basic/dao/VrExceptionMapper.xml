@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrExceptionMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrException" >
+    <id column="log_id" property="logId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="drive_id" property="driveId" jdbcType="VARCHAR" />
+    <result column="os_version" property="osVersion" jdbcType="VARCHAR" />
+    <result column="os_name" property="osName" jdbcType="VARCHAR" />
+    <result column="client_version" property="clientVersion" jdbcType="VARCHAR" />
+    <result column="function_name" property="functionName" jdbcType="VARCHAR" />
+    <result column="net_info" property="netInfo" jdbcType="TINYINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cc.stbl.token.innerdisc.modules.basic.entity.VrException" extends="BaseResultMap" >
+    <result column="log_detail" property="logDetail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    log_id, user_id, drive_id, os_version, os_name, client_version, function_name, net_info, 
+    create_date
+  </sql>
+  <sql id="Blob_Column_List" >
+    log_detail
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from vr_exception
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vr_exception
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrException" >
+    insert into vr_exception
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="driveId != null" >
+        drive_id,
+      </if>
+      <if test="osVersion != null" >
+        os_version,
+      </if>
+      <if test="osName != null" >
+        os_name,
+      </if>
+      <if test="clientVersion != null" >
+        client_version,
+      </if>
+      <if test="functionName != null" >
+        function_name,
+      </if>
+      <if test="netInfo != null" >
+        net_info,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="logDetail != null" >
+        log_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="driveId != null" >
+        #{driveId,jdbcType=VARCHAR},
+      </if>
+      <if test="osVersion != null" >
+        #{osVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="osName != null" >
+        #{osName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientVersion != null" >
+        #{clientVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="functionName != null" >
+        #{functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="netInfo != null" >
+        #{netInfo,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logDetail != null" >
+        #{logDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrException" >
+    update vr_exception
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="driveId != null" >
+        drive_id = #{driveId,jdbcType=VARCHAR},
+      </if>
+      <if test="osVersion != null" >
+        os_version = #{osVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="osName != null" >
+        os_name = #{osName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientVersion != null" >
+        client_version = #{clientVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="functionName != null" >
+        function_name = #{functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="netInfo != null" >
+        net_info = #{netInfo,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logDetail != null" >
+        log_detail = #{logDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrException" >
+    update vr_exception
+    set user_id = #{userId,jdbcType=VARCHAR},
+      drive_id = #{driveId,jdbcType=VARCHAR},
+      os_version = #{osVersion,jdbcType=VARCHAR},
+      os_name = #{osName,jdbcType=VARCHAR},
+      client_version = #{clientVersion,jdbcType=VARCHAR},
+      function_name = #{functionName,jdbcType=VARCHAR},
+      net_info = #{netInfo,jdbcType=TINYINT},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      log_detail = #{logDetail,jdbcType=LONGVARCHAR}
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_exception
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM vr_exception
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="driveId != null  and driveId != ''" >
+        AND drive_id = #{driveId}
+      </if>
+      <if test="osVersion != null  and osVersion != ''" >
+        AND os_version = #{osVersion}
+      </if>
+      <if test="osName != null  and osName != ''" >
+        AND os_name = #{osName}
+      </if>
+      <if test="clientVersion != null  and clientVersion != ''" >
+        AND client_version = #{clientVersion}
+      </if>
+      <if test="functionName != null  and functionName != ''" >
+        AND function_name = #{functionName}
+      </if>
+      <if test="netInfo != null " >
+        AND net_info = #{netInfo}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM vr_exception
+    <foreach collection="array" item="item" separator="," open="where log_id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_exception
+    <foreach collection="array" item="item" separator="," open="where log_id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into vr_exception
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.logId != null " >
+          log_id,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.driveId != null " >
+          drive_id,
+        </if>
+        <if test="item.osVersion != null " >
+          os_version,
+        </if>
+        <if test="item.osName != null " >
+          os_name,
+        </if>
+        <if test="item.clientVersion != null " >
+          client_version,
+        </if>
+        <if test="item.functionName != null " >
+          function_name,
+        </if>
+        <if test="item.netInfo != null " >
+          net_info,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+        <if test="item.logDetail != null " >
+          log_detail,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.logId != null " >
+          #{item.logId},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.driveId != null " >
+          #{item.driveId},
+        </if>
+        <if test="item.osVersion != null " >
+          #{item.osVersion},
+        </if>
+        <if test="item.osName != null " >
+          #{item.osName},
+        </if>
+        <if test="item.clientVersion != null " >
+          #{item.clientVersion},
+        </if>
+        <if test="item.functionName != null " >
+          #{item.functionName},
+        </if>
+        <if test="item.netInfo != null " >
+          #{item.netInfo},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+        <if test="item.logDetail != null " >
+          #{item.logDetail},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

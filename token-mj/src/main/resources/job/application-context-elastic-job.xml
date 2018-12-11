@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:reg="http://www.dangdang.com/schema/ddframe/reg"
+    	xmlns:job="http://www.dangdang.com/schema/ddframe/job"
+        xsi:schemaLocation="
+                http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.dangdang.com/schema/ddframe/reg
+                        http://www.dangdang.com/schema/ddframe/reg/reg.xsd
+                        http://www.dangdang.com/schema/ddframe/job
+                        http://www.dangdang.com/schema/ddframe/job/job.xsd
+                ">
+
+  	<!-- 配置作业注册中心   -->
+    <context:property-placeholder location="classpath:zookeeper.properties" ignore-unresolvable="true"/>
+    <reg:zookeeper id="regCenter" server-lists="${zookeeper.serverList}" namespace="${zookeeper.namespace}" base-sleep-time-milliseconds="1000" max-sleep-time-milliseconds="3000" max-retries="4" />
+ 
+<job:simple id="PrizeScheduler"  class="cc.stbl.token.innerdisc.modules.scheduler.PrizeScheduler" description="计算用户当天发放红包信息 " registry-center-ref="regCenter" cron="1 0 0 * * ?" sharding-total-count="8"  overwrite="false" />
+
+<job:simple id="AIICPriceConfigScheduler"  class="cc.stbl.token.innerdisc.modules.scheduler.AIICPriceConfigScheduler" description="更新aiic价格 " registry-center-ref="regCenter" cron="13 1/10 * * * ?" sharding-total-count="1"  overwrite="false" />
+
+<job:simple id="TwdLinkedTradeScheduler"  class="cc.stbl.token.innerdisc.modules.scheduler.TwdLinkedTradeScheduler" description="统计每日挂单平台交易资产  " registry-center-ref="regCenter" cron="0 0 0 * * ?" sharding-total-count="1"  overwrite="false" />
+
+<job:simple id="RetryReturnedIntegralScheduler"  class="cc.stbl.token.innerdisc.modules.scheduler.RetryReturnedIntegralScheduler" description="补发区块链失败记录 " registry-center-ref="regCenter" cron="36 20 * * * ?" sharding-total-count="1"  overwrite="false" />
+
+<job:simple id="LRValueScheduler"  class="cc.stbl.token.innerdisc.modules.scheduler.LRValueScheduler" description="更新用户LR值 " registry-center-ref="regCenter" cron="56 40 * * * ?" sharding-total-count="1"  overwrite="false" />
+
+</beans>

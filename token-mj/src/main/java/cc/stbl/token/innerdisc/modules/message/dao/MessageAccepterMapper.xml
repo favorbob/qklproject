@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.message.dao.MessageAccepterMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.message.entity.MessageAccepter" >
+    <id column="id" property="id" jdbcType="CHAR" />
+    <result column="message_id" property="messageId" jdbcType="CHAR" />
+    <result column="accepter_id" property="accepterId" jdbcType="CHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="send_date" property="sendDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="CHAR" />
+    <result column="message_type" property="messageType" jdbcType="TINYINT" />
+    <result column="check_status" property="checkStatus" jdbcType="TINYINT" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="accepter_name" property="accepterName" jdbcType="VARCHAR" />
+    <result column="extend_id" property="extendId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, message_id, accepter_id, status, send_date, create_by, create_date, update_by, 
+    update_date, remarks, del_flag, message_type, check_status, title, content, accepter_name, 
+    extend_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from message_accepter
+    where id = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from message_accepter
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.message.entity.MessageAccepter" >
+    insert into message_accepter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="accepterId != null" >
+        accepter_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="sendDate != null" >
+        send_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateBy != null" >
+        update_by,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="delFlag != null" >
+        del_flag,
+      </if>
+      <if test="messageType != null" >
+        message_type,
+      </if>
+      <if test="checkStatus != null" >
+        check_status,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="accepterName != null" >
+        accepter_name,
+      </if>
+      <if test="extendId != null" >
+        extend_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="messageId != null" >
+        #{messageId,jdbcType=CHAR},
+      </if>
+      <if test="accepterId != null" >
+        #{accepterId,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="sendDate != null" >
+        #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="messageType != null" >
+        #{messageType,jdbcType=TINYINT},
+      </if>
+      <if test="checkStatus != null" >
+        #{checkStatus,jdbcType=TINYINT},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="accepterName != null" >
+        #{accepterName,jdbcType=VARCHAR},
+      </if>
+      <if test="extendId != null" >
+        #{extendId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.message.entity.MessageAccepter" >
+    update message_accepter
+    <set >
+      <if test="messageId != null" >
+        message_id = #{messageId,jdbcType=CHAR},
+      </if>
+      <if test="accepterId != null" >
+        accepter_id = #{accepterId,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="sendDate != null" >
+        send_date = #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null" >
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="delFlag != null" >
+        del_flag = #{delFlag,jdbcType=CHAR},
+      </if>
+      <if test="messageType != null" >
+        message_type = #{messageType,jdbcType=TINYINT},
+      </if>
+      <if test="checkStatus != null" >
+        check_status = #{checkStatus,jdbcType=TINYINT},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="accepterName != null" >
+        accepter_name = #{accepterName,jdbcType=VARCHAR},
+      </if>
+      <if test="extendId != null" >
+        extend_id = #{extendId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=CHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM message_accepter
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM message_accepter
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="messageId != null  and messageId != ''" >
+        AND message_id = #{messageId}
+      </if>
+      <if test="accepterId != null  and accepterId != ''" >
+        AND accepter_id = #{accepterId}
+      </if>
+      <if test="status != null " >
+        AND status = #{status}
+      </if>
+      <if test="sendDate != null " >
+        AND send_date = #{sendDate}
+      </if>
+      <if test="createBy != null  and createBy != ''" >
+        AND create_by = #{createBy}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+      <if test="updateBy != null  and updateBy != ''" >
+        AND update_by = #{updateBy}
+      </if>
+      <if test="updateDate != null " >
+        AND update_date = #{updateDate}
+      </if>
+      <if test="remarks != null  and remarks != ''" >
+        AND remarks = #{remarks}
+      </if>
+      <if test="delFlag != null  and delFlag != ''" >
+        AND del_flag = #{delFlag}
+      </if>
+      <if test="messageType != null  and messageType != ''" >
+        AND message_type = #{messageType}
+      </if>
+      <if test="checkStatus != null " >
+        AND check_status = #{checkStatus}
+      </if>
+      <if test="title != null  and title != ''" >
+        AND title = #{title}
+      </if>
+      <if test="content != null  and content != ''" >
+        AND content = #{content}
+      </if>
+      <if test="accepterName != null  and accepterName != ''" >
+        AND accepter_name = #{accepterName}
+      </if>
+      <if test="extendId != null  and extendId != ''" >
+        AND extend_id = #{extendId}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM message_accepter
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM message_accepter
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into message_accepter
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.messageId != null " >
+          message_id,
+        </if>
+        <if test="item.accepterId != null " >
+          accepter_id,
+        </if>
+        <if test="item.status != null " >
+          status,
+        </if>
+        <if test="item.sendDate != null " >
+          send_date,
+        </if>
+        <if test="item.createBy != null " >
+          create_by,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+        <if test="item.updateBy != null " >
+          update_by,
+        </if>
+        <if test="item.updateDate != null " >
+          update_date,
+        </if>
+        <if test="item.remarks != null " >
+          remarks,
+        </if>
+        <if test="item.delFlag != null " >
+          del_flag,
+        </if>
+        <if test="item.messageType != null " >
+          message_type,
+        </if>
+        <if test="item.checkStatus != null " >
+          check_status,
+        </if>
+        <if test="item.title != null " >
+          title,
+        </if>
+        <if test="item.content != null " >
+          content,
+        </if>
+        <if test="item.accepterName != null " >
+          accepter_name,
+        </if>
+        <if test="item.extendId != null " >
+          extend_id,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.messageId != null " >
+          #{item.messageId},
+        </if>
+        <if test="item.accepterId != null " >
+          #{item.accepterId},
+        </if>
+        <if test="item.status != null " >
+          #{item.status},
+        </if>
+        <if test="item.sendDate != null " >
+          #{item.sendDate},
+        </if>
+        <if test="item.createBy != null " >
+          #{item.createBy},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+        <if test="item.updateBy != null " >
+          #{item.updateBy},
+        </if>
+        <if test="item.updateDate != null " >
+          #{item.updateDate},
+        </if>
+        <if test="item.remarks != null " >
+          #{item.remarks},
+        </if>
+        <if test="item.delFlag != null " >
+          #{item.delFlag},
+        </if>
+        <if test="item.messageType != null " >
+          #{item.messageType},
+        </if>
+        <if test="item.checkStatus != null " >
+          #{item.checkStatus},
+        </if>
+        <if test="item.title != null " >
+          #{item.title},
+        </if>
+        <if test="item.content != null " >
+          #{item.content},
+        </if>
+        <if test="item.accepterName != null " >
+          #{item.accepterName},
+        </if>
+        <if test="item.extendId != null " >
+          #{item.extendId},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.RebateUserMiningConsumeRecordMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.RebateUserMiningConsumeRecord" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="mining_amount_sum" property="miningAmountSum" jdbcType="DECIMAL" />
+    <result column="consumed_amount_sum" property="consumedAmountSum" jdbcType="DECIMAL" />
+    <result column="last_sum_time" property="lastSumTime" jdbcType="TIMESTAMP" />
+    <result column="last_mining_time" property="lastMiningTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, mining_amount_sum, consumed_amount_sum, last_sum_time, last_mining_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from rebate_user_mining_consume_record
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from rebate_user_mining_consume_record
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.RebateUserMiningConsumeRecord" >
+    insert into rebate_user_mining_consume_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="miningAmountSum != null" >
+        mining_amount_sum,
+      </if>
+      <if test="consumedAmountSum != null" >
+        consumed_amount_sum,
+      </if>
+      <if test="lastSumTime != null" >
+        last_sum_time,
+      </if>
+      <if test="lastMiningTime != null" >
+        last_mining_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="miningAmountSum != null" >
+        #{miningAmountSum,jdbcType=DECIMAL},
+      </if>
+      <if test="consumedAmountSum != null" >
+        #{consumedAmountSum,jdbcType=DECIMAL},
+      </if>
+      <if test="lastSumTime != null" >
+        #{lastSumTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastMiningTime != null" >
+        #{lastMiningTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.RebateUserMiningConsumeRecord" >
+    update rebate_user_mining_consume_record
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="miningAmountSum != null" >
+        mining_amount_sum = #{miningAmountSum,jdbcType=DECIMAL},
+      </if>
+      <if test="consumedAmountSum != null" >
+        consumed_amount_sum = #{consumedAmountSum,jdbcType=DECIMAL},
+      </if>
+      <if test="lastSumTime != null" >
+        last_sum_time = #{lastSumTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastMiningTime != null" >
+        last_mining_time = #{lastMiningTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM rebate_user_mining_consume_record
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM rebate_user_mining_consume_record
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="miningAmountSum != null " >
+        AND mining_amount_sum = #{miningAmountSum}
+      </if>
+      <if test="consumedAmountSum != null " >
+        AND consumed_amount_sum = #{consumedAmountSum}
+      </if>
+      <if test="lastSumTime != null " >
+        AND last_sum_time = #{lastSumTime}
+      </if>
+      <if test="lastMiningTime != null " >
+        AND last_mining_time = #{lastMiningTime}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM rebate_user_mining_consume_record
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM rebate_user_mining_consume_record
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into rebate_user_mining_consume_record
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.miningAmountSum != null " >
+          mining_amount_sum,
+        </if>
+        <if test="item.consumedAmountSum != null " >
+          consumed_amount_sum,
+        </if>
+        <if test="item.lastSumTime != null " >
+          last_sum_time,
+        </if>
+        <if test="item.lastMiningTime != null " >
+          last_mining_time,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.miningAmountSum != null " >
+          #{item.miningAmountSum},
+        </if>
+        <if test="item.consumedAmountSum != null " >
+          #{item.consumedAmountSum},
+        </if>
+        <if test="item.lastSumTime != null " >
+          #{item.lastSumTime},
+        </if>
+        <if test="item.lastMiningTime != null " >
+          #{item.lastMiningTime},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

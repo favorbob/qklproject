@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrUserAccountMaintainMapper">
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrUserAccountMaintain">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="ac_type" jdbcType="TINYINT" property="acType" />
+    <result column="before_modife" jdbcType="VARCHAR" property="beforeModife" />
+    <result column="after_modife" jdbcType="VARCHAR" property="afterModife" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="phone_num" jdbcType="VARCHAR" property="phoneNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, create_date, ac_type, before_modife, after_modife, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from vr_user_account_maintain
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from vr_user_account_maintain
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserAccountMaintain">
+    insert into vr_user_account_maintain (id, user_id, create_date, 
+      ac_type, before_modife, after_modife, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{acType,jdbcType=TINYINT}, #{beforeModife,jdbcType=VARCHAR}, #{afterModife,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserAccountMaintain">
+    insert into vr_user_account_maintain
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="acType != null">
+        ac_type,
+      </if>
+      <if test="beforeModife != null">
+        before_modife,
+      </if>
+      <if test="afterModife != null">
+        after_modife,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acType != null">
+        #{acType,jdbcType=TINYINT},
+      </if>
+      <if test="beforeModife != null">
+        #{beforeModife,jdbcType=VARCHAR},
+      </if>
+      <if test="afterModife != null">
+        #{afterModife,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserAccountMaintain">
+    update vr_user_account_maintain
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acType != null">
+        ac_type = #{acType,jdbcType=TINYINT},
+      </if>
+      <if test="beforeModife != null">
+        before_modife = #{beforeModife,jdbcType=VARCHAR},
+      </if>
+      <if test="afterModife != null">
+        after_modife = #{afterModife,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserAccountMaintain">
+    update vr_user_account_maintain
+    set user_id = #{userId,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      ac_type = #{acType,jdbcType=TINYINT},
+      before_modife = #{beforeModife,jdbcType=VARCHAR},
+      after_modife = #{afterModife,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+    <!--分页查询列表-->
+    <select id="findList" resultMap="BaseResultMap" >
+        SELECT
+        vur.phone_num, vur.user_id, vrm.ac_type, vrm.create_date, vrm.before_modife, vrm.after_modife
+        FROM vr_user_account_maintain vrm, vr_user_info vur
+        <include refid="findWhere" />
+    </select>
+    <select id="findCount" resultType="java.lang.Long" >
+        SELECT COUNT(*)
+        FROM vr_user_account_maintain vrm, vr_user_info vur
+        <include refid="findWhere" />
+    </select>
+    <sql id="findWhere" >
+        <where >
+            vrm.user_id = vur.user_id
+            <if test="phoneNum != null  and phoneNum != ''" >
+                AND vur.phone_num = #{phoneNum}
+            </if>
+            <if test="acType != null" >
+                AND ac_type = #{acType}
+            </if>
+            <if test="startDate != null">
+                <![CDATA[AND create_date  >= #{startDate}]]>
+            </if>
+            <if test="endDate != null">
+                <![CDATA[AND create_date  <= #{endDate}]]>
+            </if>
+        </where>
+    </sql>
+</mapper>

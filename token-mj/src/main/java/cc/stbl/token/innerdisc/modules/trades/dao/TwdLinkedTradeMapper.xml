@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.trades.dao.TwdLinkedTradeMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.trades.entity.TwdLinkedTrade" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="linked_type" property="linkedType" jdbcType="TINYINT" />
+    <result column="system_linked" property="systemLinked" jdbcType="TINYINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="charge_code" property="chargeCode" jdbcType="VARCHAR" />
+    <result column="asset_count" property="assetCount" jdbcType="INTEGER" />
+    <result column="confirm_count" property="confirmCount" jdbcType="INTEGER" />
+    <result column="single_price" property="singlePrice" jdbcType="BIGINT" />
+    <result column="traded_count" property="tradedCount" jdbcType="INTEGER" />
+    <result column="linked_status" property="linkedStatus" jdbcType="TINYINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="balance_type" property="balanceType" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, linked_type, user_id, asset_count, single_price, traded_count, linked_status,system_linked,charge_code,confirm_count,balance_type,
+    create_date, update_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from twd_linked_trade
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from twd_linked_trade
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.trades.entity.TwdLinkedTrade" >
+    insert into twd_linked_trade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="linkedType != null" >
+        linked_type,
+      </if>
+      <if test="systemLinked != null" >
+        system_linked,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="chargeCode != null" >
+        charge_code,
+      </if>
+      <if test="assetCount != null" >
+        asset_count,
+      </if>
+      <if test="confirmCount != null" >
+        confirm_count,
+      </if>
+      <if test="singlePrice != null" >
+        single_price,
+      </if>
+      <if test="tradedCount != null" >
+        traded_count,
+      </if>
+      <if test="linkedStatus != null" >
+        linked_status,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+        <if test="balanceType != null" >
+            balance_type,
+        </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="linkedType != null" >
+        #{linkedType,jdbcType=TINYINT},
+      </if>
+      <if test="systemLinked != null" >
+        #{systemLinked,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeCode != null" >
+        #{chargeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="assetCount != null" >
+        #{assetCount,jdbcType=INTEGER},
+      </if>
+      <if test="confirmCount != null" >
+        #{confirmCount,jdbcType=INTEGER},
+      </if>
+      <if test="singlePrice != null" >
+        #{singlePrice,jdbcType=BIGINT},
+      </if>
+      <if test="tradedCount != null" >
+        #{tradedCount,jdbcType=INTEGER},
+      </if>
+      <if test="linkedStatus != null" >
+        #{linkedStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+        <if test="balanceType != null" >
+            #{balanceType,jdbcType=INTEGER},
+        </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.trades.entity.TwdLinkedTrade" >
+    update twd_linked_trade
+    <set >
+      <if test="linkedType != null" >
+        linked_type = #{linkedType,jdbcType=TINYINT},
+      </if>
+      <if test="systemLinked != null" >
+        system_linked = #{systemLinked,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeCode != null" >
+        charge_code = #{chargeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="assetCount != null" >
+        asset_count = #{assetCount,jdbcType=INTEGER},
+      </if>
+      <if test="confirmCount != null" >
+        confirm_count = #{confirmCount,jdbcType=INTEGER},
+      </if>
+      <if test="singlePrice != null" >
+        single_price = #{singlePrice,jdbcType=BIGINT},
+      </if>
+      <if test="tradedCount != null" >
+        traded_count = #{tradedCount,jdbcType=INTEGER},
+      </if>
+      <if test="linkedStatus != null" >
+        linked_status = #{linkedStatus,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+        <if test="balanceType != null" >
+            balance_type = #{balanceType,jdbcType=INTEGER},
+        </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM twd_linked_trade
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM twd_linked_trade
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="linkedType != null " >
+        AND linked_type = #{linkedType}
+      </if>
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="assetCount != null " >
+        AND asset_count = #{assetCount}
+      </if>
+      <if test="singlePrice != null " >
+        AND single_price = #{singlePrice}
+      </if>
+      <choose>
+        <when test="tradedCount != null and tradedCount != -1">
+          AND traded_count = #{tradedCount}
+        </when>
+        <when test="tradedCount == -1">
+          <![CDATA[AND traded_count > 0 ]]>
+        </when>
+        <otherwise/>
+      </choose>
+      <if test="linkedStatus != null " >
+        AND linked_status = #{linkedStatus}
+      </if>
+      <if test="systemLinked != null " >
+        AND system_linked = #{systemLinked}
+      </if>
+      <!--<if test="createDate != null " >-->
+        <!--AND create_date = #{createDate}-->
+      <!--</if>-->
+      <if test="startTime != null and endTime != null and startTime != '' and endTime != ''" >
+        AND create_date BETWEEN #{startTime} AND #{endTime}
+      </if>
+      <if test="updateDate != null " >
+        AND update_date = #{updateDate}
+      </if>
+        <if test="balanceType != null " >
+            AND balance_type = #{balanceType}
+        </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM twd_linked_trade
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM twd_linked_trade
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into twd_linked_trade
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.linkedType != null " >
+          linked_type,
+        </if>
+        <if test="item.systemLinked != null " >
+          system_linked,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.chargeCode != null " >
+          charge_code,
+        </if>
+        <if test="item.assetCount != null " >
+          asset_count,
+        </if>
+        <if test="item.confirmCount != null " >
+          confirm_count,
+        </if>
+        <if test="item.singlePrice != null " >
+          single_price,
+        </if>
+        <if test="item.tradedCount != null " >
+          traded_count,
+        </if>
+        <if test="item.linkedStatus != null " >
+          linked_status,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+        <if test="item.updateDate != null " >
+          update_date,
+        </if>
+        <if test="item.balanceType != null " >
+          balance_type,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.linkedType != null " >
+          #{item.linkedType},
+        </if>
+        <if test="item.systemLinked != null " >
+          #{item.systemLinked},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.chargeCode != null " >
+          #{item.chargeCode},
+        </if>
+        <if test="item.assetCount != null " >
+          #{item.assetCount},
+        </if>
+        <if test="item.confirmCount != null " >
+          #{item.confirmCount},
+        </if>
+        <if test="item.singlePrice != null " >
+          #{item.singlePrice},
+        </if>
+        <if test="item.tradedCount != null " >
+          #{item.tradedCount},
+        </if>
+        <if test="item.linkedStatus != null " >
+          #{item.linkedStatus},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+        <if test="item.updateDate != null " >
+          #{item.updateDate},
+        </if>
+          <if test="item.balanceType != null " >
+              #{item.balanceType},
+          </if>
+      </trim>
+    </foreach>
+  </insert>
+  <select id="getSummary" resultType="java.util.HashMap">
+       SELECT  max(l.single_amount) as highPrice,min(l.single_amount) as lowPrice,sum(l.asset_count)/10000 as totalValue
+        FROM twd_linked_trade_record l,eth_trade_record er
+        where  er.trade_no=l.linked_id and er.trade_status='2'
+      <if test="from_flow_type != null and from_flow_type != ''" >
+          AND er.from_flow_type = #{from_flow_type,jdbcType=VARCHAR}
+      </if>
+  </select>
+    <select id="getTodayAveragePrice" resultType="java.math.BigDecimal">
+        SELECT   AVG(l.single_amount)
+        FROM twd_linked_trade_record l,eth_trade_record er
+        where  er.trade_no=l.linked_id and er.trade_status='2' and TO_DAYS(er.success_date)=TO_DAYS(NOW())
+        <if test="from_flow_type != null and from_flow_type != ''" >
+            AND er.from_flow_type = #{from_flow_type,jdbcType=VARCHAR}
+        </if>
+    </select>
+</mapper>

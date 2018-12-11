@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.eth.dao.EthWalletMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.eth.entity.EthWallet" >
+    <id column="address" property="address" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="wallet_file" property="walletFile" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_type" property="createType" jdbcType="TINYINT" />
+    <result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+    <result column="alias_name" property="aliasName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    address, user_id, wallet_file, create_date, create_type, update_date, alias_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from eth_wallet
+    where address = #{address,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eth_wallet
+    where address = #{address,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.eth.entity.EthWallet" >
+    insert into eth_wallet
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="walletFile != null" >
+        wallet_file,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createType != null" >
+        create_type,
+      </if>
+      <if test="updateDate != null" >
+        update_date,
+      </if>
+      <if test="aliasName != null" >
+        alias_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="walletFile != null" >
+        #{walletFile,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createType != null" >
+        #{createType,jdbcType=TINYINT},
+      </if>
+      <if test="updateDate != null" >
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aliasName != null" >
+        #{aliasName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.eth.entity.EthWallet" >
+    update eth_wallet
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="walletFile != null" >
+        wallet_file = #{walletFile,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createType != null" >
+        create_type = #{createType,jdbcType=TINYINT},
+      </if>
+      <if test="updateDate != null" >
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aliasName != null" >
+        alias_name = #{aliasName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where address = #{address,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM eth_wallet
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM eth_wallet
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="walletFile != null  and walletFile != ''" >
+        AND wallet_file = #{walletFile}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+      <if test="createType != null " >
+        AND create_type = #{createType}
+      </if>
+      <if test="updateDate != null " >
+        AND update_date = #{updateDate}
+      </if>
+      <if test="aliasName != null  and aliasName != ''" >
+        AND alias_name = #{aliasName}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM eth_wallet
+    <foreach collection="array" item="item" separator="," open="where address in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM eth_wallet
+    <foreach collection="array" item="item" separator="," open="where address in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into eth_wallet
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.address != null " >
+          address,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.walletFile != null " >
+          wallet_file,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+        <if test="item.createType != null " >
+          create_type,
+        </if>
+        <if test="item.updateDate != null " >
+          update_date,
+        </if>
+        <if test="item.aliasName != null " >
+          alias_name,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.address != null " >
+          #{item.address},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.walletFile != null " >
+          #{item.walletFile},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+        <if test="item.createType != null " >
+          #{item.createType},
+        </if>
+        <if test="item.updateDate != null " >
+          #{item.updateDate},
+        </if>
+        <if test="item.aliasName != null " >
+          #{item.aliasName},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

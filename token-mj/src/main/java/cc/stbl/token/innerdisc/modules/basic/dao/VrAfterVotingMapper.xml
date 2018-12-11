@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrAfterVotingMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrAfterVoting" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="multiple" property="multiple" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="before_asset" property="beforeAsset" jdbcType="DECIMAL" />
+    <result column="after_asset" property="afterAsset" jdbcType="DECIMAL" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+   
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    *
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+ 	* 
+    from vr_after_voting
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+ 
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.ActivateCardFlow" >
+    insert into vr_after_voting
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phoneNum != null" >
+        phone_num,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="multiple != null" >
+        multiple,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="beforeAsset != null" >
+        before_asset,
+      </if>
+      <if test="afterAsset != null" >
+        after_asset,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="multiple != null" >
+        #{multiple,jdbcType=INTEGER},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="beforeAsset != null" >
+        #{beforeAsset,jdbcType=DECIMAL},
+      </if>
+      <if test="afterAsset != null" >
+        #{afterAsset,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+  
+
+    </trim>
+  </insert>
+ 
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+   	 * 
+    FROM vr_after_voting vr
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM vr_after_voting vr
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where>
+      <if test="phoneNum != null  and phoneNum != ''" >
+        AND phone_num = #{phoneNum}
+      </if>
+      <!--时间查询不能加 != '' -->
+      <if test="startDate != null and startDate != ''">
+        <![CDATA[AND create_time  >= #{startDate}]]>
+      </if>
+      <if test="endDate != null and endDate != ''">
+        <![CDATA[AND create_time  <= #{endDate}]]>
+      </if>
+    </where>
+      order by create_time desc
+  </sql>
+
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_after_voting
+    <foreach collection="array" item="item" separator="," open="where user_id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+
+  <select id="findAllList" resultType="cc.stbl.token.innerdisc.modules.basic.entity.ActivateCardFlow" >
+    SELECT * FROM vr_after_voting
+  </select>
+    
+  </mapper>

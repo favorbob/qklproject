@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.ResourceInfoMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.ResourceInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="resource_name" property="resourceName" jdbcType="VARCHAR" />
+    <result column="resource_type" property="resourceType" jdbcType="TINYINT" />
+    <result column="resource_logo" property="resourceLogo" jdbcType="VARCHAR" />
+    <result column="resource_describe" property="resourceDescribe" jdbcType="VARCHAR" />
+    <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+    <result column="resource_state" property="resourceState" jdbcType="TINYINT" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="small_change_mining_ratio" property="smallChangeMiningRatio" jdbcType="REAL" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, resource_name, resource_type, resource_logo, resource_describe, upload_time, 
+    resource_state, user_id, small_change_mining_ratio, price
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from resource_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from resource_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.ResourceInfo" >
+    insert into resource_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="resourceName != null" >
+        resource_name,
+      </if>
+      <if test="resourceType != null" >
+        resource_type,
+      </if>
+      <if test="resourceLogo != null" >
+        resource_logo,
+      </if>
+      <if test="resourceDescribe != null" >
+        resource_describe,
+      </if>
+      <if test="uploadTime != null" >
+        upload_time,
+      </if>
+      <if test="resourceState != null" >
+        resource_state,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="smallChangeMiningRatio != null" >
+        small_change_mining_ratio,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceName != null" >
+        #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null" >
+        #{resourceType,jdbcType=TINYINT},
+      </if>
+      <if test="resourceLogo != null" >
+        #{resourceLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceDescribe != null" >
+        #{resourceDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resourceState != null" >
+        #{resourceState,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="smallChangeMiningRatio != null" >
+        #{smallChangeMiningRatio,jdbcType=REAL},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.ResourceInfo" >
+    update resource_info
+    <set >
+      <if test="resourceName != null" >
+        resource_name = #{resourceName,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null" >
+        resource_type = #{resourceType,jdbcType=TINYINT},
+      </if>
+      <if test="resourceLogo != null" >
+        resource_logo = #{resourceLogo,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceDescribe != null" >
+        resource_describe = #{resourceDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="resourceState != null" >
+        resource_state = #{resourceState,jdbcType=TINYINT},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="smallChangeMiningRatio != null" >
+        small_change_mining_ratio = #{smallChangeMiningRatio,jdbcType=REAL},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM resource_info
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM resource_info
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="resourceName != null  and resourceName != ''" >
+        AND resource_name = #{resourceName}
+      </if>
+      <if test="resourceType != null " >
+        AND resource_type = #{resourceType}
+      </if>
+      <if test="resourceLogo != null  and resourceLogo != ''" >
+        AND resource_logo = #{resourceLogo}
+      </if>
+      <if test="resourceDescribe != null  and resourceDescribe != ''" >
+        AND resource_describe = #{resourceDescribe}
+      </if>
+      <if test="uploadTime != null " >
+        AND upload_time = #{uploadTime}
+      </if>
+      <if test="resourceState != null " >
+        AND resource_state = #{resourceState}
+      </if>
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="smallChangeMiningRatio != null " >
+        AND small_change_mining_ratio = #{smallChangeMiningRatio}
+      </if>
+      <if test="price != null " >
+        AND price = #{price}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM resource_info
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM resource_info
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into resource_info
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.resourceName != null " >
+          resource_name,
+        </if>
+        <if test="item.resourceType != null " >
+          resource_type,
+        </if>
+        <if test="item.resourceLogo != null " >
+          resource_logo,
+        </if>
+        <if test="item.resourceDescribe != null " >
+          resource_describe,
+        </if>
+        <if test="item.uploadTime != null " >
+          upload_time,
+        </if>
+        <if test="item.resourceState != null " >
+          resource_state,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.smallChangeMiningRatio != null " >
+          small_change_mining_ratio,
+        </if>
+        <if test="item.price != null " >
+          price,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.resourceName != null " >
+          #{item.resourceName},
+        </if>
+        <if test="item.resourceType != null " >
+          #{item.resourceType},
+        </if>
+        <if test="item.resourceLogo != null " >
+          #{item.resourceLogo},
+        </if>
+        <if test="item.resourceDescribe != null " >
+          #{item.resourceDescribe},
+        </if>
+        <if test="item.uploadTime != null " >
+          #{item.uploadTime},
+        </if>
+        <if test="item.resourceState != null " >
+          #{item.resourceState},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.smallChangeMiningRatio != null " >
+          #{item.smallChangeMiningRatio},
+        </if>
+        <if test="item.price != null " >
+          #{item.price},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+
+    <select id="findPageListCount" resultType="java.lang.Long">
+        SELECT COUNT(*)  FROM resource_info
+      <include refid="queryWhere" />
+    </select>
+
+    <select id="findPageList" resultType="cc.stbl.token.innerdisc.modules.basic.entity.ResourceInfo"
+            parameterType="cc.stbl.token.innerdisc.modules.basic.dto.ResourceInfoDTO" >
+        SELECT *  FROM resource_info
+      <include refid="queryWhere" />
+        <if test="startRow != null and pageSize != null " >
+          limit #{startRow}, #{pageSize}
+        </if>
+    </select>
+  <sql id="queryWhere">
+    <where >
+      <if test="resourceName != null  and resourceName != ''" >
+        AND resource_name = #{resourceName}
+      </if>
+      <if test="resourceType != null " >
+        AND resource_type = #{resourceType}
+      </if>
+      <if test="resourceLogo != null  and resourceLogo != ''" >
+        AND resource_logo = #{resourceLogo}
+      </if>
+      <if test="resourceDescribe != null  and resourceDescribe != ''" >
+        AND resource_describe = #{resourceDescribe}
+      </if>
+      <if test="resourceState != null " >
+        AND resource_state = #{resourceState}
+      </if>
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="smallChangeMiningRatio != null " >
+        AND small_change_mining_ratio = #{smallChangeMiningRatio}
+      </if>
+      <if test="startTime != null and endTime != null " >
+        AND upload_time between #{startTime} and #{endTime}
+      </if>
+      <if test="startTime != null and endTime == null " >
+        AND UNIX_TIMESTAMP(upload_time) > UNIX_TIMESTAMP(#{startTime})
+      </if>
+      <if test="startTime == null and endTime != null " >
+        <![CDATA[
+        AND UNIX_TIMESTAMP(upload_time) < UNIX_TIMESTAMP(#{endTime})
+        ]]>
+      </if>
+    </where>
+  </sql>
+</mapper>

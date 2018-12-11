@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.ResourceThirdPartySettingsMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.ResourceThirdPartySettings" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="free_use_time" property="freeUseTime" jdbcType="INTEGER" />
+    <result column="resource_type" property="resourceType" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, free_use_time, resource_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from resource_third_party_settings
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from resource_third_party_settings
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.ResourceThirdPartySettings" >
+    insert into resource_third_party_settings
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="freeUseTime != null" >
+        free_use_time,
+      </if>
+      <if test="resourceType != null" >
+        resource_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="freeUseTime != null" >
+        #{freeUseTime,jdbcType=INTEGER},
+      </if>
+      <if test="resourceType != null" >
+        #{resourceType,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.ResourceThirdPartySettings" >
+    update resource_third_party_settings
+    <set >
+      <if test="freeUseTime != null" >
+        free_use_time = #{freeUseTime,jdbcType=INTEGER},
+      </if>
+      <if test="resourceType != null" >
+        resource_type = #{resourceType,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM resource_third_party_settings
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM resource_third_party_settings
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="freeUseTime != null " >
+        AND free_use_time = #{freeUseTime}
+      </if>
+      <if test="resourceType != null " >
+        AND resource_type = #{resourceType}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM resource_third_party_settings
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM resource_third_party_settings
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into resource_third_party_settings
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.freeUseTime != null " >
+          free_use_time,
+        </if>
+        <if test="item.resourceType != null " >
+          resource_type,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.freeUseTime != null " >
+          #{item.freeUseTime},
+        </if>
+        <if test="item.resourceType != null " >
+          #{item.resourceType},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+
+  <select id="getByResourceType" resultMap="BaseResultMap">
+    select * from resource_third_party_settings where resource_type = #{resourceType}
+  </select>
+</mapper>

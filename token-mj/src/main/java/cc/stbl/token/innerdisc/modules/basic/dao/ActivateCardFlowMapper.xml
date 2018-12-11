@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.ActivateCardFlowMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.ActivateCardFlow" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="change_before" property="changeBefore" jdbcType="INTEGER" />
+    <result column="change_num" property="changeNum" jdbcType="INTEGER" />
+    <result column="change_after" property="changeAfter" jdbcType="INTEGER" />
+    <result column="change_reason" property="changeReason" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+   
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id,phone_num,create_time,change_before,change_num,change_after,change_reason,remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from activate_card_flow
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from activate_card_flow
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.ActivateCardFlow" >
+    insert into activate_card_flow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="phoneNum != null" >
+        phone_num,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="changeBefore != null" >
+        change_before,
+      </if>
+      <if test="changeNum != null" >
+        change_num,
+      </if>
+      <if test="changeAfter != null" >
+        change_after,
+      </if>
+      <if test="changeReason != null" >
+        change_reason,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeBefore != null" >
+        #{changeBefore,jdbcType=INTEGER},
+      </if>
+      <if test="changeNum != null" >
+        #{changeNum,jdbcType=INTEGER},
+      </if>
+      <if test="changeAfter != null" >
+        #{changeAfter,jdbcType=INTEGER},
+      </if>
+      <if test="changeReason != null" >
+        #{changeReason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+
+    </trim>
+  </insert>
+ 
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM activate_card_flow vr
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM activate_card_flow vr
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where>
+      <if test="phoneNum != null  and phoneNum != ''" >
+        AND phone_num = #{phoneNum}
+      </if>
+      <if test="changeBefore != null  and changeBefore != ''" >
+        AND change_before = #{changeBefore}
+      </if>
+      <if test="changeAfter != null  and changeAfter != ''" >
+        AND change_after = #{changeAfter}
+      </if>
+      <if test="changeReason != null  and changeReason != ''" >
+        AND change_reason = #{changeReason}
+      </if>
+      <if test="remark != null  and remark != ''" >
+        AND remark = #{remark}
+      </if>
+      <!--时间查询不能加 != '' -->
+      <if test="startDate != null">
+        <![CDATA[AND create_time  >= #{startDate}]]>
+      </if>
+      <if test="endDate != null">
+        <![CDATA[AND create_time  <= #{endDate}]]>
+      </if>
+    </where>
+      order by create_time desc
+  </sql>
+
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM activate_card_flow
+    <foreach collection="array" item="item" separator="," open="where user_id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+
+  <select id="findAllList" resultType="cc.stbl.token.innerdisc.modules.basic.entity.ActivateCardFlow" >
+    SELECT * FROM activate_card_flow
+  </select>
+    
+  </mapper>

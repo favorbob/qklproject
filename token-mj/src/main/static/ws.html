@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>websocket demo</title>
+<!-- 查看demo http://aiic.fun/ws/ws.html?abc -->
+</head>
+<body>
+	<div style="float: center; width: 80%">
+		<div class="msg">
+			<p style="color: darkgrey">信息展示：</p>
+			<section id="msg2">
+				<p id="titleval" style="color: #CD2626;"></p>
+			</section>
+			<section class="sendWindow">
+				交易类型：<input type="text" name="type" id="type" /> <input
+					type="button" name="sendMessage" id="sendMessage"
+					class="sendMessage" onclick="sendMessage()" value="发送">
+			</section>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="js/jquery.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/sockjs.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/stomp.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/ws.js" charset="utf-8"></script>

@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrUserLRValueMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrUserLRValue" >
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="pid" property="pid" jdbcType="VARCHAR" />
+    <result column="lft" property="lft" jdbcType="INTEGER" />
+    <result column="rgt" property="rgt" jdbcType="INTEGER" />
+    <result column="user_level" property="userLevel" jdbcType="INTEGER" />
+    <result column="area" property="area" jdbcType="CHAR" />
+    <result column="tree_id" property="treeId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, pid, lft, rgt, user_level, area, tree_id, create_date,`status`
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vr_user_lrvalue
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vr_user_lrvalue
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserLRValue" >
+    insert into vr_user_lrvalue
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="lft != null" >
+        lft,
+      </if>
+      <if test="rgt != null" >
+        rgt,
+      </if>
+      <if test="userLevel != null" >
+        user_level,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="treeId != null" >
+        tree_id,
+      </if>
+       <if test="status != null" >
+        `status`,
+      </if>
+        create_date,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="lft != null" >
+        #{lft,jdbcType=INTEGER},
+      </if>
+      <if test="rgt != null" >
+        #{rgt,jdbcType=INTEGER},
+      </if>
+      <if test="userLevel != null" >
+        #{userLevel,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=CHAR},
+      </if>
+      <if test="treeId != null" >
+        #{treeId,jdbcType=VARCHAR},
+      </if>
+       <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+        now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserLRValue" >
+    update vr_user_lrvalue
+    <set >
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=VARCHAR},
+      </if>
+      <if test="lft != null" >
+        lft = #{lft,jdbcType=INTEGER},
+      </if>
+      <if test="rgt != null" >
+        rgt = #{rgt,jdbcType=INTEGER},
+      </if>
+      <if test="userLevel != null" >
+        user_level = #{userLevel,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=CHAR},
+      </if>
+      <if test="treeId != null" >
+        tree_id = #{treeId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_user_lrvalue
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM vr_user_lrvalue
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="pid != null  and pid != ''" >
+        AND pid = #{pid}
+      </if>
+      <if test="lft != null " >
+        AND lft = #{lft}
+      </if>
+      <if test="rgt != null " >
+        AND rgt = #{rgt}
+      </if>
+      <if test="userLevel != null " >
+        AND user_level = #{userLevel}
+      </if>
+      <if test="area != null  and area != ''" >
+        AND area = #{area}
+      </if>
+      <if test="treeId != null  and treeId != ''" >
+        AND tree_id = #{treeId}
+      </if>
+       <if test="status != null" >
+        AND `status` = #{status}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM vr_user_lrvalue
+    <foreach collection="array" item="item" separator="," open="where user_id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_user_lrvalue
+    <foreach collection="array" item="item" separator="," open="where user_id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+     insert into vr_user_lrvalue (user_id, pid, lft, rgt, create_date) values 
+      <foreach collection="list" item="item" separator="," close=";">
+     	( #{item.userId}, #{item.pid}, #{item.lft}, #{item.rgt}, now() )
+       </foreach>
+  </insert>
+  
+   <select id="findOther" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> 
+  	from vr_user_lrvalue where pid=#{pid} and user_id !=#{userId} and lft > 1 and `status` > -1 limit 1
+  </select>
+  
+  <update id="setLValue">
+  <![CDATA[
+  	update vr_user_lrvalue set lft = lft + 2 where tree_id = #{treeId} and lft > #{val}
+  ]]>
+  </update>
+   
+  <update id="setRValue">
+  <![CDATA[
+  	update vr_user_lrvalue set rgt = rgt + 2 where tree_id = #{treeId} and rgt > #{val}
+  ]]>
+  </update>
+  
+  <select id="getNeedSetList" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> 
+  	from vr_user_lrvalue where lft = -1 and create_date >= #{startDate} order by create_date asc
+  </select>
+  
+  <select id="getSubList" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> 
+  	from vr_user_lrvalue
+  	where 
+  	<if test="status != null and status.length > 0">
+  	`status` in 
+  	<foreach collection="status" item="item" open="(" close=")" separator=",">
+  		#{item}
+  	</foreach> 
+  	and 
+  	</if>
+  	 tree_id = #{lr.treeId} and lft between #{lr.lft} and #{lr.rgt} and 
+  	 <![CDATA[ user_level <= #{lr.userLevel} ]]> order by user_level asc, lft asc
+  </select>
+  
+  <select id="getPrizeUserList" resultMap="BaseResultMap">
+    	select <include refid="Base_Column_List" /> 
+        from vr_user_lrvalue
+    <![CDATA[
+    	where `status` in (1,2) and user_level >= #{minLevel} and user_id
+     ]]>
+    	NOT IN (SELECT user_id from vr_prize_detail where create_date=#{createDate})
+    </select>
+    
+    <select id="getParentList" resultMap="BaseResultMap">
+    	select <include refid="Base_Column_List" />
+    	from vr_user_lrvalue where 
+	   <if test="status != null and status.length > 0">
+	  	`status` in 
+	  	<foreach collection="status" item="item" open="(" close=")" separator=",">
+	  		#{item}
+	  	</foreach> 
+	  	and 
+	  	</if>
+	  	tree_id = #{lr.treeId} and 
+    	<![CDATA[
+    	lft < #{lr.lft} and rgt > #{lr.rgt} 
+    	]]>
+    	order by user_level desc <if test="lr.userLevel.intValue() > 0"> limit #{lr.userLevel}</if>
+    </select>
+    
+  <select id="selectByPidAndArea" resultMap="BaseResultMap">
+  	select * from vr_user_lrvalue where pid=#{pid} and area=#{area} and status>-1
+  </select>
+  
+  
+</mapper>

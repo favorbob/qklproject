@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.6.RELEASE</version>
+        <relativePath/>
+    </parent>
+
+    <properties>
+        <apache.httpclient.version>4.5.2</apache.httpclient.version>
+        <apache.httpclient.core.version>4.4.5</apache.httpclient.core.version>
+        <jdk.version>1.8</jdk.version>
+        <redis.version>2.9.0</redis.version>
+        <spring.data.redis>1.8.0.RELEASE</spring.data.redis>
+        <fastjson.version>1.2.41</fastjson.version>
+        <slf4j.version>1.7.7</slf4j.version>
+        <druid.version>1.1.4</druid.version>
+        <shiro.version>1.2.3</shiro.version>
+        <commons-lang3.version>3.3.2</commons-lang3.version>
+        <commons-io.version>2.4</commons-io.version>
+        <commons-codec.version>1.9</commons-codec.version>
+        <commons-fileupload.version>1.3.1</commons-fileupload.version>
+        <commons-beanutils.version>1.9.1</commons-beanutils.version>
+        <!--<jackson.version>2.8.1</jackson.version>-->
+        <jackson-xml.version>2.6.2</jackson-xml.version>
+        <poi.version>3.9</poi.version>
+        <!--<freemarker.version>2.3.20</freemarker.version>-->
+
+        <!-- jdbc driver setting -->
+        <mysql.driver.version>5.1.30</mysql.driver.version>
+        <oracle.driver.version>10.2.0.4.0</oracle.driver.version>
+        <mssql.driver.version>1.3.1</mssql.driver.version>
+
+        <mybatis.spring.version>1.3.1</mybatis.spring.version>
+        <mybatis.version>3.4.5</mybatis.version>
+        <mybatis.generator.configurationFile>${basedir}/src/main/resources/mybatis/generatorConfig.xml</mybatis.generator.configurationFile>
+        <mybatis.starter.version>1.3.1</mybatis.starter.version>
+        <!-- environment setting -->
+        <jdk.version>1.8</jdk.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <downloadSources>true</downloadSources>
+    </properties>
+
+    <groupId>com.cogent.framework</groupId>
+    <artifactId>framework.pom</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Nexus Release Repository</name>
+            <url>http://47.100.17.11:8081/nexus/content/repositories/releases/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Nexus Snapshot Repository</name>
+            <url>http://47.100.17.11:8081/nexus/content/repositories/snapshots/</url>
+            <uniqueVersion>true</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!-- 设定主仓库，按设定顺序进行查找。 -->
+    <repositories>
+        <repository>
+            <id>mvn.private.center</id>
+            <name>mvn.private.center</name>
+            <url>http://47.100.17.11:8081/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+
+    <!-- 设定插件仓库-->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>mvn.private.center.plugin</id>
+            <name>mvn.private.center.plugin</name>
+            <url>http://47.100.17.11:8081/nexus/content/groups/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Dalston.SR4</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis.spring.version}</version>
+            </dependency>
+            <!-- LOGGING begin -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!-- common-logging 实际调用slf4j -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <!-- java.util.logging 实际调用slf4j -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jul-to-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>log4j-over-slf4j</artifactId>
+                <version>${slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- Package as an executable jar -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <deploy.env>dev</deploy.env>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <properties>
+                <deploy.env>test</deploy.env>
+            </properties>
+        </profile>
+        <profile>
+            <id>uat</id>
+            <properties>
+                <deploy.env>uat</deploy.env>
+            </properties>
+        </profile>
+        <profile>
+            <id>product</id>
+            <properties>
+                <deploy.env>product</deploy.env>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>mybatis-generate</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.mybatis.generator</groupId>
+                        <artifactId>mybatis-generator-maven-plugin</artifactId>
+                        <version>1.3.2</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>mysql</groupId>
+                                <artifactId>mysql-connector-java</artifactId>
+                                <version>${mysql.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.mybatis</groupId>
+                                <artifactId>mybatis</artifactId>
+                                <version>${mybatis.version}</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>com.ks.framework</groupId>
+                                <artifactId>framework-common-datastore-generator</artifactId>
+                                <version>1.0-SNAPSHOT</version>
+                            </dependency>
+                            <dependency>
+                                <groupId>org.mybatis</groupId>
+                                <artifactId>mybatis-spring</artifactId>
+                                <version>${mybatis.spring.version}</version>
+                            </dependency>
+                        </dependencies>
+                        <!--自动生成 -->
+                        <executions>
+                            <execution>
+                                <id>Generate MyBatis Artifacts</id>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <verbose>true</verbose>
+                                    <overwrite>true</overwrite>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/profiles/${deploy.env}</directory>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.5.1</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>${jdk.version}</source>
+                    <target>${jdk.version}</target>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

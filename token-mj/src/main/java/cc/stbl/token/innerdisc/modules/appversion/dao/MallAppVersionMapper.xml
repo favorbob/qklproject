@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.appversion.dao.MallAppVersionMapper" >
+	<resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.appversion.entity.MallAppVersion" >
+		<id column="id" property="id" jdbcType="CHAR" />
+		<result column="client_type" property="clientType" jdbcType="VARCHAR" />
+		<result column="version_code" property="versionCode" jdbcType="INTEGER" />
+		<result column="version_name" property="versionName" jdbcType="VARCHAR" />
+		<result column="min_version_code" property="minVersionCode" jdbcType="INTEGER" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="size" property="size" jdbcType="INTEGER" />
+		<result column="create_by" property="createBy" jdbcType="VARCHAR" />
+		<result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+		<result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+		<result column="update_date" property="updateDate" jdbcType="TIMESTAMP" />
+		<result column="update_info" property="updateInfo" jdbcType="LONGVARCHAR" />
+		<result column="memo" property="memo" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+    id, client_type, version_code, version_name, min_version_code, url, size, create_by,
+    create_date, update_by, update_date, update_info, memo
+  </sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		select
+		<include refid="Base_Column_List" />
+		from mall_app_version
+		where id = #{id,jdbcType=CHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mall_app_version
+    where id = #{id,jdbcType=CHAR}
+  </delete>
+	<insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.appversion.entity.MallAppVersion" >
+		insert into mall_app_version
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				id,
+			</if>
+			<if test="clientType != null" >
+				client_type,
+			</if>
+			<if test="versionCode != null" >
+				version_code,
+			</if>
+			<if test="versionName != null" >
+				version_name,
+			</if>
+			<if test="minVersionCode != null" >
+				min_version_code,
+			</if>
+			<if test="url != null" >
+				url,
+			</if>
+			<if test="size != null" >
+				size,
+			</if>
+			<if test="createBy != null" >
+				create_by,
+			</if>
+			<if test="createDate != null" >
+				create_date,
+			</if>
+			<if test="updateBy != null" >
+				update_by,
+			</if>
+			<if test="updateDate != null" >
+				update_date,
+			</if>
+			<if test="updateInfo != null" >
+				update_info,
+			</if>
+			<if test="memo != null" >
+				memo,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="id != null" >
+				#{id,jdbcType=CHAR},
+			</if>
+			<if test="clientType != null" >
+				#{clientType,jdbcType=VARCHAR},
+			</if>
+			<if test="versionCode != null" >
+				#{versionCode,jdbcType=INTEGER},
+			</if>
+			<if test="versionName != null" >
+				#{versionName,jdbcType=VARCHAR},
+			</if>
+			<if test="minVersionCode != null" >
+				#{minVersionCode,jdbcType=INTEGER},
+			</if>
+			<if test="url != null" >
+				#{url,jdbcType=VARCHAR},
+			</if>
+			<if test="size != null" >
+				#{size,jdbcType=INTEGER},
+			</if>
+			<if test="createBy != null" >
+				#{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null" >
+				#{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null" >
+				#{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null" >
+				#{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateInfo != null" >
+				#{updateInfo,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="memo != null" >
+				#{memo,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.appversion.entity.MallAppVersion" >
+		update mall_app_version
+		<set >
+			<if test="clientType != null" >
+				client_type = #{clientType,jdbcType=VARCHAR},
+			</if>
+			<if test="versionCode != null" >
+				version_code = #{versionCode,jdbcType=INTEGER},
+			</if>
+			<if test="versionName != null" >
+				version_name = #{versionName,jdbcType=VARCHAR},
+			</if>
+			<if test="minVersionCode != null" >
+				min_version_code = #{minVersionCode,jdbcType=INTEGER},
+			</if>
+			<if test="url != null" >
+				url = #{url,jdbcType=VARCHAR},
+			</if>
+			<if test="size != null" >
+				size = #{size,jdbcType=INTEGER},
+			</if>
+			<if test="createBy != null" >
+				create_by = #{createBy,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null" >
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateBy != null" >
+				update_by = #{updateBy,jdbcType=VARCHAR},
+			</if>
+			<if test="updateDate != null" >
+				update_date = #{updateDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateInfo != null" >
+				update_info = #{updateInfo,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="memo != null" >
+				memo = #{memo,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=CHAR}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="cc.stbl.token.innerdisc.modules.appversion.entity.MallAppVersion" >
+    update mall_app_version
+    set client_type = #{clientType,jdbcType=VARCHAR},
+      version_code = #{versionCode,jdbcType=INTEGER},
+      version_name = #{versionName,jdbcType=VARCHAR},
+      min_version_code = #{minVersionCode,jdbcType=INTEGER},
+      url = #{url,jdbcType=VARCHAR},
+      size = #{size,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_info = #{updateInfo,jdbcType=LONGVARCHAR},
+      memo = #{memo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=CHAR}
+  </update>
+	<select id="findList" resultMap="BaseResultMap" >
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM mall_app_version
+		<include refid="findWhere" />
+	</select>
+	<select id="findCount" resultType="java.lang.Long" >
+		SELECT COUNT(*)
+		FROM mall_app_version
+		<include refid="findWhere" />
+	</select>
+	<sql id="findWhere" >
+		<where >
+			<if test="clientType != null  and clientType != ''" >
+				AND client_type = #{clientType}
+			</if>
+			<if test="versionCode != null " >
+				AND version_code = #{versionCode}
+			</if>
+			<if test="versionName != null  and versionName != ''" >
+				AND version_name = #{versionName}
+			</if>
+			<if test="minVersionCode != null " >
+				AND min_version_code = #{minVersionCode}
+			</if>
+			<if test="url != null  and url != ''" >
+				AND url = #{url}
+			</if>
+			<if test="size != null " >
+				AND size = #{size}
+			</if>
+			<if test="createBy != null  and createBy != ''" >
+				AND create_by = #{createBy}
+			</if>
+			<if test="createDate != null " >
+				AND create_date = #{createDate}
+			</if>
+			<if test="updateBy != null  and updateBy != ''" >
+				AND update_by = #{updateBy}
+			</if>
+			<if test="updateDate != null " >
+				AND update_date = #{updateDate}
+			</if>
+		</where>
+	</sql>
+	<delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+		DELETE FROM mall_app_version
+		<foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+			#{item}
+		</foreach>
+	</delete>
+	<select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM mall_app_version
+		<foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+			#{item}
+		</foreach>
+	</select>
+	<insert id="batchInsertSelective" parameterType="java.util.List" >
+		<foreach collection="list" item="item" separator=";" close=";" >
+			insert into mall_app_version
+			<trim prefix="(" suffix=")" suffixOverrides="," >
+				<if test="item.id != null " >
+					id,
+				</if>
+				<if test="item.clientType != null " >
+					client_type,
+				</if>
+				<if test="item.versionCode != null " >
+					version_code,
+				</if>
+				<if test="item.versionName != null " >
+					version_name,
+				</if>
+				<if test="item.minVersionCode != null " >
+					min_version_code,
+				</if>
+				<if test="item.url != null " >
+					url,
+				</if>
+				<if test="item.size != null " >
+					size,
+				</if>
+				<if test="item.createBy != null " >
+					create_by,
+				</if>
+				<if test="item.createDate != null " >
+					create_date,
+				</if>
+				<if test="item.updateBy != null " >
+					update_by,
+				</if>
+				<if test="item.updateDate != null " >
+					update_date,
+				</if>
+				<if test="item.updateInfo != null " >
+					update_info,
+				</if>
+				<if test="item.memo != null " >
+					memo,
+				</if>
+			</trim>
+			<trim prefix="values (" suffix=")" suffixOverrides="," >
+				<if test="item.id != null " >
+					#{item.id},
+				</if>
+				<if test="item.clientType != null " >
+					#{item.clientType},
+				</if>
+				<if test="item.versionCode != null " >
+					#{item.versionCode},
+				</if>
+				<if test="item.versionName != null " >
+					#{item.versionName},
+				</if>
+				<if test="item.minVersionCode != null " >
+					#{item.minVersionCode},
+				</if>
+				<if test="item.url != null " >
+					#{item.url},
+				</if>
+				<if test="item.size != null " >
+					#{item.size},
+				</if>
+				<if test="item.createBy != null " >
+					#{item.createBy},
+				</if>
+				<if test="item.createDate != null " >
+					#{item.createDate},
+				</if>
+				<if test="item.updateBy != null " >
+					#{item.updateBy},
+				</if>
+				<if test="item.updateDate != null " >
+					#{item.updateDate},
+				</if>
+				<if test="item.updateInfo != null " >
+					#{item.updateInfo},
+				</if>
+				<if test="item.memo != null " >
+					#{item.memo},
+				</if>
+			</trim>
+		</foreach>
+	</insert>
+</mapper>

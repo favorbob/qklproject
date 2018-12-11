@@ -1,0 +1,43 @@
+#applications:                          #定义应用列表
+#  <application>:                       #应用名称，也即application。以下为该应用接入配置
+#    enabled: true                      #是否启用该应用接入 true|false
+#    channels:                          #该应用开通的渠道列表
+#      <channel>:                       #具体渠道名称，也即channelKey 如：jpush
+#        devices: [HTML5,ANDROID,IOS]   #[固定项]该渠道适用的设备集。默认为空。已定义：HTML5,ANDROID,IOS
+#        enabled: true                  #[固定项]是否在该应用中启用该渠道。默认为false
+#        ver: 1                         #[固定项]该渠道配置的版本号。默认为0。每更新一次配置，请+1
+#        ......                         #该渠道的自定义参数开始...
+#      <channel>:                       #另一渠道配置开始
+#        ......
+#  <application>:                       #另一应用配置开始
+#    ......
+applications:
+  MALL:
+    enabled: true
+    channels:
+      websocket:
+        devices: [HTML5]
+        enabled: false
+        ver: 1
+        appKey: 1234567890
+      jpush:
+        devices: [IOS,ANDROID]
+        enabled: true
+        ver: 1
+        appKey: xxxxxx
+        masterSecretKey: xxxxxx
+        apnsProduction: false
+#  SAAS:
+#    enabled: false
+#    channels:
+#      websocket:
+#        devices: [HTML5]
+#        enabled: true
+#        ver: 1
+#        appKey: 1234567890
+#      jpush:
+#        devices: [IOS,ANDROID]
+#        enabled: true
+#        ver: 1
+#        appKey: f343f330a6f61c4ee2390ff7
+#        masterSecretKey: 6a8bc899b944f6412abf8b15

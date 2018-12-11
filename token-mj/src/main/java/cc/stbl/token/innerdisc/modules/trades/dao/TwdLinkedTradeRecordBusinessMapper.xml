@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.trades.dao.TwdLinkedTradeRecordMapper" >
+    <resultMap id="BaseResultMapWithRecord" type="cc.stbl.token.innerdisc.modules.trades.entity.TwdLinkedTradeRecord" extends="BaseResultMap">
+        <!--<association property="tradeRecord" javaType="cc.stbl.token.innerdisc.modules.trades.entity.TwdLinkedTradeRecord">-->
+        <result column="balance_type" property="balanceType" jdbcType="INTEGER" />
+        <result column="at_block_number" property="blockNumber" jdbcType="BIGINT" />
+        <result column="trade_type" property="tradeType" jdbcType="INTEGER" />
+        <result column="transaction_hash" property="transactionHash" jdbcType="VARCHAR" />
+        <result column="seller_phone_num" property="sellerPhoneNum" jdbcType="VARCHAR" />
+        <!--</association>-->
+    </resultMap>
+
+    <select id="findUserLinkedList" resultMap="BaseResultMapWithRecord" >
+        SELECT l.*,er.at_block_number,lr.balance_type,er.trade_type,er.transaction_hash,us.phone_num as seller_phone_num
+        FROM twd_linked_trade_record l
+        LEFT JOIN twd_linked_trade lr on lr.id = l.linked_id
+        LEFT JOIN eth_trade_record er on er.trade_no=l.linked_id
+        LEFT JOIN vr_user_info us on l.from_user_id = us.user_id
+        <include refid="findUserLinkedListWhere" />
+    </select>
+    <sql id="findUserLinkedListWhere">
+        <where>
+            <if test="linkedId != null  and linkedId != ''" >
+                AND l.linked_id = #{linkedId}
+            </if>
+            <if test="fromUserId != null  and fromUserId != ''" >
+                AND l.from_user_id = #{fromUserId}
+            </if>
+            <if test="toUserId != null  and toUserId != ''" >
+                AND l.to_user_id = #{toUserId}
+            </if>
+            <if test="balanceType != null " >
+                AND lr.balance_type = #{balanceType}
+            </if>
+        </where>
+    </sql>
+  <select id="findUserBuyAssetList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM twd_linked_trade_record twd
+    <include refid="findWhere" />
+  </select>
+  <select id="findUserBuyAssetCount" resultType="java.lang.Long" >
+    SELECT COUNT(*)
+    FROM twd_linked_trade_record twd
+    <include refid="findUserByWhere" />
+  </select>
+
+  <sql id="findUserByWhere">
+    <where>
+        <if test="tradeStatus != null">
+          ADD trade_Status = #{tradeStatus}
+        </if>
+        <if test="phoneNum != null and phoneNum != ''">
+          AND EXISTS (
+            SELECT 1 FROM vr_user_info u WHERE u.phone_num LIKE concat(#{phoneNum},'%') AND u.user_id = twd.from_user_id
+          )
+        </if>
+        <if test="startDate != null">
+            <![CDATA[AND success_date  >= #{startDate}]]>
+        </if>
+        <if test="endDate != null">
+            <![CDATA[AND success_date  <= #{endDate}]]>
+        </if>
+        <if test="systemLinked != null" >
+          AND system_linked = #{systemLinked}
+        </if>
+    </where>
+  </sql>
+
+
+
+  <select id="countTwdLinkedTradeStatDay" resultType="cc.stbl.token.innerdisc.modules.trades.entity.TwdLinkedTradeStatDay">
+    select
+    CURDATE() day,
+    ifnull(totalTradeAmount, 0) totalTradeAsset,
+    ifnull(todayTradeAmount, 0) todayTradeAsset,
+    ifnull(yesterdayTradeAmount, 0) yesterdayTradeAsset,
+    ifnull(lastSevenDaysTradeAmount, 0) elevenTradeAsset
+    from
+    (select
+    sum(total_amount) as totalTradeAmount
+    from twd_linked_trade_record
+    where trade_status = 2) a,
+
+    (select
+    sum(total_amount) as todayTradeAmount
+    from twd_linked_trade_record
+    where date_format(success_date,'%Y-%m-%d') = DATE_SUB(CURDATE(),INTERVAL 1 DAY)
+    and trade_status = 2) b,
+
+    (select
+    sum(total_amount) as yesterdayTradeAmount
+    from twd_linked_trade_record
+    where date_format(success_date,'%Y-%m-%d') = DATE_SUB(CURDATE(),INTERVAL 2 DAY)
+    and trade_status = 2) c,
+
+    (select
+    sum(total_amount) as lastSevenDaysTradeAmount
+    from twd_linked_trade_record
+    where date_format(success_date,'%Y-%m-%d')
+        BETWEEN DATE_SUB(CURDATE(),INTERVAL 2 DAY)
+        and DATE_SUB(CURDATE(),INTERVAL 8 DAY)
+    and trade_status = 2) d;
+  </select>
+</mapper>

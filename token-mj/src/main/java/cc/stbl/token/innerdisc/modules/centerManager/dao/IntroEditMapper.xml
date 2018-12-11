@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.stbl.token.innerdisc.modules.centerManager.dao.IntroEditMapper">
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.centerManager.entity.IntroEdit">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="intro_title" jdbcType="VARCHAR" property="introTitle" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="is_read" jdbcType="VARCHAR" property="isRead" />
+    <result column="accessory_url" jdbcType="VARCHAR" property="accessoryUrl" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cc.stbl.token.innerdisc.modules.centerManager.entity.IntroEdit">
+    <result column="intro_context" jdbcType="LONGVARCHAR" property="introContext" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, intro_title, create_date, remarks, accessory_url,file_name
+  </sql>
+  <sql id="Blob_Column_List">
+    intro_context
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from intro_edit
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from intro_edit
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.IntroEdit">
+    insert into intro_edit (id, intro_title, create_date, 
+      remarks, intro_context, accessory_url, file_name)
+    values (#{id,jdbcType=VARCHAR}, #{introTitle,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{remarks,jdbcType=VARCHAR}, #{introContext,jdbcType=LONGVARCHAR}, #{accessoryUrl,jdbcType=VARCHAR}, #{file_name,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.IntroEdit">
+    insert into intro_edit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="introTitle != null">
+        intro_title,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="introContext != null">
+        intro_context,
+      </if>
+      <if test="accessoryUrl != null">
+        accessory_url,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="introTitle != null">
+        #{introTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="introContext != null">
+        #{introContext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="accessoryUrl != null">
+        #{accessoryUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.IntroEdit">
+    update intro_edit
+    <set>
+      <if test="introTitle != null">
+        intro_title = #{introTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="introContext != null">
+        intro_context = #{introContext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="accessoryUrl != null">
+        accessory_url = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.IntroEdit">
+    update intro_edit
+    set intro_title = #{introTitle,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      intro_context = #{introContext,jdbcType=LONGVARCHAR},
+      accessory_url = #{accessoryUrl,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.IntroEdit">
+    update intro_edit
+    set intro_title = #{introTitle,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      accessory_url = #{accessoryUrl,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    FROM intro_edit
+    <include refid="findWhere" />
+    order by create_date desc
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*)
+    FROM intro_edit
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="introTitle != null  and introTitle != ''" >
+        AND intro_title = #{introTitle}
+      </if>
+      <if test="introContext != null  and introContext != ''" >
+        AND intro_context = #{introContext}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+      <if test="remarks != null  and remarks != ''" >
+        AND remarks = #{remarks}
+      </if>
+      <if test="accessoryUrl != null  and accessoryUrl != ''" >
+        AND accessory_url = #{accessoryUrl}
+      </if>
+      <if test="fileName != null  and fileName != ''" >
+        AND file_name = #{fileName}
+      </if>
+    </where>
+  </sql>
+  <!--查询简介 包括个人对简介的已读-未读 总数-->
+  <select id="findCountIsRead" resultType="java.lang.Long">
+    select count(*) from
+    (
+    select
+      ed2.id,
+      ed2.intro_title,
+      ed2.intro_context,
+      ed2.create_date,
+      ed2.remarks,
+      1 is_read from
+      intro_edit ed2
+    where  ed2.id not in
+    (
+    select distinct ed3.id
+    from intro_edit ed3, intro_person pe3
+    where ed3.id = pe3.intro_id
+    <if test="user_id != null and user_id != ''" >
+      AND pe3.user_id  = #{user_id,jdbcType=VARCHAR}
+    </if>
+    )
+    union
+    select
+      ed.id,
+      ed.intro_title,
+      ed.intro_context,
+      ed.create_date,
+      ed.remarks,
+      2 is_read from
+      intro_edit ed, intro_person pe
+    where ed.id = pe.intro_id
+    <if test="user_id != null and user_id != ''" >
+      AND pe.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    ) al
+  </select>
+  <!--查询简介 包括个人对简介的已读-未读-->
+  <select id="findListIsRead" resultMap="BaseResultMap">
+    select al.* from
+    (
+    select
+    ed2.id,
+    ed2.intro_title,
+    ed2.create_date,
+    ed2.remarks,
+    1 is_read from
+    intro_edit ed2
+    where  ed2.id not in
+    (
+    select distinct ed3.id
+    from intro_edit ed3, intro_person pe3
+    where ed3.id = pe3.intro_id
+    <if test="user_id != null and user_id != ''" >
+      AND pe3.user_id  = #{user_id,jdbcType=VARCHAR}
+    </if>
+    )
+    union
+    select
+    ed.id,
+    ed.intro_title,
+    ed.create_date,
+    ed.remarks,
+    2 is_read from
+    intro_edit ed, intro_person pe
+    where ed.id = pe.intro_id
+    <if test="user_id != null and user_id != ''" >
+      AND pe.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    ) al order by al.create_date desc
+  </select>
+
+  <!--查询简介公告 包括个人对简介的未读  总数-->
+  <select id="findCountNotRead" resultType="java.lang.Long">
+    select count(*) from
+    (
+    select
+      ed2.id,
+      ed2.intro_title,
+      ed2.intro_context,
+      ed2.create_date,
+      ed2.remarks,
+      1 is_read from
+      intro_edit ed2
+    where  ed2.id not in
+    (
+    select distinct ed3.id
+    from intro_edit ed3, intro_person pe3
+    where ed3.id = pe3.intro_id
+    <if test="user_id != null and user_id != ''" >
+      AND pe3.user_id  = #{user_id,jdbcType=VARCHAR}
+    </if>
+    )
+    ) al
+  </select>
+  <!--查询简介 包括个人对简介 未读-->
+  <select id="findListNotRead" resultMap="BaseResultMap">
+    select al.* from
+    (
+    select
+    ed2.id,
+    ed2.intro_title,
+    ed2.intro_context,
+    ed2.create_date,
+    ed2.remarks,
+    1 is_read from
+    intro_edit ed2
+    where  ed2.id not in
+    (
+    select distinct ed3.id
+    from intro_edit ed3, intro_person pe3
+    where ed3.id = pe3.intro_id
+    <if test="user_id != null and user_id != ''" >
+      AND pe3.user_id = #{user_id,jdbcType=VARCHAR}
+    </if>
+    )
+    ) al order by al.create_date desc
+  </select>
+</mapper>

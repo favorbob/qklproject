@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://rm-j6c65n3rr9jbwj5uopo.mysql.rds.aliyuncs.com:3306/mj?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=Hongkong
+    username: mj
+    password: nmpjmysql-20c18tol930
+    initialSize: 3
+    minIdle: 1
+    maxActive: 20
+    validationQuery: selecct 1
+    batchSize: 500
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath*:cc/stbl/token/innerdisc/modules/**/*Mapper.xml,classpath*:com/stbl/payment/business/**/*Mapper.xml

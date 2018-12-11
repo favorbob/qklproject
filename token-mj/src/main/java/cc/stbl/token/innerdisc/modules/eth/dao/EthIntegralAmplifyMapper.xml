@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.eth.dao.EthIntegralAmplifyMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.eth.entity.EthIntegralAmplify" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="total_token" property="totalToken" jdbcType="DECIMAL" />
+    <result column="total_integral" property="totalIntegral" jdbcType="DECIMAL" />
+    <result column="returned_integral" property="returnedIntegral" jdbcType="DECIMAL" />
+    <result column="token_type" property="tokenType" jdbcType="TINYINT" />
+    <result column="opt_type" property="optType" jdbcType="TINYINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="last_block_number" property="lastBlockNumber" jdbcType="BIGINT" />
+    <result column="transaction_hash" property="transactionHash" jdbcType="VARCHAR" />
+    <result column="ext_args" property="extArgs" jdbcType="VARCHAR" />
+    <result column="at_block_number" property="atBlockNumber" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, address, total_token, total_integral, returned_integral, status, create_date, opt_type,
+    last_block_number, transaction_hash, at_block_number,token_type,ext_args
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from eth_integral_amplify
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eth_integral_amplify
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.eth.entity.EthIntegralAmplify" >
+    insert into eth_integral_amplify
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="totalToken != null" >
+        total_token,
+      </if>
+      <if test="totalIntegral != null" >
+        total_integral,
+      </if>
+      <if test="returnedIntegral != null" >
+        returned_integral,
+      </if>
+      <if test="tokenType != null" >
+        token_type,
+      </if>
+      <if test="optType != null" >
+        opt_Type,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="lastBlockNumber != null" >
+        last_block_number,
+      </if>
+      <if test="transactionHash != null" >
+        transaction_hash,
+      </if>
+      <if test="extArgs != null" >
+        ext_args,
+      </if>
+      <if test="atBlockNumber != null" >
+        at_block_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="totalToken != null" >
+        #{totalToken,jdbcType=DECIMAL},
+      </if>
+      <if test="totalIntegral != null" >
+        #{totalIntegral,jdbcType=DECIMAL},
+      </if>
+      <if test="returnedIntegral != null" >
+        #{returnedIntegral,jdbcType=DECIMAL},
+      </if>
+      <if test="tokenType != null" >
+        #{tokenType,jdbcType=TINYINT},
+      </if>
+      <if test="optType != null" >
+        #{optType,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastBlockNumber != null" >
+        #{lastBlockNumber,jdbcType=BIGINT},
+      </if>
+      <if test="transactionHash != null" >
+        #{transactionHash,jdbcType=VARCHAR},
+      </if>
+      <if test="extArgs != null" >
+        #{extArgs,jdbcType=VARCHAR},
+      </if>
+      <if test="atBlockNumber != null" >
+        #{atBlockNumber,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.eth.entity.EthIntegralAmplify" >
+    update eth_integral_amplify
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="totalToken != null" >
+        total_token = #{totalToken,jdbcType=DECIMAL},
+      </if>
+      <if test="totalIntegral != null" >
+        total_integral = #{totalIntegral,jdbcType=DECIMAL},
+      </if>
+      <if test="returnedIntegral != null" >
+        returned_integral = #{returnedIntegral,jdbcType=DECIMAL},
+      </if>
+      <if test="tokenType != null" >
+        token_type = #{tokenType,jdbcType=TINYINT},
+      </if>
+      <if test="optType != null" >
+        opt_type = #{optType,jdbcType=TINYINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastBlockNumber != null" >
+        last_block_number = #{lastBlockNumber,jdbcType=BIGINT},
+      </if>
+      <if test="transactionHash != null" >
+        transaction_hash = #{transactionHash,jdbcType=VARCHAR},
+      </if>
+      <if test="extArgs != null" >
+        ext_args = #{extArgs,jdbcType=VARCHAR},
+      </if>
+      <if test="atBlockNumber != null" >
+        at_block_number = #{atBlockNumber,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM eth_integral_amplify
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM eth_integral_amplify
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="address != null  and address != ''" >
+        AND address = #{address}
+      </if>
+      <if test="totalToken != null " >
+        AND total_token = #{totalToken}
+      </if>
+      <if test="optType != null " >
+        AND opt_type = #{optType}
+      </if>
+      <if test="totalIntegral != null " >
+        AND total_integral = #{totalIntegral}
+      </if>
+      <if test="returnedIntegral != null " >
+        AND returned_integral = #{returnedIntegral}
+      </if>
+      <if test="status != null " >
+        AND status = #{status}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+      <if test="lastBlockNumber != null " >
+        AND last_block_number = #{lastBlockNumber}
+      </if>
+      <if test="transactionHash != null  and transactionHash != ''" >
+        AND transaction_hash = #{transactionHash}
+      </if>
+      <if test="extArgs != null  and transactionHash != ''" >
+        AND ext_args = #{extArgs}
+      </if>
+      <if test="atBlockNumber != null " >
+        AND at_block_number = #{atBlockNumber}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM eth_integral_amplify
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM eth_integral_amplify
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into eth_integral_amplify
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.address != null " >
+          address,
+        </if>
+        <if test="item.totalToken != null " >
+          total_token,
+        </if>
+        <if test="item.tokenType != null " >
+          token_type,
+        </if>
+        <if test="item.optType != null " >
+          opt_type,
+        </if>
+        <if test="item.totalIntegral != null " >
+          total_integral,
+        </if>
+        <if test="item.returnedIntegral != null " >
+          returned_integral,
+        </if>
+        <if test="item.status != null " >
+          status,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+        <if test="item.lastBlockNumber != null " >
+          last_block_number,
+        </if>
+        <if test="item.transactionHash != null " >
+          transaction_hash,
+        </if>
+        <if test="item.atBlockNumber != null " >
+          at_block_number,
+        </if>
+        <if test="item.tokenType != null " >
+          token_type,
+        </if>
+        <if test="item.extArgs != null " >
+          ext_args,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.address != null " >
+          #{item.address},
+        </if>
+        <if test="item.totalToken != null " >
+          #{item.totalToken},
+        </if>
+
+        <if test="item.tokenType != null " >
+          #{item.tokenType},
+        </if>
+        <if test="item.optType != null " >
+          #{item.optType},
+        </if>
+        <if test="item.totalIntegral != null " >
+          #{item.totalIntegral},
+        </if>
+        <if test="item.returnedIntegral != null " >
+          #{item.returnedIntegral},
+        </if>
+        <if test="item.status != null " >
+          #{item.status},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+        <if test="item.lastBlockNumber != null " >
+          #{item.lastBlockNumber},
+        </if>
+        <if test="item.transactionHash != null " >
+          #{item.transactionHash},
+        </if>
+        <if test="item.atBlockNumber != null " >
+          #{item.atBlockNumber},
+        </if>
+        <if test="item.tokenType != null " >
+          #{item.tokenType},
+        </if>
+        <if test="item.extArgs != null " >
+          #{item.extArgs},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

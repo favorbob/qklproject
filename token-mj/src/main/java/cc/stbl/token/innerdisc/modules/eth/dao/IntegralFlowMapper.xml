@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.eth.dao.IntegralFlowMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.eth.entity.IntegralFlow" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="trade_integral" property="tradeIntegral" jdbcType="DECIMAL" />
+    <result column="remain_integral" property="remainIntegral" jdbcType="DECIMAL" />
+    <result column="trade_type" property="tradeType" jdbcType="TINYINT" />
+    <result column="business_type" property="businessType" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="transaction_hash" property="transactionHash" jdbcType="VARCHAR" />
+    <result column="at_block_number" property="atBlockNumber" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, trade_no, user_id, trade_integral, remain_integral, trade_type, business_type, 
+    create_time, transaction_hash, at_block_number
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from eth_integral_flow
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from eth_integral_flow
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.eth.entity.IntegralFlow" >
+    insert into eth_integral_flow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tradeNo != null" >
+        trade_no,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="tradeIntegral != null" >
+        trade_integral,
+      </if>
+      <if test="remainIntegral != null" >
+        remain_integral,
+      </if>
+      <if test="tradeType != null" >
+        trade_type,
+      </if>
+      <if test="businessType != null" >
+        business_type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="transactionHash != null" >
+        transaction_hash,
+      </if>
+      <if test="atBlockNumber != null" >
+        at_block_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeNo != null" >
+        #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeIntegral != null" >
+        #{tradeIntegral,jdbcType=DECIMAL},
+      </if>
+      <if test="remainIntegral != null" >
+        #{remainIntegral,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeType != null" >
+        #{tradeType,jdbcType=TINYINT},
+      </if>
+      <if test="businessType != null" >
+        #{businessType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transactionHash != null" >
+        #{transactionHash,jdbcType=VARCHAR},
+      </if>
+      <if test="atBlockNumber != null" >
+        #{atBlockNumber,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.eth.entity.IntegralFlow" >
+    update eth_integral_flow
+    <set >
+      <if test="tradeNo != null" >
+        trade_no = #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeIntegral != null" >
+        trade_integral = #{tradeIntegral,jdbcType=DECIMAL},
+      </if>
+      <if test="remainIntegral != null" >
+        remain_integral = #{remainIntegral,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeType != null" >
+        trade_type = #{tradeType,jdbcType=TINYINT},
+      </if>
+      <if test="businessType != null" >
+        business_type = #{businessType,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="transactionHash != null" >
+        transaction_hash = #{transactionHash,jdbcType=VARCHAR},
+      </if>
+      <if test="atBlockNumber != null" >
+        at_block_number = #{atBlockNumber,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM eth_integral_flow
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM eth_integral_flow
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="tradeNo != null  and tradeNo != ''" >
+        AND trade_no = #{tradeNo}
+      </if>
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="tradeIntegral != null " >
+        AND trade_integral = #{tradeIntegral}
+      </if>
+      <if test="remainIntegral != null " >
+        AND remain_integral = #{remainIntegral}
+      </if>
+      <if test="tradeType != null " >
+        AND trade_type = #{tradeType}
+      </if>
+      <if test="businessType != null " >
+        AND business_type = #{businessType}
+      </if>
+      <if test="createTime != null " >
+        AND create_time = #{createTime}
+      </if>
+      <if test="transactionHash != null  and transactionHash != ''" >
+        AND transaction_hash = #{transactionHash}
+      </if>
+      <if test="atBlockNumber != null " >
+        AND at_block_number = #{atBlockNumber}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM eth_integral_flow
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM eth_integral_flow
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into eth_integral_flow
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.tradeNo != null " >
+          trade_no,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.tradeIntegral != null " >
+          trade_integral,
+        </if>
+        <if test="item.remainIntegral != null " >
+          remain_integral,
+        </if>
+        <if test="item.tradeType != null " >
+          trade_type,
+        </if>
+        <if test="item.businessType != null " >
+          business_type,
+        </if>
+        <if test="item.createTime != null " >
+          create_time,
+        </if>
+        <if test="item.transactionHash != null " >
+          transaction_hash,
+        </if>
+        <if test="item.atBlockNumber != null " >
+          at_block_number,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.tradeNo != null " >
+          #{item.tradeNo},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.tradeIntegral != null " >
+          #{item.tradeIntegral},
+        </if>
+        <if test="item.remainIntegral != null " >
+          #{item.remainIntegral},
+        </if>
+        <if test="item.tradeType != null " >
+          #{item.tradeType},
+        </if>
+        <if test="item.businessType != null " >
+          #{item.businessType},
+        </if>
+        <if test="item.createTime != null " >
+          #{item.createTime},
+        </if>
+        <if test="item.transactionHash != null " >
+          #{item.transactionHash},
+        </if>
+        <if test="item.atBlockNumber != null " >
+          #{item.atBlockNumber},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

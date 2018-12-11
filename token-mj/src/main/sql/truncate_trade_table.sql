@@ -1,0 +1,11 @@
+TRUNCATE TABLE `eth_asset_flow`;
+TRUNCATE TABLE `eth_integral_amplify`;
+TRUNCATE TABLE `eth_integral_flow`;
+TRUNCATE TABLE `eth_mint_record`;
+TRUNCATE TABLE `eth_returned_integral`;
+TRUNCATE TABLE `eth_sys_asset_flow`;
+TRUNCATE TABLE `eth_trade_record`;
+TRUNCATE TABLE `message_accepter`;
+TRUNCATE TABLE `twd_linked_trade`;
+TRUNCATE TABLE `twd_linked_trade_record`;
+TRUNCATE TABLE `trade_water_flow`;

@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.sys.dao.SysMenuMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.sys.entity.SysMenu" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="parent_ids" property="parentIds" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="DECIMAL" />
+    <result column="href" property="href" jdbcType="VARCHAR" />
+    <result column="target" property="target" jdbcType="VARCHAR" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="is_show" property="isShow" jdbcType="CHAR" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="kind" property="kind" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, parent_id, parent_ids, name, sort, href, target, icon, is_show, permission, create_date, kind,
+    remarks
+  </sql>
+
+  <select id="findByRoles" resultMap="BaseResultMap">
+      SELECT DISTINCT a.* FROM sys_menu a ,sys_role_menu b
+      WHERE a.id = b.menu_id AND kind = #{kind}
+      <if test="list != null">
+          <foreach collection="list" item="item" open="AND b.role_id IN(" close=")" separator=",">
+            #{item}
+          </foreach>
+      </if>
+      ORDER BY  sort DESC
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_menu
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.sys.entity.SysMenu" >
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="parentIds != null" >
+        parent_ids,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="href != null" >
+        href,
+      </if>
+      <if test="target != null" >
+        target,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="isShow != null" >
+        is_show,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+      <if test="kind != null" >
+        kind,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentIds != null" >
+        #{parentIds,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="href != null" >
+        #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=CHAR},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null" >
+        #{kind,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.sys.entity.SysMenu" >
+    update sys_menu
+    <set >
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentIds != null" >
+        parent_ids = #{parentIds,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="href != null" >
+        href = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        target = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null" >
+        is_show = #{isShow,jdbcType=CHAR},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null" >
+        kind = #{kind,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM sys_menu
+    <include refid="findWhere" />
+    ORDER BY sort DESC
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM sys_menu
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="parentId != null  and parentId != ''" >
+        AND parent_id = #{parentId}
+      </if>
+      <if test="parentIds != null  and parentIds != ''" >
+        AND parent_ids = #{parentIds}
+      </if>
+      <if test="name != null  and name != ''" >
+        AND name = #{name}
+      </if>
+      <if test="sort != null " >
+        AND sort = #{sort}
+      </if>
+      <if test="href != null  and href != ''" >
+        AND href = #{href}
+      </if>
+      <if test="target != null  and target != ''" >
+        AND target = #{target}
+      </if>
+      <if test="icon != null  and icon != ''" >
+        AND icon = #{icon}
+      </if>
+      <if test="isShow != null  and isShow != ''" >
+        AND is_show = #{isShow}
+      </if>
+      <if test="permission != null  and permission != ''" >
+        AND permission = #{permission}
+      </if>
+      <if test="createDate != null " >
+        AND create_date = #{createDate}
+      </if>
+      <if test="kind != null " >
+        AND kind = #{kind}
+      </if>
+      <if test="remarks != null  and remarks != ''" >
+        AND remarks = #{remarks}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM sys_menu
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM sys_menu
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into sys_menu
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.parentId != null " >
+          parent_id,
+        </if>
+        <if test="item.parentIds != null " >
+          parent_ids,
+        </if>
+        <if test="item.name != null " >
+          name,
+        </if>
+        <if test="item.sort != null " >
+          sort,
+        </if>
+        <if test="item.href != null " >
+          href,
+        </if>
+        <if test="item.target != null " >
+          target,
+        </if>
+        <if test="item.icon != null " >
+          icon,
+        </if>
+        <if test="item.isShow != null " >
+          is_show,
+        </if>
+        <if test="item.permission != null " >
+          permission,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+        <if test="item.remarks != null " >
+          remarks,
+        </if>
+        <if test="item.kind != null " >
+          kind,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.parentId != null " >
+          #{item.parentId},
+        </if>
+        <if test="item.parentIds != null " >
+          #{item.parentIds},
+        </if>
+        <if test="item.name != null " >
+          #{item.name},
+        </if>
+        <if test="item.sort != null " >
+          #{item.sort},
+        </if>
+        <if test="item.href != null " >
+          #{item.href},
+        </if>
+        <if test="item.target != null " >
+          #{item.target},
+        </if>
+        <if test="item.icon != null " >
+          #{item.icon},
+        </if>
+        <if test="item.isShow != null " >
+          #{item.isShow},
+        </if>
+        <if test="item.permission != null " >
+          #{item.permission},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+        <if test="item.remarks != null " >
+          #{item.remarks},
+        </if>
+        <if test="item.kind != null " >
+          #{item.kind},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

@@ -1,0 +1,6 @@
+ethereum:
+  web3:
+    nonceKeyPrefix: devAndTest
+    httpProvider: http://120.79.228.81:8547
+    gasLimit : 0
+    gasPrice : 0

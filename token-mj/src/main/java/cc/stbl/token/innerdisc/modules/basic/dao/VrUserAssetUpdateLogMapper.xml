@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrUserAssetUpdateLogMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrUserAssetUpdateLog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="asset_change_before" property="assetChangeBefore" jdbcType="VARCHAR" />
+    <result column="asset_change_after" property="assetChangeAfter" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="asset_type" property="assetType" jdbcType="INTEGER" />
+ 
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    * 
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vr_user_asset_update_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vr_user_asset_update_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.ActivateFlow" >
+    insert into vr_user_asset_update_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="assetChangeBefore != null" >
+        asset_change_before,
+      </if>
+      <if test="assetChangeAfter != null" >
+        asset_change_after,
+      </if>
+     
+      <if test="userId != null" >
+        user_id,
+      </if>
+ 
+      <if test="phoneNum != null" >
+        phone_num,
+      </if>
+      
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      
+      <if test="assetType != null" >
+        asset_type,
+      </if>
+      
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="assetChangeBefore != null" >
+        #{assetChangeBefore,jdbcType=VARCHAR},
+      </if>
+      <if test="assetChangeAfter != null" >
+        #{assetChangeAfter,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNum != null" >
+        #{phoneNum,jdbcType=VARCHAR},
+      </if>
+      
+       <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+       <if test="assetType != null" >
+        #{assetType,jdbcType=INTEGER},
+      </if>
+       
+      
+    </trim>
+  </insert>
+ 
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_user_asset_update_log vr
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM vr_user_asset_update_log vr
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where>
+      <if test="phoneNum != null  and phoneNum != ''" >
+        AND phone_num = #{phoneNum}
+      </if>
+      <if test="assetType != null  and assetType != ''" >
+        AND asset_type = #{assetType}
+      </if>
+      <if test="beginTime !=null ">
+        and create_time &gt;= #{beginTime}
+      </if>
+      <if test="endTime !=null ">
+        and create_time &lt;= #{endTime}
+      </if>
+    </where>
+  </sql>
+
+	
+  </mapper>

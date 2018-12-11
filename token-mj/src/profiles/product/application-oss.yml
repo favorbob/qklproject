@@ -1,0 +1,17 @@
+oss:
+  common: &common
+    endpoint: xxxxxx
+    accessKeyId: xxxxxx
+    secretAccessKey: xxxxxx
+  default: &default
+    <<: *common
+    bucket: xxxxxx
+    host: xxxxxx
+
+#  privateResource: *default
+#
+#  publicReadResource:
+#    <<: *common
+#    bucket: sockte
+#    host: https://${oss.publicReadResource.bucket}.oss-cn-shenzhen.aliyuncs.com
+

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.RebateConfigMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.RebateConfig" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="ratio" property="ratio" jdbcType="REAL" />
+    <result column="rebate_ratio" property="rebateRatio" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ratio, rebate_ratio
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from rebate_config
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from rebate_config
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.RebateConfig" >
+    insert into rebate_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="ratio != null" >
+        ratio,
+      </if>
+      <if test="rebateRatio != null" >
+        rebate_ratio,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="ratio != null" >
+        #{ratio,jdbcType=REAL},
+      </if>
+      <if test="rebateRatio != null" >
+        #{rebateRatio,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.RebateConfig" >
+    update rebate_config
+    <set >
+      <if test="ratio != null" >
+        ratio = #{ratio,jdbcType=REAL},
+      </if>
+      <if test="rebateRatio != null" >
+        rebate_ratio = #{rebateRatio,jdbcType=REAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM rebate_config
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM rebate_config
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="ratio != null " >
+        AND ratio = #{ratio}
+      </if>
+      <if test="rebateRatio != null " >
+        AND rebate_ratio = #{rebateRatio}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM rebate_config
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM rebate_config
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into rebate_config
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.ratio != null " >
+          ratio,
+        </if>
+        <if test="item.rebateRatio != null " >
+          rebate_ratio,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.ratio != null " >
+          #{item.ratio},
+        </if>
+        <if test="item.rebateRatio != null " >
+          #{item.rebateRatio},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.stbl.token.innerdisc.modules.centerManager.dao.IntroPersonMapper">
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.centerManager.entity.IntroPerson">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="intro_id" jdbcType="VARCHAR" property="introId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="is_read" jdbcType="INTEGER" property="isRead" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, intro_id, user_id, is_read, create_date, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from intro_person
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from intro_person
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.IntroPerson">
+    insert into intro_person (id, intro_id, user_id, 
+      is_read, create_date, remarks
+      )
+    values (#{id,jdbcType=VARCHAR}, #{introId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{isRead,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.IntroPerson">
+    insert into intro_person
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="introId != null">
+        intro_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="isRead != null">
+        is_read,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="introId != null">
+        #{introId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null">
+        #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.IntroPerson">
+    update intro_person
+    <set>
+      <if test="introId != null">
+        intro_id = #{introId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null">
+        is_read = #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.IntroPerson">
+    update intro_person
+    set intro_id = #{introId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      is_read = #{isRead,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectByIntroIdUserId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from intro_person
+    <where>
+      <if test="introId != null  and introId != ''">
+        AND intro_id = #{introId}
+      </if>
+      <if test="userId != null  and userId != ''">
+        AND user_id = #{userId}
+      </if>
+    </where>
+  </select>
+</mapper>

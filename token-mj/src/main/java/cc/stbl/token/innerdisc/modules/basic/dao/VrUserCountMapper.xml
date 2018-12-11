@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrUserCountMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrUserCount" >
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_level1" property="userLevel1" jdbcType="INTEGER" />
+    <result column="user_level2" property="userLevel2" jdbcType="INTEGER" />
+    <result column="user_levelN" property="userLeveln" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, user_level1, user_level2, user_levelN
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vr_user_count
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vr_user_count
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserCount" >
+    insert into vr_user_count
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userLevel1 != null" >
+        user_level1,
+      </if>
+      <if test="userLevel2 != null" >
+        user_level2,
+      </if>
+      <if test="userLeveln != null" >
+        user_levelN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel1 != null" >
+        #{userLevel1,jdbcType=INTEGER},
+      </if>
+      <if test="userLevel2 != null" >
+        #{userLevel2,jdbcType=INTEGER},
+      </if>
+      <if test="userLeveln != null" >
+        #{userLeveln,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserCount" >
+    update vr_user_count
+    <set >
+      <if test="userLevel1 != null" >
+        user_level1 = #{userLevel1,jdbcType=INTEGER},
+      </if>
+      <if test="userLevel2 != null" >
+        user_level2 = #{userLevel2,jdbcType=INTEGER},
+      </if>
+      <if test="userLeveln != null" >
+        user_levelN = #{userLeveln,jdbcType=INTEGER},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_user_count
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM vr_user_count
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="userLevel1 != null " >
+        AND user_level1 = #{userLevel1}
+      </if>
+      <if test="userLevel2 != null " >
+        AND user_level2 = #{userLevel2}
+      </if>
+      <if test="userLeveln != null " >
+        AND user_levelN = #{userLeveln}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM vr_user_count
+    <foreach collection="array" item="item" separator="," open="where user_id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_user_count
+    <foreach collection="array" item="item" separator="," open="where user_id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into vr_user_count
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.userLevel1 != null " >
+          user_level1,
+        </if>
+        <if test="item.userLevel2 != null " >
+          user_level2,
+        </if>
+        <if test="item.userLeveln != null " >
+          user_levelN,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.userLevel1 != null " >
+          #{item.userLevel1},
+        </if>
+        <if test="item.userLevel2 != null " >
+          #{item.userLevel2},
+        </if>
+        <if test="item.userLeveln != null " >
+          #{item.userLeveln},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+
+  <insert id="saveOrUpdate" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserCount" >
+    insert into vr_user_count
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userLevel1 != null" >
+        user_level1,
+      </if>
+      <if test="userLevel2 != null" >
+        user_level2,
+      </if>
+      <if test="userLeveln != null" >
+        user_levelN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel1 != null" >
+        #{userLevel1,jdbcType=INTEGER},
+      </if>
+      <if test="userLevel2 != null" >
+        #{userLevel2,jdbcType=INTEGER},
+      </if>
+      <if test="userLeveln != null" >
+        #{userLeveln,jdbcType=INTEGER},
+      </if>
+    </trim>
+    on duplicate key update
+    <trim suffixOverrides=",">
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userLevel1 != null" >
+        user_level1 = #{userLevel1,jdbcType=INTEGER},
+      </if>
+      <if test="userLevel2 != null" >
+        user_level2 = #{userLevel2,jdbcType=INTEGER},
+      </if>
+      <if test="userLeveln != null" >
+        user_levelN = #{userLevel2,jdbcType=INTEGER}
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

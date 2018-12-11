@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <context id="develop" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <plugin type="org.mybatis.generator.plugin.GeneratorSelectListPlugin"/>
+        <plugin type="org.mybatis.generator.plugin.GeneratorOptByIdsPlugin"/>
+        <plugin type="org.mybatis.generator.plugin.GeneratorBatchInsertPlugin"/>
+        <plugin type="org.mybatis.generator.plugin.GeneratorServicePlugin"/>
+        <commentGenerator type="org.mybatis.generator.generator.CommentGeneratorExtract"/>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://rm-j6c65n3rr9jbwj5uopo.mysql.rds.aliyuncs.com:3306/mj_dev?useUnicode=true&amp;characterEncoding=utf-8"
+                        userId="mjtoken" password="npdb-201c8tol6"/>
+        <!-- 指定生成的类型为java类型，避免数据库中number等类型字段 -->
+        <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverImpl">
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 生成model模型，对应的包，存放位置可以指定具体的路径,如/ProjectName/src，也可以使用MAVEN来自动生成 -->
+        <javaModelGenerator targetPackage="cc.stbl.token.innerdisc.modules.basic.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaModelGenerator>
+        <!--对应的xml mapper文件  -->
+        <sqlMapGenerator targetPackage="cc.stbl.token.innerdisc.modules.basic.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 对应的dao接口 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cc.stbl.token.innerdisc.modules.basic.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <table tableName="vr_prize_detail" domainObjectName="VrPrizeDetail1"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false"/>
+    </context>
+
+</generatorConfiguration>

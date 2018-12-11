@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.sys.dao.SysLogMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.sys.entity.SysLog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="ip_address" property="ipAddress" jdbcType="VARCHAR" />
+    <result column="is_syslog" property="isSysLog" jdbcType="TINYINT" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="log_info" property="logInfo" jdbcType="VARCHAR" />
+    <result column="user_type" property="userType" jdbcType="TINYINT" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, user_name, ip_address, is_syslog, create_date, log_info, user_type, remarks
+  </sql>
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_log
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.sys.entity.SysLog" >
+    insert into sys_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="ipAddress != null" >
+        ip_address,
+      </if>
+      <if test="isSysLog != null" >
+        is_syslog,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="logInfo != null" >
+        log_info,
+      </if>
+      <if test="userType != null" >
+        user_type,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null" >
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="isSysLog != null" >
+        #{isSysLog,jdbcType=TINYINT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logInfo != null" >
+        #{logInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null" >
+        #{userType,jdbcType=TINYINT},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="findSysLogCount" resultType="java.lang.Long" >
+    SELECT COUNT(*)
+    FROM sys_log slog
+    <include refid="findSysLogByWhere" />
+  </select>
+
+  <sql id="findSysLogByWhere">
+    <where>
+      <if test="userId != null">
+          user_id = #{userId}
+      </if>
+      <if test="startDate != null">
+        <![CDATA[AND create_date  >= #{startDate}]]>
+      </if>
+      <if test="endDate != null">
+        <![CDATA[AND create_date  <= #{endDate}]]>
+      </if>
+      <if test="ipAddress != null" >
+        AND ip_address = #{ipAddress}
+      </if>
+      <if test="userType != null" >
+        AND user_type = #{userType}
+      </if>
+    </where>
+  </sql>
+
+  <select id="findSysLogList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM sys_log
+    <include refid="findSysLogByWhere" />
+    ORDER BY create_date DESC
+  </select>
+
+</mapper>

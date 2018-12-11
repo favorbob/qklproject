@@ -1,0 +1,7 @@
+sms:
+  aliyun:
+    smsCodeKey: code
+    mock: false
+    accessKeyId: LTAInhksHrc91qPG
+    accessKeySecret: SujwF0WWQGKbq2MktXObf603KdsHe4
+    sign: AIIC

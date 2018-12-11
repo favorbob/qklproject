@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.ResourceUserUsedTimeMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.ResourceUserUsedTime" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="resource_id" property="resourceId" jdbcType="VARCHAR" />
+    <result column="device_id" property="deviceId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="resource_type" property="resourceType" jdbcType="TINYINT" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="times" property="times" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, resource_id, device_id, user_id, resource_type, start_time, end_time, times
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from resource_user_used_time
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from resource_user_used_time
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.ResourceUserUsedTime" >
+    insert into resource_user_used_time
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="resourceId != null" >
+        resource_id,
+      </if>
+      <if test="deviceId != null" >
+        device_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="resourceType != null" >
+        resource_type,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="times != null" >
+        times,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null" >
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null" >
+        #{resourceType,jdbcType=TINYINT},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.ResourceUserUsedTime" >
+    update resource_user_used_time
+    <set >
+      <if test="resourceId != null" >
+        resource_id = #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceId != null" >
+        device_id = #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceType != null" >
+        resource_type = #{resourceType,jdbcType=TINYINT},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="times != null" >
+        times = #{times,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM resource_user_used_time
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM resource_user_used_time
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="resourceId != null  and resourceId != ''" >
+        AND resource_id = #{resourceId}
+      </if>
+      <if test="deviceId != null  and deviceId != ''" >
+        AND device_id = #{deviceId}
+      </if>
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="resourceType != null " >
+        AND resource_type = #{resourceType}
+      </if>
+      <if test="startTime != null " >
+        AND start_time = #{startTime}
+      </if>
+      <if test="endTime != null " >
+        AND end_time = #{endTime}
+      </if>
+      <if test="times != null " >
+        AND times = #{times}
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM resource_user_used_time
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM resource_user_used_time
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into resource_user_used_time
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.resourceId != null " >
+          resource_id,
+        </if>
+        <if test="item.deviceId != null " >
+          device_id,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.resourceType != null " >
+          resource_type,
+        </if>
+        <if test="item.startTime != null " >
+          start_time,
+        </if>
+        <if test="item.endTime != null " >
+          end_time,
+        </if>
+        <if test="item.times != null " >
+          times,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.resourceId != null " >
+          #{item.resourceId},
+        </if>
+        <if test="item.deviceId != null " >
+          #{item.deviceId},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.resourceType != null " >
+          #{item.resourceType},
+        </if>
+        <if test="item.startTime != null " >
+          #{item.startTime},
+        </if>
+        <if test="item.endTime != null " >
+          #{item.endTime},
+        </if>
+        <if test="item.times != null " >
+          #{item.times},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+
+
+  <!-- ******************************************************* -->
+
+  <!-- 获取设备使用时长记录 -->
+  <select id="getDeviceUseTimeRecord" resultType="cc.stbl.token.innerdisc.modules.basic.dto.DeviceUseTimeDTO">
+    select t1.*,t2.resource_name resourceName,t2.resource_type resourceType from
+      (select resource_id resourceId,sum(times) sumTimes,max(end_time) maxEndTime from resource_user_used_time
+      where 1 = 1
+            and device_id = #{deviceId}
+            <if test="month != null">
+              and DATE_FORMAT(end_time,'%y-%m') = DATE_FORMAT(#{month},'%y-%m')
+            </if>
+            <if test="resourceType != null">
+              and resource_type = #{resourceType}
+            </if>
+      group by resource_id) t1,resource_info t2
+    where t1.resourceId = t2.id
+
+  </select>
+
+
+  <!-- 获取设备使用次数记录 -->
+  <select id="getDeviceUseNumRecord" resultType="cc.stbl.token.innerdisc.modules.basic.dto.DeviceUseNumDTO">
+    select t1.*,t2.resource_name resourceName,t2.resource_type resourceType from
+    (select resource_id resourceId,count(1) countNum,max(end_time) maxEndTime from resource_user_used_time
+    where 1 = 1
+    and device_id = #{deviceId}
+    <if test="month != null">
+      and DATE_FORMAT(end_time,'%y-%m') = DATE_FORMAT(#{month},'%y-%m')
+    </if>
+    <if test="resourceType != null">
+      and resource_type = #{resourceType}
+    </if>
+    group by resource_id) t1,resource_info t2
+    where t1.resourceId = t2.id
+
+  </select>
+
+  <select id="getDeviceUseTimeRecordCount" resultType="_long">
+    select count(*) from
+    (select resource_id resourceId,sum(times) sumTimes,max(end_time) maxEndTime from resource_user_used_time
+    where 1 = 1
+    and device_id = #{deviceId}
+    <if test="month != null">
+      and DATE_FORMAT(end_time,'%y-%m') = DATE_FORMAT(#{month},'%y-%m')
+    </if>
+    <if test="resourceType != null">
+      and resource_type = #{resourceType}
+    </if>
+    group by resource_id
+    ) t
+  </select>
+
+  <select id="getDeviceUseNumRecordCount" resultType="_long">
+    select count(*) from
+    (select resource_id resourceId,count(1) countNum,max(end_time) maxEndTime from resource_user_used_time
+    where 1 = 1
+    and device_id = #{deviceId}
+    <if test="month != null">
+      and DATE_FORMAT(end_time,'%y-%m') = DATE_FORMAT(#{month},'%y-%m')
+    </if>
+    <if test="resourceType != null">
+      and resource_type = #{resourceType}
+    </if>
+    group by resource_id) t
+  </select>
+
+
+  <select id="getDeviceUseTimes" resultType="_long">
+    select sum(times) from resource_user_used_time
+    where
+      device_id = #{deviceId}
+    <if test="resourceType != null">
+      and resource_type = #{resourceType}
+    </if>
+    and end_time is not null
+  </select>
+
+  <select id="getDeviceUseNum" resultType="_int">
+    select count(*)
+    from resource_user_used_time
+    where
+    device_id = #{deviceId}
+    <if test="resourceType != null">
+      and resource_type = #{resourceType}
+    </if>
+    and end_time is not null
+  </select>
+
+
+</mapper>

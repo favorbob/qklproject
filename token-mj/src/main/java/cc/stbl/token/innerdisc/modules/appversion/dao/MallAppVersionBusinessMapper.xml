@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.stbl.token.innerdisc.modules.appversion.dao.MallAppVersionMapper">
+
+    <select id="selectMaxVersionCode" resultType="java.lang.Integer">
+        select ifnull(max(version_code), 1) from mall_app_version where client_type=#{1}
+    </select>
+
+    <select id="getNewestVersion" resultMap="BaseResultMap">
+        select * from mall_app_version t where t.client_type = #{0} order by version_code desc limit 1;
+    </select>
+
+</mapper>

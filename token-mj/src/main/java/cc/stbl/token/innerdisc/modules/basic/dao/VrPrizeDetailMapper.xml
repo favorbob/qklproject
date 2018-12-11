@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrPrizeDetailMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrPrizeDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="total_earning" property="totalEarning" jdbcType="DECIMAL" />
+    <result column="mj_earning" property="mjEarning" jdbcType="DECIMAL" />
+    <result column="aiic_earning" property="aiicEarning" jdbcType="DECIMAL" />
+    <result column="level_award" property="levelAward" jdbcType="DECIMAL" />
+    <result column="original_asset" property="originalAsset" jdbcType="DECIMAL" />
+    <result column="after_asset" property="afterAsset" jdbcType="DECIMAL" />
+    <result column="original_mj" property="originalMj" jdbcType="DECIMAL" />
+    <result column="after_mj" property="afterMj" jdbcType="DECIMAL" />
+    <result column="original_aiic" property="originalAiic" jdbcType="DECIMAL" />
+    <result column="after_aiic" property="afterAiic" jdbcType="DECIMAL" />
+    <result column="settle_date" property="settleDate" jdbcType="TIMESTAMP" />
+    <result column="settle_count" property="settleCount" jdbcType="BIT" />
+    <result column="create_date" property="createDate" jdbcType="DATE" />
+    <result column="phone_num" property="phoneNum" jdbcType="VARCHAR" /><!--奖金明细查询返回字段-->
+    <result column="user_level" property="userLevel" jdbcType="VARCHAR" /><!--奖金明细查询返回字段-->
+    <result column="user_name" property="userName" jdbcType="VARCHAR" /><!--奖金明细查询返回字段-->
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, total_earning, mj_earning, aiic_earning, level_award, original_asset, 
+    after_asset, original_mj, after_mj, original_aiic, after_aiic, settle_date, settle_count,create_date
+  </sql>
+  
+    <select id="selectByUserIdAndTime" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from vr_prize_detail
+    where user_id = #{userId,jdbcType=VARCHAR} 
+    and settle_count=0 
+    and create_date=#{createTime}  
+  </select>
+  
+  
+  <select id="countByUserId" resultType="int" >
+    select count(*) 
+    from vr_prize_detail 
+    where user_id = #{userId,jdbcType=VARCHAR} 
+    and settle_count=1 
+  </select>
+  
+    <select id="countMjAndAiicByUserId" resultType="map" >
+    select sum(original_mj) as originalMj,sum(after_mj) as afterMj,sum(original_aiic) as originalAiic,sum(after_aiic) as afterAiic 
+    from vr_prize_detail 
+    where user_id = #{userId,jdbcType=VARCHAR} 
+    and settle_count=1 
+  </select>
+  
+  
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vr_prize_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vr_prize_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrPrizeDetail" >
+    insert into vr_prize_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="totalEarning != null" >
+        total_earning,
+      </if>
+      <if test="mjEarning != null" >
+        mj_earning,
+      </if>
+      <if test="aiicEarning != null" >
+        aiic_earning,
+      </if>
+      <if test="levelAward != null" >
+        level_award,
+      </if>
+      <if test="originalAsset != null" >
+        original_asset,
+      </if>
+      <if test="afterAsset != null" >
+        after_asset,
+      </if>
+      <if test="originalMj != null" >
+        original_mj,
+      </if>
+      <if test="afterMj != null" >
+        after_mj,
+      </if>
+      <if test="originalAiic != null" >
+        original_aiic,
+      </if>
+      <if test="afterAiic != null" >
+        after_aiic,
+      </if>
+      <if test="settleDate != null" >
+        settle_date,
+      </if>
+      <if test="settleCount != null" >
+        settle_count,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalEarning != null" >
+        #{totalEarning,jdbcType=DECIMAL},
+      </if>
+      <if test="mjEarning != null" >
+        #{mjEarning,jdbcType=DECIMAL},
+      </if>
+      <if test="aiicEarning != null" >
+        #{aiicEarning,jdbcType=DECIMAL},
+      </if>
+      <if test="levelAward != null" >
+        #{levelAward,jdbcType=DECIMAL},
+      </if>
+      <if test="originalAsset != null" >
+        #{originalAsset,jdbcType=DECIMAL},
+      </if>
+      <if test="afterAsset != null" >
+        #{afterAsset,jdbcType=DECIMAL},
+      </if>
+      <if test="originalMj != null" >
+        #{originalMj,jdbcType=DECIMAL},
+      </if>
+      <if test="afterMj != null" >
+        #{afterMj,jdbcType=DECIMAL},
+      </if>
+      <if test="originalAiic != null" >
+        #{originalAiic,jdbcType=DECIMAL},
+      </if>
+      <if test="afterAiic != null" >
+        #{afterAiic,jdbcType=DECIMAL},
+      </if>
+      <if test="settleDate != null" >
+        now(),
+      </if>
+      <if test="settleCount != null" >
+        #{settleCount,jdbcType=BIT},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrPrizeDetail" >
+    update vr_prize_detail
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalEarning != null" >
+        total_earning = #{totalEarning,jdbcType=DECIMAL},
+      </if>
+      <if test="mjEarning != null" >
+        mj_earning = #{mjEarning,jdbcType=DECIMAL},
+      </if>
+      <if test="aiicEarning != null" >
+        aiic_earning = #{aiicEarning,jdbcType=DECIMAL},
+      </if>
+      <if test="levelAward != null" >
+        level_award = #{levelAward,jdbcType=DECIMAL},
+      </if>
+      <if test="originalAsset != null" >
+        original_asset = #{originalAsset,jdbcType=DECIMAL},
+      </if>
+      <if test="afterAsset != null" >
+        after_asset = #{afterAsset,jdbcType=DECIMAL},
+      </if>
+      <if test="originalMj != null" >
+        original_mj = #{originalMj,jdbcType=DECIMAL},
+      </if>
+      <if test="afterMj != null" >
+        after_mj = #{afterMj,jdbcType=DECIMAL},
+      </if>
+      <if test="originalAiic != null" >
+        original_aiic = #{originalAiic,jdbcType=DECIMAL},
+      </if>
+      <if test="afterAiic != null" >
+        after_aiic = #{afterAiic,jdbcType=DECIMAL},
+      </if>
+      <if test="settleDate != null" >
+        settle_date = now(),
+      </if>
+      <if test="settleCount != null" >
+        settle_count = #{settleCount,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_prize_detail
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM vr_prize_detail
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="userId != null  and userId != ''" >
+        AND user_id = #{userId}
+      </if>
+      <if test="totalEarning != null " >
+        AND total_earning = #{totalEarning}
+      </if>
+      <if test="mjEarning != null " >
+        AND mj_earning = #{mjEarning}
+      </if>
+      <if test="aiicEarning != null " >
+        AND aiic_earning = #{aiicEarning}
+      </if>
+      <if test="levelAward != null " >
+        AND level_award = #{levelAward}
+      </if>
+      <if test="originalAsset != null " >
+        AND original_asset = #{originalAsset}
+      </if>
+      <if test="afterAsset != null " >
+        AND after_asset = #{afterAsset}
+      </if>
+      <if test="originalMj != null " >
+        AND original_mj = #{originalMj}
+      </if>
+      <if test="afterMj != null " >
+        AND after_mj = #{afterMj}
+      </if>
+      <if test="originalAiic != null " >
+        AND original_aiic = #{originalAiic}
+      </if>
+      <if test="afterAiic != null " >
+        AND after_aiic = #{afterAiic}
+      </if>
+      <if test="settleDate != null " >
+        AND settle_date = #{settleDate}
+      </if>
+      <if test="settleCount != null " >
+        AND settle_count = #{settleCount} 
+      </if>
+      order by settle_date desc
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM vr_prize_detail
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM vr_prize_detail
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into vr_prize_detail
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.totalEarning != null " >
+          total_earning,
+        </if>
+        <if test="item.mjEarning != null " >
+          mj_earning,
+        </if>
+        <if test="item.aiicEarning != null " >
+          aiic_earning,
+        </if>
+        <if test="item.levelAward != null " >
+          level_award,
+        </if>
+        <if test="item.originalAsset != null " >
+          original_asset,
+        </if>
+        <if test="item.afterAsset != null " >
+          after_asset,
+        </if>
+        <if test="item.originalMj != null " >
+          original_mj,
+        </if>
+        <if test="item.afterMj != null " >
+          after_mj,
+        </if>
+        <if test="item.originalAiic != null " >
+          original_aiic,
+        </if>
+        <if test="item.afterAiic != null " >
+          after_aiic,
+        </if>
+        <if test="item.settleDate != null " >
+          settle_date,
+        </if>
+        <if test="item.settleCount != null " >
+          settle_count,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.totalEarning != null " >
+          #{item.totalEarning},
+        </if>
+        <if test="item.mjEarning != null " >
+          #{item.mjEarning},
+        </if>
+        <if test="item.aiicEarning != null " >
+          #{item.aiicEarning},
+        </if>
+        <if test="item.levelAward != null " >
+          #{item.levelAward},
+        </if>
+        <if test="item.originalAsset != null " >
+          #{item.originalAsset},
+        </if>
+        <if test="item.afterAsset != null " >
+          #{item.afterAsset},
+        </if>
+        <if test="item.originalMj != null " >
+          #{item.originalMj},
+        </if>
+        <if test="item.afterMj != null " >
+          #{item.afterMj},
+        </if>
+        <if test="item.originalAiic != null " >
+          #{item.originalAiic},
+        </if>
+        <if test="item.afterAiic != null " >
+          #{item.afterAiic},
+        </if>
+        <if test="item.settleDate != null " >
+          #{item.settleDate},
+        </if>
+        <if test="item.settleCount != null " >
+          #{item.settleCount},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+
+  <select id="findVrPrizeDetailCount" resultType="java.lang.Long" >
+    SELECT COUNT(*)
+    FROM vr_user_info vruser, vr_prize_detail vrprize
+    <include refid="findDetailByWhere" />
+  </select>
+
+  <select id="findVrPrizeDetailList" resultMap="BaseResultMap" >
+    SELECT vruser.phone_num, vruser.user_name, vruser.user_area_level as user_level, vrprize.*
+    FROM vr_user_info vruser, vr_prize_detail vrprize
+    <include refid="findDetailByWhere" />
+  </select>
+
+  <sql id="findDetailByWhere">
+    <where>
+      vruser.user_id = vrprize.user_id
+      <if test="phoneNum != null  and phoneNum != '' " >
+       AND vruser.phone_num = #{phoneNum}
+      </if>
+      <if test="beginTime != null">
+        <![CDATA[AND vrprize.settle_date  >= #{beginTime}]]>
+      </if>
+      <if test="endTime != null">
+        <![CDATA[AND vrprize.settle_date  <= #{endTime}]]>
+      </if>
+    </where>
+    ORDER BY vrprize.settle_date ASC
+  </sql>
+
+
+</mapper>

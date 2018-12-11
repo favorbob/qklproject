@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrUserLRValueRecordMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrUserLRValueRecord" >
+    
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+	<result column="add_value" property="addValue" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * 
+    from vr_user_lrvalue_record
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserLRValueRecord" >
+    insert into vr_user_lrvalue_record(id,user_id,status,create_time,add_value) values(#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, now(),#{addValue,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserLRValueRecord" >
+    update vr_user_lrvalue_record 
+    <set >
+      <if test="updateTime != null" >
+        pid = now(),
+      </if>
+
+      <if test="status != null" >
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT * FROM vr_user_lrvalue_record t 
+  </select>
+ 
+  <select id="selectAllZeroStatus" resultMap="BaseResultMap" >
+    SELECT * FROM vr_user_lrvalue_record t where t.status=0 and t.create_time >= #{startDate}
+  </select>
+  
+   <select id="selectByUserId" resultMap="BaseResultMap" >
+    SELECT * FROM vr_user_lrvalue_record t where t.userId=#{userId,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

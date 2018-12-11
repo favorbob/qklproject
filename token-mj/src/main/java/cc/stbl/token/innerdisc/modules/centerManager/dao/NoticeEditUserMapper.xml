@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.stbl.token.innerdisc.modules.centerManager.dao.NoticeEditUserMapper">
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEditUser">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="notice_consignee" jdbcType="VARCHAR" property="noticeConsignee" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="statue" jdbcType="INTEGER" property="statue" />
+    <result column="is_read" jdbcType="INTEGER" property="isRead" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, notice_consignee, user_id, user_name, statue, is_read, create_date, update_date, 
+    remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from notice_edit_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from notice_edit_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEditUser">
+    insert into notice_edit_user (id, notice_consignee, user_id, 
+      user_name, statue, is_read, 
+      create_date, update_date, remarks
+      )
+    values (#{id,jdbcType=VARCHAR}, #{noticeConsignee,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{statue,jdbcType=INTEGER}, #{isRead,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{updateDate,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEditUser">
+    insert into notice_edit_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="noticeConsignee != null">
+        notice_consignee,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="statue != null">
+        statue,
+      </if>
+      <if test="isRead != null">
+        is_read,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeConsignee != null">
+        #{noticeConsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="statue != null">
+        #{statue,jdbcType=INTEGER},
+      </if>
+      <if test="isRead != null">
+        #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEditUser">
+    update notice_edit_user
+    <set>
+      <if test="noticeConsignee != null">
+        notice_consignee = #{noticeConsignee,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="statue != null">
+        statue = #{statue,jdbcType=INTEGER},
+      </if>
+      <if test="isRead != null">
+        is_read = #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEditUser">
+    update notice_edit_user
+    set notice_consignee = #{noticeConsignee,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      statue = #{statue,jdbcType=INTEGER},
+      is_read = #{isRead,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <delete id="deleteByNoticeConsignee" parameterType="string">
+    delete from notice_edit_user
+    where notice_consignee = #{noticeConsignee,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="findCountByConsignee" resultType="java.lang.Long" >
+    SELECT COUNT(*)
+    FROM notice_edit_user slog
+    where notice_consignee = #{noticeConsignee,jdbcType=VARCHAR}
+  </select>
+  <select id="findListByConsignee" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM notice_edit_user slog
+    where notice_consignee = #{noticeConsignee,jdbcType=VARCHAR}
+  </select>
+  <select id="findUseListByConsignee" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM notice_edit_user
+    where statue = 1 and notice_consignee = #{noticeConsignee,jdbcType=VARCHAR}
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into notice_edit_user
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.noticeConsignee != null " >
+          notice_consignee,
+        </if>
+        <if test="item.userId != null " >
+          user_id,
+        </if>
+        <if test="item.userName != null " >
+          user_name,
+        </if>
+        <if test="item.statue != null " >
+          statue,
+        </if>
+        <if test="item.isRead != null " >
+          is_read,
+        </if>
+        <if test="item.createDate != null " >
+          create_date,
+        </if>
+        <if test="item.updateDate != null " >
+          update_date,
+        </if>
+        <if test="item.remarks != null " >
+          remarks,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.noticeConsignee != null " >
+          #{item.noticeConsignee},
+        </if>
+        <if test="item.userId != null " >
+          #{item.userId},
+        </if>
+        <if test="item.userName != null " >
+          #{item.userName},
+        </if>
+        <if test="item.statue != null " >
+          #{item.statue},
+        </if>
+        <if test="item.isRead != null " >
+          #{item.isRead},
+        </if>
+        <if test="item.createDate != null " >
+          #{item.createDate},
+        </if>
+        <if test="item.updateDate != null " >
+          #{item.updateDate},
+        </if>
+        <if test="item.remarks != null " >
+          #{item.remarks},
+        </if>
+      </trim>
+      ON DUPLICATE KEY UPDATE notice_consignee = #{item.noticeConsignee},user_id = #{item.userId},user_name = #{item.userName},
+      statue = #{item.statue},
+      is_read = #{item.isRead},
+      update_date = #{item.updateDate}
+    </foreach>
+  </insert>
+
+  <!--更新收件人为无效状态-->
+  <update id="updateStatueByIds" parameterType="java.lang.reflect.Array" >
+    UPDATE notice_edit_user SET statue = 0
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </update>
+
+  <!--根据userid和收件编码 更新为已读-->
+  <update id="updateIsReadByUserIdAndNum" parameterType="cc.stbl.token.innerdisc.modules.centerManager.entity.NoticeEditUser" >
+    update notice_edit_user
+    <set>
+      <if test="isRead != null">
+        is_read = #{isRead,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+      AND notice_consignee = #{noticeConsignee,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

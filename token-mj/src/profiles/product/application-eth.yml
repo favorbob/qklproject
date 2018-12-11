@@ -1,0 +1,10 @@
+ethereum:
+  web3:
+    nonceKeyPrefix: product
+    httpProvider: http://172.18.187.212:8547
+    gasLimit : 0
+    gasPrice : 0
+
+#npc1 node1 http://172.18.187.212:8547
+#npc2 node1 http://172.18.187.213:8547
+#npc2 node2 http://172.18.187.213:8548  备份机，暂时不要用

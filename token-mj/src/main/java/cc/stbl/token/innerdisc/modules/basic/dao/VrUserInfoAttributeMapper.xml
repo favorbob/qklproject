@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.VrUserInfoAttributeMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.VrUserInfoAttribute" >
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="bank_name" property="bankName" jdbcType="VARCHAR" />
+    <result column="bank_card_num" property="bankCardNum" jdbcType="VARCHAR" />
+    <result column="bank_address" property="bankAddress" jdbcType="VARCHAR" />
+    <result column="wechat_phone_num" property="wechatPhoneNum" jdbcType="VARCHAR" />
+    <result column="aliplay" property="aliplay" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_id, id, address, bank_name, bank_card_num, bank_address, wechat_phone_num, aliplay,user_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from vr_user_info_attribute
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+   select 
+    <include refid="Base_Column_List" />
+    from vr_user_info_attribute
+    where user_id = #{userId,jdbcType=VARCHAR} limit 1
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from vr_user_info_attribute
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserInfoAttribute" >
+    insert into vr_user_info_attribute
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="bankName != null" >
+       bank_name,
+      </if>
+      <if test="bankCardNum != null" >
+        bank_card_num,
+      </if>
+      <if test="bankAddress != null" >
+        bank_address,
+      </if>
+      <if test="wechatPhoneNum != null" >
+        wechat_phone_num,
+      </if>
+      <if test="aliplay != null" >
+        aliplay,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardNum != null" >
+        #{bankCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAddress != null" >
+        #{bankAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatPhoneNum != null" >
+        #{wechatPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="aliplay != null" >
+        #{aliplay,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+ 
+ 
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.VrUserInfoAttribute" >
+    update vr_user_info_attribute
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        id = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        bank_name = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="bankCardNum != null" >
+        bank_card_num = #{bankCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="bankAddress != null" >
+        bank_address = #{bankAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatPhoneNum != null" >
+        wechat_phone_num = #{wechatPhoneNum,jdbcType=VARCHAR},
+      </if>
+      <if test="aliplay != null" >
+        aliplay = #{aliplay,jdbcType=VARCHAR},
+      </if>
+       <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+     
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+ 
+  </mapper>

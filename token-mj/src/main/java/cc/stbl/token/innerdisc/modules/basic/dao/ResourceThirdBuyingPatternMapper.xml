@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cc.stbl.token.innerdisc.modules.basic.dao.ResourceThirdBuyingPatternMapper" >
+  <resultMap id="BaseResultMap" type="cc.stbl.token.innerdisc.modules.basic.entity.ResourceThirdBuyingPattern" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="buying_pattern" property="buyingPattern" jdbcType="TINYINT" />
+    <result column="buying_category" property="buyingCategory" jdbcType="TINYINT" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="settings_id" property="settingsId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, buying_pattern, buying_category, priority, price, settings_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from resource_third_buying_pattern
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from resource_third_buying_pattern
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insertSelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.ResourceThirdBuyingPattern" >
+    insert into resource_third_buying_pattern
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="buyingPattern != null" >
+        buying_pattern,
+      </if>
+      <if test="buyingCategory != null" >
+        buying_category,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="settingsId != null" >
+        settings_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="buyingPattern != null" >
+        #{buyingPattern,jdbcType=TINYINT},
+      </if>
+      <if test="buyingCategory != null" >
+        #{buyingCategory,jdbcType=TINYINT},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="settingsId != null" >
+        #{settingsId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cc.stbl.token.innerdisc.modules.basic.entity.ResourceThirdBuyingPattern" >
+    update resource_third_buying_pattern
+    <set >
+      <if test="buyingPattern != null" >
+        buying_pattern = #{buyingPattern,jdbcType=TINYINT},
+      </if>
+      <if test="buyingCategory != null" >
+        buying_category = #{buyingCategory,jdbcType=TINYINT},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="settingsId != null" >
+        settings_id = #{settingsId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findList" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM resource_third_buying_pattern
+    <include refid="findWhere" />
+  </select>
+  <select id="findCount" resultType="java.lang.Long" >
+    SELECT COUNT(*) 
+    FROM resource_third_buying_pattern
+    <include refid="findWhere" />
+  </select>
+  <sql id="findWhere" >
+    <where >
+      <if test="buyingPattern != null " >
+        AND buying_pattern = #{buyingPattern}
+      </if>
+      <if test="buyingCategory != null " >
+        AND buying_category = #{buyingCategory}
+      </if>
+      <if test="priority != null " >
+        AND priority = #{priority}
+      </if>
+      <if test="price != null " >
+        AND price = #{price}
+      </if>
+      <if test="settingsId != null" >
+        AND settings_id = #{settingsId},
+      </if>
+    </where>
+  </sql>
+  <delete id="deleteByIds" parameterType="java.lang.reflect.Array" >
+    DELETE FROM resource_third_buying_pattern
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </delete>
+  <select id="findByIds" parameterType="java.lang.reflect.Array" resultMap="BaseResultMap" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM resource_third_buying_pattern
+    <foreach collection="array" item="item" separator="," open="where id in (" close=")" >
+      #{item}
+    </foreach>
+  </select>
+  <insert id="batchInsertSelective" parameterType="java.util.List" >
+    <foreach collection="list" item="item" separator=";" close=";" >
+      insert into resource_third_buying_pattern
+      <trim prefix="(" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          id,
+        </if>
+        <if test="item.buyingPattern != null " >
+          buying_pattern,
+        </if>
+        <if test="item.buyingCategory != null " >
+          buying_category,
+        </if>
+        <if test="item.priority != null " >
+          priority,
+        </if>
+        <if test="item.price != null " >
+          price,
+        </if>
+        <if test="item.settingsId != null" >
+          settings_id,
+        </if>
+      </trim>
+      <trim prefix="values (" suffix=")" suffixOverrides="," >
+        <if test="item.id != null " >
+          #{item.id},
+        </if>
+        <if test="item.buyingPattern != null " >
+          #{item.buyingPattern},
+        </if>
+        <if test="item.buyingCategory != null " >
+          #{item.buyingCategory},
+        </if>
+        <if test="item.priority != null " >
+          #{item.priority},
+        </if>
+        <if test="item.price != null " >
+          #{item.price},
+        </if>
+        <if test="item.settingsId != null" >
+          #{item.settingsId},
+        </if>
+      </trim>
+    </foreach>
+  </insert>
+
+  <select id="selectBySettingsIdAndBuyingPattern" resultMap="BaseResultMap">
+    select * from resource_third_buying_pattern
+    where settings_id = #{settingsId}
+    and buying_pattern = #{buyingPattern}
+  </select>
+</mapper>
